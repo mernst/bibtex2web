@@ -25,6 +25,6 @@ abstracts:
 	rm abstracts-unsplit.html
 
 byauthor.html:
-	${BWBIN}/make-author-pages.pl authors author-urls ${BIBFILES} > $@
+	${BWBIN}/make-author-pages.pl authors author-urls byauthor-headfoot.html ${BIBFILES} > $@
 
 .PHONY: abstracts index.html bytopic.html byauthor.html
