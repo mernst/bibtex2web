@@ -100,6 +100,7 @@ sub options {
             }
             $authorlinks{$author} = author_as_filename($author) . ".html";
         }
+        return 1;
     };
     return undef;
 }
