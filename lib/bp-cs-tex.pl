@@ -162,6 +162,7 @@ sub init_cs {
 '0160', '{\vS}',
 '0161', '{\vs}',
 '017A', q-{\'z}-,
+'017C', '{\.z}',
 '017E', '{\vz}',
 # XXXXX
 # Should these be surrounded by $ (math mode)?
@@ -397,7 +398,7 @@ sub tocanon {
     #  &bib::gotwarn("Couldn't parse TeX accented character: $1!");
     #}
 
-    return $text unless /\\/;
+    return $text unless ($text =~ /\\/);
   } # end of standard accented characters
 
   # XXXXX What about the v, c, and other accents?  Do we need another
@@ -415,11 +416,11 @@ sub tocanon {
   $text =~ s/\\~{\s?}/~/g;
 
   # hopefully we're done by now
-  return $text unless /\\/;
+  return $text unless ($text =~ /\\/);
 
   $text = change_tex_fonts($text);
 
-  return $text unless /\\/;
+  return $text unless ($text =~ /\\/);
 
   $text =~ s/\$\\backslash\$/$bib::cs_temp/g;
   if ($text !~ /\\/) {
@@ -432,6 +433,7 @@ sub tocanon {
   # XXXXX We really ought to remove the escape and meta characters we have
   #       converted when we give them this warning.
   &bib::gotwarn("Unknown TeX characters (backslashes) in '$text'");
+
   $text;
 }
 
