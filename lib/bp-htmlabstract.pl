@@ -31,6 +31,8 @@ require "bp-bibtex.pl";
                    'crossref',  # we've already inlined the crossref
                    # 'summary',   # not really useful in citations?
                    'abstract',  # already appears on the same page
+                   'annote',    # already appears on the same page
+                   'keywords',  # already appears on the same page
                    'key'        # sometimes inherited from crossrefs
                    );
 
