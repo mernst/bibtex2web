@@ -161,7 +161,7 @@ sub fromcanon {
       $text .= $cs_meta1100 . "\n";
       $text .= $cs_meta0103 . "Bibtex entry:" . $cs_meta0113 . "\n";
       $text .= $cs_meta1101 . "\n";
-      $text .= bp_bibtex::implode(%bibentry) . "\n";
+      $text .= bp_bibtex::implode(%bibentry);
       $text .= $cs_meta1111 . "\n";
   }
 
