@@ -73,7 +73,7 @@ sub downloads_text ( $$% ) {
       my $absfile = "$basefilename-abstract.html";
       if (! -e "$htmldir/$absfile") {
           # No need to use "confess" here; the backtrace isn't helpful.
-          die "Can't find $htmldir/$absfile";
+          die "Can't find $htmldir/$absfile in " . `pwd`;
       }
       $result .= make_href("$absfile", "Details") . ".\n";
     }
