@@ -21,7 +21,7 @@ bytopic.html:
 # Creates *-abstract.html files.
 abstracts:
 	${BWBIN}/bwconv.pl -format=bibtex -outformat=htmlabstract -to abstracts-unsplit.html -authorurls author-urls -filter '! (defined($$rec{"omitfromcv"}) || (lc($$rec{"TYPE"}) eq "lecture") || (defined($$rec{"crossrefonly"}) && ! defined($$rec{"inlined-crossref"})))' ${BIBFILES}
-	${BWBIN}/htmlabstract-split.pl -footer abstract-footer.html abstracts-unsplit.html
+	${BWBIN}/htmlabstract-split.pl -headfoot abstract-headfoot.html abstracts-unsplit.html
 	rm abstracts-unsplit.html
 
 byauthor.html:

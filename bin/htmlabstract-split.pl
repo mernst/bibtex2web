@@ -12,7 +12,30 @@ $Text::Wrap::huge = 'overflow';
 # my $htmldir = $ENV{"HOME"} . "/www/pubs";
 my $htmldir = ".";
 
-my $footer;
+# Default header and footer.
+my $header = "<html>
+<head>
+<title>PUB_TITLE</title>
+</head>
+<body>
+
+<h1>PUB_TITLE</h1>
+
+";
+my $footer = "\n</body>\n</html>\n";
+
+if ($ARGV[0] eq "-headfoot") {
+  shift @ARGV;
+  my $headfootfile = shift @ARGV;
+  my $headtail = file_contents($headfootfile);
+  if ($headtail !~ /^(.*\n)BODY\n(.*)$/s) {
+    die "Didn't find \"BODY\" in $headfootfile";
+  }
+  $header = $1;
+  $footer = $2;
+}
+
+# Use of "-footer" is deprecated.
 if ($ARGV[0] eq "-footer") {
   shift @ARGV;
   $footer = file_contents(shift @ARGV);
@@ -24,15 +47,9 @@ while (<>) {
     my $absfile = "$htmldir/$basefile-abstract.html";
     # print STDERR "basefile $basefile title $title\nabsfile $absfile\n";
     open(ABSFILE, ">$absfile") or die "Can't open $absfile";
-    print ABSFILE "<html>
-<head>
-<title>$title</title>
-</head>
-<body>
-
-<h1>$title</h1>
-
-";
+    my $this_header = $header;
+    $this_header =~ s/PUB_TITLE/$title/g;
+    print ABSFILE $this_header;
     my $line;
     while ($line = <>) {
       if ($line eq "ENDFILE\n") {
@@ -51,10 +68,9 @@ while (<>) {
       }
       print ABSFILE $line;
     }
-    if (defined($footer)) {
-      print ABSFILE $footer;
-    }
-    print ABSFILE "\n</body>\n</html>\n";
+    my $this_footer = $footer;
+    $this_footer =~ s/PUB_TITLE/$title/g;
+    print ABSFILE $this_footer;
     close(ABSFILE);
   }
 }
