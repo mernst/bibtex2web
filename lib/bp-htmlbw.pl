@@ -79,30 +79,42 @@ sub downloads_text ( $$% ) {
     }
 
     my @local_downloads = ();
-    # Note that these are in reverse order from how they will appear on the
-    # webpage, where PDF appears first and .ppt last.
-    # TODO: generalize this.
-    if (-e "$htmldir/$basefilename-slides.ps") {
-      unshift @local_downloads, "$basefilename-slides.ps slides (PostScript)";
+    my %download_type_names = (
+			       "ps" => "PostScript",
+			       "ps.gz" => "PostScript (gzipped)",
+			       "pdf" => "PDF",
+			       "pdf.gz" => "PDF (gzipped)",
+			       "ppt" => "PowerPoint",
+			       "ppt.gz" => "PowerPoint (gzipped)",
+			       "doc" => "MS Word",
+			       "doc.gz" => "MS Word (gzipped)"
+			      );
+
+
+    my @download_type_order = ("pdf", "pdf.gz", "ps", "ps.gz",
+			       "doc", "doc.gz", "ppt", "ppt.gz");
+
+    foreach my $category ("slides", "base") {
+      # These get unshifted in, so reverse the order so they appear
+      # on the page properly.
+      foreach my $dtype (reverse @download_type_order) {
+	my $dtn = $download_type_names{$dtype};
+	my $fn_ext = "";
+	my $label = $dtn;
+
+	if ($category eq "slides") {
+	  $fn_ext = "-slides";
+	  $label = "slides (${dtn})";
+	}
+
+	my $fn = "${htmldir}/${basefilename}${fn_ext}.${dtype}";
+	if (-e $fn) {
+          $fn =~ s:^\./::;
+	  unshift @local_downloads, "${fn} ${label}";
+	}
+      }
     }
-    if (-e "$htmldir/$basefilename-slides.pdf") {
-      unshift @local_downloads, "$basefilename-slides.pdf slides (PDF)";
-    }
-    if (-e "$htmldir/$basefilename-slides.ppt") {
-      unshift @local_downloads, "$basefilename-slides.ppt slides (PowerPoint)";
-    }
-    if (-e "$htmldir/$basefilename.ppt") {
-      unshift @local_downloads, "$basefilename.ppt slides (PowerPoint)";
-    }
-    if (-e "$htmldir/$basefilename.doc") {
-      unshift @local_downloads, "$basefilename.doc MS Word";
-    }
-    if (-e "$htmldir/$basefilename.ps") {
-      unshift @local_downloads, "$basefilename.ps PostScript";
-    }
-    if (-e "$htmldir/$basefilename.pdf") {
-      unshift @local_downloads, "$basefilename.pdf PDF";
-    }
+
     if (scalar(@local_downloads) > 0) {
       unshift @downloads, @local_downloads;
     } else {
