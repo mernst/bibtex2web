@@ -76,22 +76,32 @@ sub downloads_text ( $$% ) {
       $result .= make_href("$absfile", "Abstract") . ".\n";
     }
 
+    my @local_downloads = ();
     # Note that these are in reverse order from how they will appear on the
     # webpage, where PDF appears first and .ppt last.
     # TODO: generalize this to permit
     if (-e "$htmldir/$basefilename.ppt") {
-      unshift @downloads, "$basefilename.ppt PowerPoint";
+      unshift @local_downloads, "$basefilename.ppt PowerPoint";
     }
     if (-e "$htmldir/$basefilename.doc") {
-      unshift @downloads, "$basefilename.doc MS Word";
+      unshift @local_downloads, "$basefilename.doc MS Word";
     }
     if (-e "$htmldir/$basefilename.ps") {
-      unshift @downloads, "$basefilename.ps PostScript";
+      unshift @local_downloads, "$basefilename.ps PostScript";
     }
     if (-e "$htmldir/$basefilename.pdf") {
-      unshift @downloads, "$basefilename.pdf PDF";
+      unshift @local_downloads, "$basefilename.pdf PDF";
+    }
+    if (scalar(@local_downloads) > 0) {
+      unshift @downloads, @local_downloads;
+    } else {
+      if (defined $entry{'downloadsnonlocal'}) {
+        @nonlocal_downloads = split(';\s*', $entry{'downloadsnonlocal'});
+        unshift @downloads, @nonlocal_downloads;
+      }
     }
   }
+
   if (scalar(@downloads) > 0) {
     $result .= "Download:\n";
     for my $download (@downloads) {
