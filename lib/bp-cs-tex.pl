@@ -495,7 +495,7 @@ sub change_tex_fonts {
 sub fromcanon {
   my ($text, $protect) = @_;
   my $debug_fromcanon = 0;
-  $debug_fromcanon = 1;
+  # $debug_fromcanon = 1;
   if ($debug_fromcanon) { print STDERR "bp-cs-tex::fromcanon <= $text\n"; }
 
   my $repl;
