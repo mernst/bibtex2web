@@ -51,7 +51,7 @@ require "bp-bibtex.pl";
   'write     uses output',
   'clear     uses output',
   'read      uses output',
-  'options   uses output',
+  'options',
   'implode   uses output',
   'explode   uses output',
   'tocanon   uses output',
@@ -60,6 +60,17 @@ require "bp-bibtex.pl";
 );
 
 ######
+
+my $opt_withbibtex = 0;
+
+sub options {
+    $_ = shift @_;
+    /withbibtex/ && do {
+        $opt_withbibtex = 1;
+        return 1;
+    };
+    return undef;
+}
 
 sub make_href {
   my ($url, $title) = @_;
@@ -150,7 +161,7 @@ sub fromcanon {
 
   $text .= "$cs_meta1100\n$downloads\n";
 
-  if ($ENV{'PRINT_BIBTEX'}) {
+  if ($opt_withbibtex) {
       my %bibentry = bp_bibtex::fromcanon(%entry);
       # remove all non-standard bibtex keys from the entry
       foreach my $field (keys %bibentry) {

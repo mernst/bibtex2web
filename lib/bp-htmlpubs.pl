@@ -55,7 +55,6 @@ my $opt_withyears = 0;
 sub options {
     $_ = shift @_;
     /withyears/ && do {
-        print "htmlpubs withyears\n";
         $opt_withyears = 1;
         return 1;
     };
@@ -144,7 +143,7 @@ sub fromcanon {
 
   }
 
-  if (defined $entry{'Year'}) {
+  if ($opt_withyears && defined $entry{'Year'}) {
       my $year = $entry{'Year'};
       if ($year ne $lastyear) {
           $text = make_header($year) . $text;
