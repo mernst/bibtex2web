@@ -106,6 +106,8 @@ sub downloads_text ( $$% ) {
     $result .= "Download:\n";
     for my $download (@downloads) {
       my ($url, $anchor) = split(' ', $download, 2);
+      chomp $url;
+      chomp $anchor;
       # Could check links for validity; do that elsewhere
       $result .= make_href($url, $anchor) . ",\n";
     }
