@@ -81,7 +81,7 @@ sub downloads_text ( $$% ) {
     my @local_downloads = ();
     # Note that these are in reverse order from how they will appear on the
     # webpage, where PDF appears first and .ppt last.
-    # TODO: generalize this to permit
+    # TODO: generalize this.
     if (-e "$htmldir/$basefilename-slides.ps") {
       unshift @local_downloads, "$basefilename-slides.ps slides (PostScript)";
     }
