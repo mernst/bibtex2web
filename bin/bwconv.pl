@@ -21,6 +21,7 @@ my $outfile;
 my $outdir;
 my $header;
 my $footer;
+my $hfbodyline = "BODY";
 my $copyright;
 my $sortorder = "reverse_chronological";
 my @categories;
@@ -36,8 +37,12 @@ while (@ARGV) {
   /^-todir$/      && do { $outdir = shift @ARGV; next; };
   /^-author$/     && do { $author = shift @ARGV; next; };
   /^-filter$/     && do { $filter = shift @ARGV; next; };
-  /^-headfoot$/   && do { my $headtail = file_contents(shift @ARGV);
-                          $headtail =~ /^(.*\n)BODY\n(.*)$/s;
+  /^-hfbodyline$/ && do { $hfbodyline = shift @ARGV; next; };
+  /^-headfoot$/   && do { my $filename = shift @ARGV;
+                          my $headtail = file_contents($filename);
+                          if ($headtail !~ /^(.*\n)$hfbodyline\n(.*)$/s) {
+                            die "Didn't find separator \"$hfbodyline\" in file $filename";
+                          }
                           $header = $1;
                           $footer = $2;
                           next; };
@@ -481,7 +486,7 @@ sub set_supersedes ( $$$ ) {
       }
       my $newrec = $citekeys{$next_superseder};
       if (! defined($newrec)) {
-        die "Didn't find citekey $next_superseder";
+        die "Didn't find citekey $next_superseder in $superseded_key";
       }
       # print STDERR "looked up $next_superseder and got: $newrec\n";
       # Try recursive call.
