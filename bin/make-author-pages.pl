@@ -101,7 +101,7 @@ while (<AUTHORS>) {
 
   unlink "outfile.txt";
   # Quote any single-quote marks to protect them from the shell.  (Yuck.)
-  $author_quoted = shell_quote($author);
+  my $author_quoted = shell_quote($author);
   my $command = "$bwconv_program -format=bibtex,htmlpubs -author '$author_quoted' -headfoot $this_headfootfile -to $filename $filter ${BIBFILES} >& outfile.txt";
   # print $command . "\n";
   system_or_die($command);
