@@ -40,8 +40,13 @@ TAGS: tags
 tags:
 	etags `find . -name '*.pl' | grep -v old`
 
-# Creates ../bibtex2web.tar.gz
-dist:
-	cd ..; find bibtex2web -name '*~' -o -name TAGS > bibtex2web-exclude
+tar: ../bibtex2web.tar.gz
+
+../bibtex2web.tar.gz: .
+	cd ..; find bibtex2web -name '*~' -o -name TAGS -o -name CVS > bibtex2web-exclude
 	cd ..; tar czf bibtex2web.tar.gz --exclude-from bibtex2web-exclude  bibtex2web
 	rm ../bibtex2web-exclude
+
+dist: ../bibtex2web.tar.gz
+	cp -pf $< ${HOME}/www/software/
+	$(MAKE) -C ${HOME}/www/software/ linkdates
