@@ -105,7 +105,8 @@ sub downloads_text ( $$% ) {
   if (scalar(@downloads) > 0) {
     $result .= "Download:\n";
     for my $download (@downloads) {
-      my ($url, $anchor) = split(' ', $download, 3); # omit trailing spaces
+      chomp($download);  # omit trailing spaces
+      my ($url, $anchor) = split(' ', $download, 2);
       # Could check links for validity; do that elsewhere
       $result .= make_href($url, $anchor) . ",\n";
     }
