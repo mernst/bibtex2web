@@ -133,9 +133,11 @@ sub fromcanon {
   }
   # print STDERR "text (2): $text\n";
 
-  # Remove abstract
+  # Remove abstract, keywords, annotation
   #  print STDERR "removing abstract from $entry{'CiteKey'}...\n";
   $text =~ s/${bib::cs_meta}1103${bib::cs_meta}0103Abstract:  ${bib::cs_meta}0113\n.*${bib::cs_meta}1113//;
+  $text =~ s/${bib::cs_meta}1103${bib::cs_meta}0103Keywords:  ${bib::cs_meta}0113\n.*${bib::cs_meta}1113//;
+  $text =~ s/${bib::cs_meta}1103${bib::cs_meta}0103Annotation:  ${bib::cs_meta}0113\n.*${bib::cs_meta}1113//;
 
   if (! defined($entry{'supersededby'})) {
 
