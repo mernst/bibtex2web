@@ -11,6 +11,9 @@ use English;
 $WARNING = 1;
 use Carp;
 
+my $debug = 0;
+# $debug = 1;
+
 my $filter = "";
 
 while (@ARGV) {
@@ -68,6 +71,9 @@ while (<AUTHORS>) {
     $author_link = "<a href=\"$url\">$author_html</a>";
   } else {
     $author_link = $author_html;
+  }
+  if ($debug) {
+    print STDERR "author: $author\n  link: $author_link\n";
   }
   if (defined($author_pubs_url)) {
     $author_pubs_url =
