@@ -110,6 +110,7 @@ while (<AUTHORS>) {
   unlink $this_headfootfile;
   if (-z $filename) {
     unlink $filename;
+    # print STDERR "No publications for $author\n";
   } else {
     $author =~ s/[{}]//g;
     push @authors, $author_html;
@@ -129,16 +130,21 @@ exit;
 ### Subroutines
 ###
 
+# Argument is in HTML form.
 sub author_as_filename ( $ ) {
   my ($author) = @_;
+  $author =~ s/&\#0380;/z/g;
   $author =~ s/[\'{}.]//g;
   $author =~ s/ /-/g;
   return $author;
 }
 
+# This is partial and a hack.
 sub author_as_html ( $ ) {
   my ($author) = @_;
-  $author =~ s/[{}]//g;
+  # For Adam Kiezun
+  $author =~ s/{\\\.z}/&\#0380;/g;
+  $author =~ s/[{}]//g;         # For grouped names: "Toh {Ne Win}"
   return $author;
 }
 
