@@ -12,7 +12,7 @@ html: HTML
 HTML: abstracts index.html bytopic.html byauthor.html
 
 index.html:
-	${BWBIN}/bwconv.pl -format=bibtex,htmlpubs -headfoot index-headfoot.html -to $@ -filter '! (defined($$rec{"omitfromcv"}) || (lc($$rec{"TYPE"}) eq "lecture") || (defined($$rec{"crossrefonly"}) && ! defined($$rec{"inlined-crossref"})))' ${BIBFILES}
+	${BWBIN}/bwconv.pl -format=bibtex,htmlpubs -outopts=withyears -headfoot index-headfoot.html -to $@ -filter '! (defined($$rec{"omitfromcv"}) || (lc($$rec{"TYPE"}) eq "lecture") || (defined($$rec{"crossrefonly"}) && ! defined($$rec{"inlined-crossref"})))' ${BIBFILES}
 
 bytopic.html:
 	${BWBIN}/bwconv.pl -format=bibtex,htmlsummary -headfoot bytopic-headfoot.html -categories research-index-categories -sort category -to $@ -filter '! (defined($$rec{"omitfromcv"}) || (lc($$rec{"TYPE"}) eq "lecture") || (defined($$rec{"crossrefonly"}) && ! defined($$rec{"inlined-crossref"})))' ${BIBFILES}
@@ -20,7 +20,7 @@ bytopic.html:
 
 # Creates *-abstract.html files.
 abstracts:
-	${BWBIN}/bwconv.pl -format=bibtex -outformat=htmlabstract -to abstracts-unsplit.html -authorurls author-urls -filter '! (defined($$rec{"omitfromcv"}) || (lc($$rec{"TYPE"}) eq "lecture") || (defined($$rec{"crossrefonly"}) && ! defined($$rec{"inlined-crossref"})))' ${BIBFILES}
+	${BWBIN}/bwconv.pl -format=bibtex -outformat=htmlabstract -outopts=withbibtex -to abstracts-unsplit.html -authorurls author-urls -filter '! (defined($$rec{"omitfromcv"}) || (lc($$rec{"TYPE"}) eq "lecture") || (defined($$rec{"crossrefonly"}) && ! defined($$rec{"inlined-crossref"})))' ${BIBFILES}
 	${BWBIN}/htmlabstract-split.pl -headfoot abstract-headfoot.html abstracts-unsplit.html
 	rm abstracts-unsplit.html
 
