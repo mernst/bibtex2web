@@ -162,7 +162,7 @@ sub fromcanon {
   # Add summary.
   my $summary = $entry{'Summary'};
   if (! defined($summary)) {
-    warn "No summary for $text";
+    print STDERR "Warning: no summary for $entry{'CiteKey'}\n";
     $summary = "";
   }
   # print STDERR "<<${csmeta}>><<$csmeta>><<$text>><<$summary>>\n";
