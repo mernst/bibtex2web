@@ -431,7 +431,7 @@ sub read_author_urls ( $ ) {
     chomp $line;
     if ($line =~ /^$/) { next; }
     if ($line =~ /^#/) { next; }
-    $line =~ /^(.*) +([^ ]+)$/;
+    $line =~ /^(.*?) +([^ ]+)$/;
     if (defined $authorurls{$1}) {
       warn "URL redefinition for $1:\n old: $authorurls{$1}\n new: $2\n";
     }
