@@ -22,6 +22,16 @@ $bp_s_generic::smartquotes = 1;
 
 require "bp-htmlpubs.pl";
 require "bp-htmlbw.pl";
+require "bp-bibtex.pl";
+
+# fields to omit from generated bibtex entries
+@omitted_fields = ('downloads', 'category', 'basefilename',
+                   'inlined-crossref',
+                   'crossref',  # we've already inlined the crossref
+                   'summary',   # not really useful in citations?
+                   'abstract',  # already appears on the same page
+                   'key'        # sometimes inherited from crossrefs
+                   );
 
 # print STDERR "at bp-htmlpubs.pl entry, conv_func = " . (defined($conv_func) ? $conv_func : "<undef>") . "\n";
 
@@ -64,8 +74,10 @@ sub make_href {
 my $csmeta = "${bib::cs_meta}";
 my $cs_meta0103 = $csmeta . "0103"; # begin bold "<B>"
 my $cs_meta0113 = $csmeta . "0113"; # end bold "</B>"
-my $cs_meta1100 = $csmeta . "1100"; # paragraph break "<P">
-my $cs_meta2101 = $csmeta . "2101";
+my $cs_meta1100 = $csmeta . "1100"; # paragraph break "<P>"
+my $cs_meta1101 = $csmeta . "1101"; # begin preformatted "<PRE>"
+my $cs_meta1111 = $csmeta . "1111"; # end preformatted "</PRE>"
+my $cs_meta2101 = $csmeta . "2101"; # "<EM>"
 ## These were for the abstract.
 # my $cs_meta2210 = $csmeta . "2210";
 # my $cs_meta2310 = $csmeta . "2310";
@@ -137,6 +149,21 @@ sub fromcanon {
   }
 
   $text .= "$cs_meta1100\n$downloads\n";
+
+  if ($ENV{'PRINT_BIBTEX'}) {
+      my %bibentry = bp_bibtex::fromcanon(%entry);
+      # remove all non-standard bibtex keys from the entry
+      foreach my $field (keys %bibentry) {
+          # keep 'CITEKEY' and 'TYPE'
+          delete $bibentry{$field} if
+              grep {/$field/i} @omitted_fields;
+      }
+      $text .= $cs_meta1100 . "\n";
+      $text .= $cs_meta0103 . "Bibtex entry:" . $cs_meta0113 . "\n";
+      $text .= $cs_meta1101 . "\n";
+      $text .= bp_bibtex::implode(%bibentry) . "\n";
+      $text .= $cs_meta1111 . "\n";
+  }
 
   # Done with edits.  Now introduce scaffolding.  This will get converted
   # into <HTML> etc. when the file is converted into multiple files.
