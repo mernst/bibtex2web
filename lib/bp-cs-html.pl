@@ -501,7 +501,7 @@ sub fromcanon {
   s/</\&lt;/g;
   s/>/\&gt;/g;
   s/${bib::cs_ext}0026/\&amp;/go;
-  s{(http://[-a-zA-Z0-9.]*/)\240}{\1~}g;
+  s{(http://[-a-zA-Z0-9.]*/)\240}{$1~}g;
   s/\240/&nbsp;/g;
 
 
