@@ -40,11 +40,9 @@ The programs take advantage of several additional BibTeX fields:
   basefilename	The file name for the article itself, without the extension
 		(such as ".ps", ".pdf", ".doc", ".ppt", etc.).  You must put
 		these files in the destination directory before running the
-		programs.  By default, this is set to the entry's cite key.
-  nobasefilename Include this field in order not to be warned that the
-		basefilename field is missing.  If the basefilename field
-		is missing, then no per-article webpage will be generated.
-        [This is no longer needed, since basefilename has a default value]
+		programs.  The basefilename is also used for the per-article
+		webpage (which includes the abstract).  If the basefilename
+		is not specified, then the entry's cite key is used instead.
   downloads	A list of other downloads, in addition to those automatically
 		detected by virtue of matching the basefilename.  The list
 		is semicolon-separated, and each entry consists of a URL
@@ -115,7 +113,3 @@ Generalize to look for any file with the given basename, not just .pdf,
 
 Include a BibTeX entry, for convenience (and accuracy) of those who wish to
 cite the paper.
-
-On the by-date page, optionally separate publications by year (with a
-header, not not onto separate pages -- see http://pmg/pubs.html).
-(See the call to "&bib::convert($record)" in bin/bwconv.pl.)
