@@ -341,6 +341,9 @@ sub tocanon {
   }
   $text =~ s/\\ \\ /${bib::cs_ext}2003/go;
   $text =~ s/\\ /${bib::cs_ext}2002/go;
+  # Rather than eliminating this, I suppose I could make up a charater to
+  # take its place.
+  $text =~ s/\\@//g;
 
   # Can we go now?
   return $text unless ($text =~ /\\/);
