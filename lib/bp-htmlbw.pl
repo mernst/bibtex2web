@@ -137,7 +137,7 @@ sub previous_versions_text ( $% ) {
       # print STDERR "subentry keys = ", join(' ', keys %subentry), "\n";
       my %subrec = &bib::tocanon(%subentry);
       # print STDERR "subrec keys = ", join(' ', keys %subrec), "\n";
-      my %subhtmlentry = &bp_htmlpubs::fromcanon(%subrec);
+      my %subhtmlentry = &bp_htmlpubs::fromcanon_noyears(%subrec);
       # Do not call implode; that will interfere with the subsequent call.
       my $subtext = $subhtmlentry{'TEXT'};
       # Don't boldface title, don't break across any lines.

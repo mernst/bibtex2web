@@ -2,6 +2,7 @@
 # bibliography package for Perl
 #
 # HTML routines
+# Use "-outopts=withbibtex" to include BibTeX entries.
 #
 # Dana Jacobsen (dana@acm.org)
 # 14 March 1996

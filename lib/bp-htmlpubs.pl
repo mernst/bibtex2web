@@ -2,6 +2,7 @@
 # bibliography package for Perl
 #
 # HTML routines
+# Use "-outopts=withyears" option to separate the output by years.
 #
 # Dana Jacobsen (dana@acm.org)
 # 14 March 1996
@@ -89,6 +90,16 @@ sub make_header {
   return "${bib'cs_meta}2232" . $title . "${bib'cs_meta}2233";
 }
 
+# Like fromcanon, but suppresses year processing
+sub fromcanon_noyears {
+  my (%entry) = @_;
+  my $opt_withyears_save = $opt_withyears;
+  $opt_withyears = 0;
+  my %result = fromcanon(%entry);
+  $opt_withyears = $opt_withyears_save;
+  %result;
+}
+
 sub fromcanon {
   my (%entry) = @_;
 
@@ -143,7 +154,7 @@ sub fromcanon {
 
   }
 
-  if ($opt_withyears && defined $entry{'Year'}) {
+  if ($opt_withyears && defined($lastyear) && defined $entry{'Year'}) {
       my $year = $entry{'Year'};
       if ($year ne $lastyear) {
           $text = make_header($year) . $text;
