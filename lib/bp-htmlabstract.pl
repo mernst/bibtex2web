@@ -183,15 +183,14 @@ sub fromcanon {
 
     # Insert HTML links.
     {
-      my ($author, $url);
-      while (($author, $url) = each %authorurls) {
-          # print STDERR "checking for $author in $text\n";
-          next if $opt_linkauthors && defined $authorlinks{$author};
-          $text =~ s/\Q$author\E/&make_href($url, $author)/ge;
+      while (my ($linkname, $lurl) = each %linknames) {
+          # print STDERR "checking for $linkname in $text\n";
+          next if $opt_linkauthors && defined $authorlinks{$linkname};
+          $text =~ s/\Q$linkname\E/&make_href($lurl, $linkname)/ge;
       }
       if ($opt_linkauthors) {
-          while (($author, $url) = each %authorlinks) {
-              $text =~ s/\Q$author\E/&make_href($url, $author)/ge;
+          while (my ($author, $aurl) = each %authorlinks) {
+              $text =~ s/\Q$author\E/&make_href($aurl, $author)/ge;
           }
       }
     }

@@ -25,7 +25,7 @@ my $hfbodyline = "BODY";
 my $copyright;
 my $sortorder = "reverse_chronological";
 my @categories;
-my %authorurls = ();
+my %linknames = ();
 my $author; # Only output matches for this author.
 my $filter; # Filter to apply but this expression overrides $author.
 
@@ -50,9 +50,9 @@ while (@ARGV) {
                           next; };
   /^-footer$/     && do { $footer = file_contents(shift @ARGV);
                           next; };
-  /^-copyright$/     && do { $copyright = file_contents(shift @ARGV);
-                             next; };
-  /^-authorurls$/ && do { read_author_urls(shift @ARGV);
+  /^-copyright$/  && do { $copyright = file_contents(shift @ARGV);
+                          next; };
+  /^-linknames$/  && do { read_link_names(shift @ARGV);
                           next; };
   /^-categories$/ && do { my $categories = file_contents(shift @ARGV);
                           @categories = split('\n', $categories);
@@ -341,8 +341,8 @@ foreach my $record (@records) {
 
 %bp_htmlbw::supersedes = %supersedes;
 %bp_htmlbw::citekeys = %citekeys;
-# print STDERR "authorurls: " . scalar(%authorurls) . "\n";
-%bp_htmlabstract::authorurls = %authorurls;
+# print STDERR "linknames: " . scalar(%linknames) . "\n";
+%bp_htmlabstract::linknames = %linknames;
 
 ###
 ### More filtering
@@ -452,7 +452,7 @@ sub file_contents {
   }
 }
 
-sub read_author_urls ( $ ) {
+sub read_link_names ( $ ) {
   my ($file) = @_;
   open(URLS, $file) or die "Couldn't open $file";
   my $line;
@@ -461,13 +461,13 @@ sub read_author_urls ( $ ) {
     if ($line =~ /^$/) { next; }
     if ($line =~ /^#/) { next; }
     $line =~ /^(.*?) +([^ ]+)$/;
-    if (defined $authorurls{$1}) {
-      warn "URL redefinition for $1:\n old: $authorurls{$1}\n new: $2\n";
+    if (defined $linknames{$1}) {
+      warn "URL redefinition for $1:\n old: $linknames{$1}\n new: $2\n";
     }
-    $authorurls{$1} = $2;
+    $linknames{$1} = $2;
   }
   close(URLS);
-  # print STDERR "read_author_urls: " . scalar(%authorurls) . "\n";
+  # print STDERR "read_link_names: " . scalar(%linknames) . "\n";
 }
 
 sub set_supersedes ( $$$ ) {
