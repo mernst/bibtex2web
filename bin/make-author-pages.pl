@@ -1,9 +1,9 @@
 #!/usr/bin/env perl
-# Arguments: authorfile authorurlfile headfootfile bibfile ...
+# Arguments: authorfile linknameurlfile headfootfile bibfile ...
 #   "authorfile" is a list, one name per line, of authors.
 #     Optionally, each author name may be followed by a URL to that person's
 #     additional publications.
-#   "authorurlfile" maps authors/institutions/etc. to URLs.
+#   "linknameurlfile" maps authors/institutions/etc. to URLs.
 #   "headfootfile" contains text for the header and footer of the output file.
 
 use strict;
@@ -27,15 +27,15 @@ while (@ARGV) {
 
 # Maybe these should be flags too, but they are always required.
 my $authorfile = shift @ARGV;
-my $authorurlfile = shift @ARGV;
+my $linknamefile = shift @ARGV;
 my $byauthor_headfootfile = shift @ARGV;
 if (scalar(@ARGV) == 0) {
   die "No bib files supplied";
 }
 my $BIBFILES = join(' ', @ARGV);
 
-my %authorurls = ();
-read_author_urls($authorurlfile);
+my %linknames = ();
+read_link_names($linknamefile);
 
 my @authors;
 
@@ -63,8 +63,8 @@ while (<AUTHORS>) {
   }
   my $author_html = author_as_html($author);
   my $author_link;
-  if (defined $authorurls{$author_html}) {
-    my $url = $authorurls{$author_html};
+  if (defined $linknames{$author_html}) {
+    my $url = $linknames{$author_html};
     $author_link = "<a href=\"$url\">$author_html</a>";
   } else {
     $author_link = $author_html;
@@ -156,8 +156,8 @@ sub system_or_die ( $ )
   return $result;
 }
 
-# FIXME: consolidate with bwconv.pl::read_author_urls
-sub read_author_urls ( $ ) {
+# FIXME: consolidate with bwconv.pl::read_link_names
+sub read_link_names ( $ ) {
   my ($file) = @_;
   open(URLS, $file) or die "Couldn't open $file";
   my $line;
@@ -166,13 +166,13 @@ sub read_author_urls ( $ ) {
     if ($line =~ /^$/) { next; }
     if ($line =~ /^\#/) { next; }
     $line =~ /^(.*?) +([^ ]+)$/;
-    if (defined $authorurls{$1}) {
-      warn "URL redefinition for $1:\n old: $authorurls{$1}\n new: $2\n";
+    if (defined $linknames{$1}) {
+      warn "URL redefinition for $1:\n old: $linknames{$1}\n new: $2\n";
     }
-    $authorurls{$1} = $2;
+    $linknames{$1} = $2;
   }
   close(URLS);
-  # print STDERR "read_author_urls: " . scalar(%authorurls) . "\n";
+  # print STDERR "read_link_names: " . scalar(%linknames) . "\n";
 }
 
 sub file_contents {

@@ -119,12 +119,14 @@ several additional BibTeX fields:
 <dt>
   basefilename
 <dd>
-		The file name for the article itself, without the extension
-                (such as ".ps", ".pdf", ".doc", ".ppt", etc.).  You must put
-                these files in the destination directory before running the
-                programs.  The basefilename is also used for the per-article
-                webpage (which includes the abstract).  If the basefilename
-                is not specified, then the entry's cite key is used instead.
+		The file name for the article itself, without the
+		extension.  Automatically recognized extensions are ".ps",
+		".pdf", ".doc", ".ppt", "-slides.ps", "-slides.pdf".  You
+		must put these files in the destination directory before
+		running the programs.  The basefilename is also used for
+		the per-article webpage (which includes the abstract).  If
+		the basefilename is not specified, then the entry's cite
+		key is used instead.
 <dt>
   downloads
 <dd>
@@ -222,7 +224,7 @@ links to the paper itself.
 </p>
 
 <p>
-If the "-authorurls <em>author-urls</em>" command-line argument is also
+If the "-linknames <em>link-names-file</em>" command-line argument is also
 given, then each author name (or conference name, etc.) may be replaced by
 a link to that author's homepage.
 </p>
@@ -328,7 +330,7 @@ best to help, though I cannot make any guarantee.
 
 <p>
 bibtex2html was written by <a
-href="http://pag.csail.mit.edu/~mernst/>Michael Ernst</a>, with substantial
+href="http://pag.csail.mit.edu/~mernst/">Michael Ernst</a>, with substantial
 contributions by
 <a href="http://www.pmg.csail.mit.edu/~ajmani/">Sameer Ajmani</a>.
 </p>
@@ -358,13 +360,6 @@ break.
 <h3><a name="to-do">To do</a></h3>
 
 <p>
-Bug: slides appear twice at
-  http://www.pag.csail.mit.edu/pubs/ref-immutability-oopsla2004-abstract.html
-They should appear just once there, and once at
-  http://www.pag.csail.mit.edu/~mernst/pubs/ref-immutability-oopsla2004-abstract.html
-</p>
-
-<p>
 Permit multiple categories per entry, because some entries span catagores.
 How to do this without overhauling bwconv.pl?
 </p>
@@ -372,19 +367,12 @@ How to do this without overhauling bwconv.pl?
 <p>
 Add additional cross-reference types (beyond supersededby), such as
 permitting a later technical report.
+Example:  http://www.pag.csail.mit.edu/~mernst/pubs/instantiating-generics-oopsla2004-abstract.html.
 </p>
 
 <p>
 Create a shared utility package for duplicated subroutines like
-read_author_urls.
-</p>
-
-<p>
-Bug in bp-htmlabstract.pl:
-The "BibTeX entry" part of bp-htmlabstract.pl uses the same charset as
-the rest of the webpage (bp-c-html.pl), but it should use the tex charset
-(bp-c-tex.pl).  Test case:
- http://pag.csail.mit.edu/pubs/refactoring-tip-ecoop2003-abstract.html
+read_link_names.
 </p>
 
 <p>
@@ -399,7 +387,7 @@ permit simplifying them.
 </p>
 
 <p>
-Add a field to indicating awards or other notes to add on the webpage.
+Add a field to indicate awards or other notes to add on the webpage.
 </p>
 
 <p>
