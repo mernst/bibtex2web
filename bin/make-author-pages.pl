@@ -51,7 +51,7 @@ my $bwconv_program = $PROGRAM_NAME;
 $bwconv_program =~ s/make-author-pages\.pl/bwconv.pl/;
 
 
-open(AUTHORS, $authorfile);
+open(AUTHORS, $authorfile) or die "Can't open '$authorfile': $!";
 while (<AUTHORS>) {
   if (/^\#/) { next; }
   chomp;
@@ -77,7 +77,24 @@ while (<AUTHORS>) {
   my $filename_base = author_as_filename($author);
   my $filename = "$filename_base.html";
   my $this_headfootfile = "$filename_base-headfoot.html";
-  system_or_die("perl -p -e 's|AUTHOR_LINK|$author_link|g; s|AUTHOR_HTML|$author_html|g; s|AUTHOR_PUBS|$author_pubs_url|;' < author-headfoot.html > $this_headfootfile");
+
+  {
+    ## Substitute for AUTHOR_LINK, AUTHOR_HTML, and AUTHOR_PUBS.
+    ## Don't call perl externally because of potential problems with quoting
+    ## the names (they might contain single- or double-quote characters).
+    # system_or_die("perl -p -e 's|AUTHOR_LINK|$author_link|g; s|AUTHOR_HTML|$author_html|g; s|AUTHOR_PUBS|$author_pubs_url|;' < author-headfoot.html > $this_headfootfile");
+    open(AUTHOR_HEADFOOT, "author-headfoot.html") or die "Can't open 'author-headfoot.html': $!";
+    open(THIS_HEADFOOT, ">$this_headfootfile") or die "Can't open '$this_headfootfile': $!";
+    while (<AUTHOR_HEADFOOT>) {
+      s|AUTHOR_LINK|$author_link|g;
+      s|AUTHOR_HTML|$author_html|g;
+      s|AUTHOR_PUBS|$author_pubs_url|g;
+      print THIS_HEADFOOT $_;
+    }
+    close(AUTHOR_HEADFOOT);
+    close(THIS_HEADFOOT);
+  }
+
   unlink "outfile.txt";
   my $command = "$bwconv_program -format=bibtex,htmlpubs -author '$author' -headfoot $this_headfootfile -to $filename $filter ${BIBFILES} >& outfile.txt";
   # print $command . "\n";
