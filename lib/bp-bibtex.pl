@@ -510,6 +510,14 @@ sub explode {
       $be_entry{$fld} = $val;
       # print STDERR "field = $fld, val = $val\n";
   }
+  if (! defined $be_entry{'basefilename'}) {
+      # print STDERR "Using citekey $be_entry{'CITEKEY'} as basefilename\n";
+      $be_entry{'basefilename'} = $be_entry{'CITEKEY'};
+  }
+  # warning: crossref_fill copies any missing fields into this entry
+  # from the crossref entry, so set "default values" before or after
+  # crossref_fill as appropriate (e.g., year should be taken from crossref,
+  # but basefilename should be taken from citekey, as above).
   if ($opt_crossref && defined $be_entry{'crossref'}) {
     %be_entry = &crossref_fill(%be_entry);
   }
