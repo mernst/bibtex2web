@@ -391,7 +391,7 @@ sub munge( $ ) {
     my ($text) = @_;
     my $timestamp = localtime();
     my $notice = "This page was generated $timestamp by "
-        ."<a href=\"http://pag.lcs.mit.edu/~mernst/software/#bibtex2web\">"
+        ."<a href=\"http://pag.csail.mit.edu/~mernst/software/#bibtex2web\">"
         ."bibtex2web</a>";
     $text =~ s/BIBTEX2WEB_NOTICE/$notice/g;
     if (defined($copyright)) {

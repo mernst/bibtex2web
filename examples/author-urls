@@ -2,7 +2,7 @@
 ACM SIGPLAN Notices http://elvis.rowan.edu/sigplan/
 ALICE03 http://www.siam.org/meetings/alice03/index.htm
 Adrian Birka http://web.mit.edu/adbirka/www/
-Alan Donovan http://pag.lcs.mit.edu/~adonovan/
+Alan Donovan http://pag.csail.mit.edu/~adonovan/
 Benjamin Morse http://web.mit.edu/mharder/www/
 Bjarne Steensgaard http://www.research.microsoft.com/~rusa/
 Craig Chambers http://www.cs.washington.edu/homes/chambers/
@@ -12,9 +12,9 @@ Daniel S. Weld http://www.cs.washington.edu/homes/weld/
 Daniel Weise http://www.research.microsoft.com/~dweise/
 David Notkin http://www.cs.washington.edu/homes/notkin/
 David Saff http://web.mit.edu/saff/www/
-Derek Rayside http://pag.lcs.mit.edu/~drayside/
-Dilsun Kirli http://theory.lcs.mit.edu/~dilsun/
-Dilsun Kn0131rln0131 http://theory.lcs.mit.edu/~dilsun/
+Derek Rayside http://pag.csail.mit.edu/~drayside/
+Dilsun Kirli http://theory.csail.mit.edu/~dilsun/
+Dilsun Kn0131rln0131 http://theory.csail.mit.edu/~dilsun/
 Discrete Mathematics http://www.elsevier.nl/locate/disc/
 ECOOP '98 http://ecoop98.vub.ac.be/
 Elizabeth L. Wilmer http://www.oberlin.edu/~math/faculty/wilmer.html
@@ -33,21 +33,21 @@ ISSTA 2002 http://www.iei.pi.cnr.it/ISSTA2002/
 Iuliu Vasilescu http://web.mit.edu/iuliuv/www/
 # Jake Cockrell http://www.cs.washington.edu/homes/jake/
 Jeff Mellen http://jeffm.mit.edu/
-Jeremy W. Nimmer http://pag.lcs.mit.edu/~mistere/
+Jeremy W. Nimmer http://pag.csail.mit.edu/~mistere/
 Jonathan E. Cook http://www.cs.nmsu.edu/~jcook/
 Lee Lin http://web.mit.edu/leelin/www/
 MIT Artificial Intelligence Laboratory http://www.ai.mit.edu/
 MIT Department of Electrical Engineering and Computer Science http://www.eecs.mit.edu/
-MIT Laboratory for Computer Science http://www.lcs.mit.edu/
-Michael D. Ernst http://pag.lcs.mit.edu/~mernst/
-Michael Ernst http://pag.lcs.mit.edu/~mernst/
+MIT Laboratory for Computer Science http://www.csail.mit.edu/
+Michael D. Ernst http://pag.csail.mit.edu/~mernst/
+Michael Ernst http://pag.csail.mit.edu/~mernst/
 # Michael Harder http://web.mit.edu/mharder/www/
 Microsoft Research http://www.research.microsoft.com/
-Nancy Lynch http://theory.lcs.mit.edu/~lynch/
+Nancy Lynch http://theory.csail.mit.edu/~lynch/
 RV'01 http://ase.arc.nasa.gov/rv/
 # Roger F. Crew (empty as of 11/2002) http://www-cs-students.stanford.edu/~crew/
-Stephen J. Garland http://nms.lcs.mit.edu/~garland/
-Stephen McCamant http://pag.lcs.mit.edu/~smcc/
+Stephen J. Garland http://nms.csail.mit.edu/~garland/
+Stephen McCamant http://pag.csail.mit.edu/~smcc/
 Todd D. Millstein http://www.cs.washington.edu/homes/todd/
 # These two lines have a different space (ASCII 40, 4240) between "Ne" and "Win"
 Toh Ne Win http://web.mit.edu/tohn/www/
