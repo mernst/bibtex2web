@@ -63,12 +63,43 @@ require "bp-bibtex.pl";
 ######
 
 my $opt_withbibtex = 0;
+my $opt_linkauthors = 0;
+my %authorlinks = ();
+
+# FIXME: consolidate this code with make-author-pages.pl
+ sub author_as_filename ( $ ) {
+  my ($author) = @_;
+  $author =~ s/[\'{}.]//g;
+  $author =~ s/ /-/g;
+  return $author;
+}
 
 sub options {
     $_ = shift @_;
     /withbibtex/ && do {
         $opt_withbibtex = 1;
         return 1;
+    };
+    /linkauthors/ && do {
+        $opt_linkauthors = 1;
+        my $authors_file = "authors";
+        if (/linkauthors:(.*)/) {
+            $authors_file = $1;
+        }
+        open(AUTHORS, $authors_file) or die
+            "Cannot open file $authors_file; "
+            . "specify a different file using linkauthors:filename";
+        while (<AUTHORS>) {
+            # FIXME: consolidate this code with make-author-pages.pl
+            if (/^\#/) { next; }
+            chomp;
+            my $author = $_;
+            my $author_pubs_url;
+            if ($author =~ /^(.*?)[ \t]+(http:.*)$/) {
+                ($author, $author_pubs_url) = ($1, $2);
+            }
+            $authorlinks{$author} = author_as_filename($author) . ".html";
+        }
     };
     return undef;
 }
@@ -151,8 +182,14 @@ sub fromcanon {
     {
       my ($author, $url);
       while (($author, $url) = each %authorurls) {
-	# print STDERR "checking for $author in $text\n";
-	$text =~ s/\Q$author\E/&make_href($url, $author)/ge;
+          # print STDERR "checking for $author in $text\n";
+          next if $opt_linkauthors && defined $authorlinks{$author};
+          $text =~ s/\Q$author\E/&make_href($url, $author)/ge;
+      }
+      if ($opt_linkauthors) {
+          while (($author, $url) = each %authorlinks) {
+              $text =~ s/\Q$author\E/&make_href($url, $author)/ge;
+          }
       }
     }
 
