@@ -70,10 +70,10 @@ sub downloads_text ( $$% ) {
     if ($abstract eq 'with_abstract') {
       my $absfile = "$basefilename-abstract.html";
       if (! -e "$htmldir/$absfile") {
-        # No need to use "confess" here; the backtrace isn't helpful.
-	die "Can't find $htmldir/$absfile";
+          # No need to use "confess" here; the backtrace isn't helpful.
+          die "Can't find $htmldir/$absfile";
       }
-      $result .= make_href("$absfile", "Abstract") . ".\n";
+      $result .= make_href("$absfile", "Details") . ".\n";
     }
 
     my @local_downloads = ();
