@@ -109,3 +109,7 @@ Generalize to look for any file with the given basename, not just .pdf,
 
 Include a BibTeX entry, for convenience (and accuracy) of those who wish to
 cite the paper.
+
+On the by-date page, optionally separate publications by year (with a
+header, not not onto separate pages -- see http://pmg/pubs.html).
+(See the call to "&bib::convert($record)" in bin/bwconv.pl.)
