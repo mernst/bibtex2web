@@ -28,6 +28,9 @@ while (@ARGV) {
 my $authorfile = shift @ARGV;
 my $authorurlfile = shift @ARGV;
 my $byauthor_headfootfile = shift @ARGV;
+if (scalar(@ARGV) == 0) {
+  die "No bib files supplied";
+}
 my $BIBFILES = join(' ', @ARGV);
 
 my %authorurls = ();
