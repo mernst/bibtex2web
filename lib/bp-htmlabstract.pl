@@ -244,6 +244,7 @@ sub fromcanon {
     if (! defined $basefile) {
       $text = "";
     } else {
+      # print STDERR "basefile:<<$basefile>> title:<<$title>>\n";
       $text = "\n\nNEWFILE: $basefile $title\n"
 	. $text
 	# . "\n\n${csmeta}2151\n"

@@ -11,6 +11,8 @@
 
 package bp_htmlsummary;
 
+use Carp;
+
 $version = "html (dj 14 mar 96)";
 
 require "bp-s-generic.pl";
@@ -84,7 +86,9 @@ sub fromcanon {
 
   my $title = $entry{'Title'};
   if (! defined $entry{'Title'}) {
-    die "No title";
+    # die "No title";
+    print STDERR %entry;
+    confess "No title";
   }
   if ($entry{'CiteType'} eq 'book') {
     $title = "m2101$titlem2111";
