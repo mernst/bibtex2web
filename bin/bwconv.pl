@@ -324,7 +324,7 @@ my %supersedes = ();
 foreach my $record (@records) {
   my %entry = &bib::explode($record);
   my $superseded_key = $entry{'CITEKEY'};
-  set_supersedes($superseded_key, $record);
+  set_supersedes($superseded_key, $record, undef);
 }
 
 %bp_htmlbw::supersedes = %supersedes;
@@ -437,21 +437,27 @@ sub read_author_urls ( $ ) {
   # print STDERR "read_author_urls: " . scalar(%authorurls) . "\n";
 }
 
-sub set_supersedes ( $$ ) {
-  my ($superseded_key, $superseder) = @_;
+sub set_supersedes ( $$$ ) {
+  my ($superseded_key, $superseder, $how) = @_;
   # $superseder is a possibly non-final superseder; we will look for a
   # final superseder, or use it if it isn't itself superseded.
+  # (This function is originally called with $superseded_key as the key for
+  # record $superseder.)
 
   my %entry = &bib::explode($superseder);
   if (defined $entry{'supersededby'}) {
     for my $next_superseder (split(/,/, $entry{'supersededby'})) {
+      if ($next_superseder =~ /^([^ ]+) (.*)$/) {
+        $next_superseder = $1;
+        $how = $2;
+      }
       my $newrec = $citekeys{$next_superseder};
       if (! defined($newrec)) {
         die "Didn't find citekey $next_superseder";
       }
       # print STDERR "looked up $next_superseder and got: $newrec\n";
       # Try recursive call.
-      set_supersedes($superseded_key, $newrec);
+      set_supersedes($superseded_key, $newrec, $how);
     }
   } elsif (defined $entry{'supercededby'}) {
     print STDERR "$entry{'CITEKEY'} misspells 'supersededby' as 'supercededby'.\n";
@@ -459,12 +465,16 @@ sub set_supersedes ( $$ ) {
     my $superseder_key = $entry{'CITEKEY'};
     if ($superseded_key eq $superseder_key) {
       # print STDERR "$superseded_key is not superseded\n"
+      # This was the original call; there is nothing to do.
     } else {
       # print STDERR "$superseded_key is superseded by $superseder_key\n";
       # I want an array here, but I'm having trouble, so just use a string and
       # split later.
       # push @$supersedes{$superseder_key}, $superseded_key;
-      $supersedes{$superseder_key} .= "$superseded_key,";
+      if (! defined($how)) {
+        $how = "A previous version";
+      }
+      $supersedes{$superseder_key} .= "$superseded_key $how,";
       # print STDERR "$superseder_key supersedes $supersedes{$superseder_key}\n";
     }
   }

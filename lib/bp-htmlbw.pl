@@ -110,6 +110,8 @@ sub downloads_text ( $$% ) {
       $result .= make_href($url, $anchor) . ",\n";
     }
     $result =~ s/,\n$/.\n/m;
+  } else {
+    print STDERR "Warning: no downloads for $entry{'CiteKey'}\n";
   }
   return $result;
 
@@ -127,7 +129,8 @@ sub previous_versions_text ( $% ) {
   # if (! defined $supersedees) { print STDERR "$citekey supersedes nothing\n"; }
   if (defined $supersedees) {
     # print STDERR "$citekey supersedes $supersedees\n";
-    for my $subkey (split /,/, $supersedees) {
+    for my $subkey_and_how (split /,/, $supersedees) {
+      my ($subkey, $how) = (split / /, $subkey_and_how, 2);
       my $subrec = $citekeys{$subkey};
       # print STDERR "subrec = $subrec\n";
       my %subentry = &bib::explode($subrec);
@@ -161,9 +164,9 @@ sub previous_versions_text ( $% ) {
       # <BR> needs to be at end of previous line, not start of new line.
       if (defined $result) {
 	$result = join_linebreak($result,
-				 "A previous version appeared $subtext");
+				 "$how appeared $subtext");
       } else {
-	$result = "A previous version appeared $subtext";
+	$result = "$how appeared $subtext";
       }
     }
   }

@@ -55,7 +55,9 @@ The programs take advantage of several additional BibTeX fields:
   supersededby	A comma-separated list of keys of articles that supersede
 		this one.  A superseded article does not get its own
 		per-article webpage, but is briefly noted on the webpage of
-		each article that supersedes it.
+		each article that supersedes it.  Optionally, the key can
+		be followed by whitespace and (comma-free) text that replaces
+		"A previous version".
   category	The name of the topic under which this article should be
 		listed in the by-topic webpage.
   summary	A brief description of the article (shorter than the
