@@ -37,7 +37,7 @@ if ($ARGV[0] eq "-headfoot") {
 
 # Use of "-footer" is deprecated.
 if ($ARGV[0] eq "-footer") {
-  print STDERR "Use of '-footer' option is deprecated; use '-headfoot' insetad.";
+  print STDERR "Use of '-footer' option is deprecated; use '-headfoot' instead.";
   shift @ARGV;
   $footer = file_contents(shift @ARGV);
 }
