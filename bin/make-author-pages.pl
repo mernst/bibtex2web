@@ -16,7 +16,8 @@ my $filter = "";
 while (@ARGV) {
   $_ = shift @ARGV;
   /^-filter$/     && do { $filter = shift @ARGV;
-                          $filter = "-filter '$filter'";
+                          my $fq = shell_quote($filter);
+                          $filter = "-filter '$fq'";
                           next; };
   /^-/            && do { print STDERR "Unrecognized option: $_\n";
                           &dieusage; };
