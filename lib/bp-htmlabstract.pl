@@ -205,6 +205,8 @@ sub fromcanon {
   if ($opt_withbibtex) {
       my %bibentry;
       {
+        # Temporarily ignore unknown fields, resetting the flag afterward
+        # to its previous value.
         my $old_opt_omit_unknown = $bp_bibtex::opt_omit_unknown;
         $bp_bibtex::opt_omit_unknown = 1;
         %bibentry = bp_bibtex::fromcanon(%entry);
@@ -220,7 +222,14 @@ sub fromcanon {
       $text .= $cs_meta1100 . "\n";
       $text .= $cs_meta0103 . "BibTeX entry:" . $cs_meta0113 . "\n";
       $text .= $cs_meta1101 . "\n";
-      $text .= bp_bibtex::implode(%bibentry);
+      # my @be_list = %bibentry;
+      # print STDERR "pre-implode: @be_list\n";
+      my $bibtex_entry = bp_bibtex::implode(%bibentry);
+      # print STDERR "post-implode: $bibtex_entry\n";
+      $bibtex_entry = bp_cs_tex::fromcanon($bibtex_entry, 0);
+      $bibtex_entry =~ s/(\d)----(\d)/$1--$2/g;
+      # print STDERR "post-fromcanon: $bibtex_entry\n";
+      $text .= $bibtex_entry;
       $text .= $cs_meta1111 . "\n";
   }
 
