@@ -82,8 +82,17 @@ sub downloads_text ( $$% ) {
     # Note that these are in reverse order from how they will appear on the
     # webpage, where PDF appears first and .ppt last.
     # TODO: generalize this to permit
+    if (-e "$htmldir/$basefilename-slides.ps") {
+      unshift @local_downloads, "$basefilename-slides.ps slides (PostScript)";
+    }
+    if (-e "$htmldir/$basefilename-slides.pdf") {
+      unshift @local_downloads, "$basefilename-slides.pdf slides (PDF)";
+    }
+    if (-e "$htmldir/$basefilename-slides.ppt") {
+      unshift @local_downloads, "$basefilename-slides.ppt slides (PowerPoint)";
+    }
     if (-e "$htmldir/$basefilename.ppt") {
-      unshift @local_downloads, "$basefilename.ppt Slides (PowerPoint)";
+      unshift @local_downloads, "$basefilename.ppt slides (PowerPoint)";
     }
     if (-e "$htmldir/$basefilename.doc") {
       unshift @local_downloads, "$basefilename.doc MS Word";
