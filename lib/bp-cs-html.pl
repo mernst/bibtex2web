@@ -501,7 +501,8 @@ sub fromcanon {
   s/</\&lt;/g;
   s/>/\&gt;/g;
   s/${bib::cs_ext}0026/\&amp;/go;
-  s/\240/&nbsp;/g;              # added by MDE, 9/28/2003
+  s{(http://[-a-zA-Z0-9.]*/)\240}{\1~}g;
+  s/\240/&nbsp;/g;
 
 
   return $_ unless /$bib::cs_escape/o;
