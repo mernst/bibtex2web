@@ -1,0 +1,275 @@
+<html>
+<head>
+<title>bibtex2web: create webpages from BibTeX bibliography files</title>
+
+<h1>bibtex2web: create webpages from BibTeX bibliography files</h1> <!-- omit from toc -->
+
+<p>
+The bibtex2web package, by Michael Ernst <mernst@csail.mit.edu>, creates
+webpages from BibTeX bibliography files.  It can be downloaded from
+<a href="http://pag.csail.mit.edu/~mernst/software/#bibtex2web">http://pag.csail.mit.edu/~mernst/software/#bibtex2web</a>.
+</p>
+
+<p>
+Contents:
+<!-- start toc.  do not edit; run html-update-toc instead -->
+<!-- end toc -->
+</p>
+
+
+<h2>Overview</h2>
+
+It is convenient to produce webpages from BibTeX files, because you only
+need to keep one set of (BibTeX) sources up to date, thus avoiding skew
+between your webpages and bibliographies.
+</p>
+
+<p>
+Given a collection of BibTeX files, bibtex2web creates
+ * one webpage per article (giving the abstract and a BibTeX entry, and
+   linking to the article itself and to the authors and venue)
+ * a webpage listing all articles by date
+ * a webpage listing all articles by topic
+ * one webpage per author, listing that author's articles
+ * a webpage listing all authors
+Each of these webpages is built from a template that you can customize to
+your liking; see below.
+</p>
+
+<p>
+Here are two examples of webpages that were created by bibtex2web:
+  http://pag.csail.mit.edu/pubs/
+  http://pmg.csail.mit.edu/pubs/
+</p>
+
+<p>
+The bibtex2web package consists of three programs:
+ * bwconv.pl does most of the work
+ * htmlabstract-split.pl assists with the creation of one webpage per article
+ * make-author-pages.pl makes the author webpages (by calling bwconv.pl).
+For examples of how to call these programs, see file examples/README in
+this distribution.
+</p>
+
+<h2>Installation and use</h2>
+</p>
+
+<p>
+To install bibtex2web, unpack the distribution, and then set your BPHOME
+environment variable to point to its lib/ directory.  For example, in csh,
+add something like
+  setenv BPHOME /home/jruser/bibtex2web/lib
+to your .cshrc.  You may need to log out and log back in for this to take
+effect.
+</p>
+
+<p>
+Then, you can run the programs in bin/.  (You may add that directory to
+your path if you wish, but it is not required.)
+</p>
+
+<p>
+Files examples/README and examples/Makefile in this distribution for
+examples of how to run bibtex2web and examples of the various command-line
+arguments that bibtex2web's program accept.  The easiest way to use
+bibtex2web is to follow the instructions in examples/README and modify
+exampls/Makefile to fit your goals.  More details will be added to this
+manual later.
+</p>
+
+
+<h2>BibTeX fields</h2>
+
+<p>
+bibtex2web works with ordinary BibTeX files, but it can take advantage of
+several additional BibTeX fields:
+  abstract      The abstract, in LaTeX format.
+  basefilename  The file name for the article itself, without the extension
+                (such as ".ps", ".pdf", ".doc", ".ppt", etc.).  You must put
+                these files in the destination directory before running the
+                programs.  The basefilename is also used for the per-article
+                webpage (which includes the abstract).  If the basefilename
+                is not specified, then the entry's cite key is used instead.
+  downloads     A list of other downloads, in addition to those automatically
+                detected by virtue of matching the basefilename.  The list
+                is semicolon-separated, and each entry consists of a URL
+                (which may not contain whitespace) and anchor text (which
+                may contain whitespace), separated by whitespace.
+  downloadsnonlocal A list of other downloads, used (in addition to the
+                "downloads" field) only if no local files are found via the
+                "basefilename" mechanism.
+  supersededby  A comma-separated list of keys of articles that supersede
+                this one.  A superseded article does not get its own
+                per-article webpage, but is briefly noted on the webpage of
+                each article that supersedes it.  Optionally, in the
+                comma-separated list, the key may be followed by whitespace
+                and (comma-free) text; when bibtex2web generates webpages,
+                that text is used instead of "A previous version".
+  category      The name of the topic under which this article should be
+                listed in the by-topic webpage.
+  summary       A brief description of the article (shorter than the
+                abstract) that appears in the by-topic webpage.  (Including
+                the full abstracts of all the papers on that webpage would
+                make that page too long.)
+(An "alsosee" field is not currently processed.)
+</p>
+
+<p>
+You can also define your own additional fields.  For instance, the example
+Makefile that is distributed with bibtex2web uses the "-filter" argument
+to the programs to make them ignore any article containing an "omitfromcv"
+field.  Additionally, it ignores any entry containing an "onlycrossref"
+field (unless that field was inherited via a crossref); this permits info
+about just the conferences from appearing.  Another use of the "-filter"
+argument is to create a separate webpage for any article containing an
+"underreview" field.
+</p>
+
+
+<h2>Webpage templates</h2>
+
+<p>
+You can specify how the generated webpages look by supplying templates.
+The most common of these is supplied by the -headfoot argument to the
+bwconv.pl program.
+</p>
+
+<p>
+A template turns into the final webpage, but certain special strings are
+replaced replaced first
+</p>
+
+<dl>
+<dt>
+BODY
+<dd>
+	contains the actual content produced by bibtex2web
+
+<dt>
+BIBTEX2WEB_NOTICE
+<dd>
+	is replaced by "This page was generated $timestamp by <a
+	href=\"http://pag.csail.mit.edu/~mernst/software/#bibtex2web\">bibtex2web</a>"
+	where $timestamp is the local time in ctime(3) format.
+
+<dt>
+COPYRIGHT_NOTICE
+<dd>
+	 is replaced by the contents of the file specified by
+	the -copyright parameter.
+	Bug: this only works for files generated by bwconv directly, so it
+	doesn't work yet for the author index page (which uses
+	make-author-pages.pl) or the per-paper pages (which uses
+	htmlabstract-split.pl).
+</dl>
+
+
+<h2>Reporting problems</h2>
+
+<p>
+If you have any problems or questions, please contact me at
+Michael Ernst <mernst@csail.mit.edu>; I will do my best to help,
+though I cannot make any guarantee.
+</p>
+
+<p>
+Thanks to Sameer Ajmani for his contributions (both suggestions and code)
+to bibtex2web.
+</p>
+
+<h2>Implementation details</h2>
+
+<p>
+bibtex2web is built on the bp Perl library.  The bibtex2web
+distribution is simply the bp distribution, with corrections and
+enhancements.  bp-README is the original README file for the bp Perl
+library, and other files and directories have been similarly prefixed with
+"bp-" to avoid confusion to users of bibtex2web.  bp documentation appears
+at http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html (but
+unfortunately isn't packaged with bp itself).  bp has not been supported
+since December 1996, but it works well enough for me, particularly with my
+enhancements.  (Another library is btool, but bp is better.)  Other systems
+exist, but did not have the features I needed.
+</p>
+
+<p>
+Under both Netscape and Internet Explorer, <BR> needs to be at the end of a
+line rather than at the beginning of the next line, because otherwise there
+can be two line breaks (ie, a blank line) rather than just a single line
+break.
+</p>
+
+
+</html>
+
+===========================================================================
+
+Add to the above documenation:
+
+htmlabstracts supports the linkauthors option: this links author names
+on abstract pages to the authors' publications lists.  Specify this
+option like this:
+-outopts=linkauthors
+Override the default "authors" filename:
+-outopts=linkauthors:myauthorslist
+Separate multiple options with spaces:
+-outopts=withbibtex\ linkauthors
+FIXME: Some code was copied from make-author-pages.pl; this should be
+consolidated.
+
+Add htmllist output format: generates a list of entry titles, each of
+which links to the abstract page for that entry, separated by <br>eaks.
+This is useful to generate a list of "recent publications" on a home
+page.  For example, see "Selected Publications" list on
+http://pmg.csail.mit.edu.
+Example make rule:
+index.html:
+        ${BWBIN}/bwconv.pl -format=bibtex,htmllist -outopts=limit:5\ abstract_dir:pubs -headfoot index-headfoot.html -copyright ../copyright -to $@ $(FILTER) ${BIBFILES}
+The "limit" output option limits the list to the specified number of
+entries (without this option, list is unlimited).  The "abstract_dir"
+option specifies the relative directory containing the per-entry
+abstract files (default "../pubs").
+Bugs: generates too much space in the HTML (a newline is generated for
+each entry, even if it's omitted!  Is there a way to tell the system to
+stop processing entries?).
+
+===========================================================================
+
+To do:
+
+Bug: slides appear twice at
+  http://www.pag.csail.mit.edu/pubs/ref-immutability-oopsla2004-abstract.html
+They should appear just once there, and once at
+  http://www.pag.csail.mit.edu/~mernst/pubs/ref-immutability-oopsla2004-abstract.html
+
+Permit multiple categories per entry, because some entries span catagores.
+How to do this without overhauling bwconv.pl?
+
+Add additional cross-reference types (beyond supersededby), such as
+permitting a later technical report.
+
+Create a shared utility package for duplicated subroutines like
+read_author_urls.
+
+Bug in bp-htmlabstract.pl:
+The "BibTeX entry" part of bp-htmlabstract.pl uses the same charset as
+the rest of the webpage (bp-c-html.pl), but it should use the tex charset
+(bp-c-tex.pl).  Test case:
+ http://pag.csail.mit.edu/pubs/refactoring-tip-ecoop2003-abstract.html
+
+Permit printing superseded articles rather than suppressing them (but do
+add links to the subsequent version); this gives a list of all
+publications, including duplicates.
+
+The Perl expressions in -filter arguments are starting to get out of hand;
+permit simplifying them.
+
+Add some field to indicating awards or other notes to add on the webpage.
+
+Change "author-urls" file to "link-names"
+
+Add a noabstractpage field, to replace the old nobasefilename field.
+(Then get rid of Ernst89a-abstract.html and Ernst89c-abstract.html.)
+
+===========================================================================
+
