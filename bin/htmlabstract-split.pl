@@ -47,7 +47,7 @@ while (<>) {
     my ($basefile, $title) = ($1, $2);
     my $absfile = "$htmldir/$basefile-abstract.html";
     # print STDERR "basefile $basefile title $title\nabsfile $absfile\n";
-    open(ABSFILE, ">$absfile") or die "Can't open $absfile";
+    open(ABSFILE, ">$absfile") or die "Can't write $absfile";
     my $this_header = $header;
     $this_header =~ s/PUB_TITLE/$title/g;
     print ABSFILE $this_header;
