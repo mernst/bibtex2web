@@ -52,7 +52,7 @@ my $lastyear = 0;
 
 sub fromcanon {
   my (%entry) = @_;
-  my %rec = &bp_output::fromcanon(%entry);
+  my %rec = &bp_htmlpubs::fromcanon(%entry);
   my $text = $rec{'TEXT'};
   my $year = $rec{'YEAR'};
   if ($year != $lastyear) {
