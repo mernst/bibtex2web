@@ -1,0 +1,75 @@
+
+# Format for: Communications of the ACM
+#
+# As described in CACM, October 1996, Vol. 39, No. 10, page 85
+#
+# Written 15 December 1996, Dana Jacobsen (dana@acm.org)
+#
+# XXXXX We need to handle misc format, whole proceedings, and reports.
+#
+# requires genmod v1.0
+
+Name:	cacm
+
+Field:	CiteType is required, default 'article'.
+
+Type:	use CiteType, default 'article'.
+
+# XXXXX actually, we need initials rather than first names
+Field:	Authors is name, format 'reverse'.
+Field:	Editors is name, format 'reverse'.
+Label:	date is date, format 'short'.
+Label:  edname for Editors, single 'Ed.', plural 'Eds.'.
+Label:	(pp,wp) is pages, format 'normal'.
+
+CODE
+ECODE
+
+PREFIX
+<P>
+EPREFIX
+
+TYPE: book
+  TEXT
+['Authors' ]
+# This is awkward -- what do we do with author _and_ editor?
+['Editors', 'edname' ]
+[<I>'Title'</I>. ]
+['Publisher', ]
+['PubAddress', ]
+['date'.]
+  ETEXT
+
+TYPE: article
+  TEXT
+['Authors' ]
+['Title'. ]
+[<I>'Journal'</I> [<I>'Volume'</I>, ]['Number'] ]
+[('date'), ]
+['pp'.]
+  ETEXT
+
+TYPE: inproceedings
+  Field: SuperTitle is required.
+  TEXT
+['Authors' ]
+['Title'. ]
+[in <I>'SuperTitle'</I>, ]
+[('Location'. 'Month'). ]
+['Organization'/]
+['Journal', ]
+['PubAddress', ]
+['Year', ]
+[pp. 'pp'.]
+
+  ETEXT
+
+ETYPE
+
+CODE
+$str =~ s/,\s+$/./;
+ECODE
+
+SUFFIX
+\n
+ESUFFIX
