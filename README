@@ -1,5 +1,6 @@
 bibtex2web: create webpages from bibliography files.
 Michael Ernst <mernst@csail.mit.edu>
+Download from: http://pag.lcs.mit.edu/~mernst/software/#bibtex2web
 
 Given a collection of BibTeX files, bibtex2web creates
  * one webpage per article (giving the abstract, and linking to the article
