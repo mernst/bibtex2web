@@ -140,20 +140,12 @@ sub fromcanon {
   $text =~ s/${bib::cs_meta}1103${bib::cs_meta}0103Annotation:  ${bib::cs_meta}0113\n.*${bib::cs_meta}1113//;
 
   if (! defined($entry{'supersededby'})) {
-
-    # print STDERR "text (3): $text\n";
-
     # Add extra information.
     my $downloads = &bp_htmlbw::downloads_text($htmldir, 'with_abstract', %entry);
     $text = &bp_htmlbw::join_linebreak($text, $downloads);
 
-    # print STDERR "text (4): $text\n";
-
     my $prev_versions = &bp_htmlbw::previous_versions_text($title_author, %entry);
     $text = &bp_htmlbw::join_linebreak($text, $prev_versions);
-
-    # print STDERR "text (5): $text\n";
-
   }
 
   if ($opt_withyears && defined($lastyear) && defined $entry{'Year'}) {
