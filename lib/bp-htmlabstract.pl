@@ -26,10 +26,10 @@ require "bp-htmlbw.pl";
 require "bp-bibtex.pl";
 
 # fields to omit from generated bibtex entries
-@omitted_fields = ('downloads', 'category', 'basefilename',
-                   'inlined-crossref',
+@omitted_fields = (# 'downloads', 'category', 'basefilename',
+                   # 'inlined-crossref',
                    'crossref',  # we've already inlined the crossref
-                   'summary',   # not really useful in citations?
+                   # 'summary',   # not really useful in citations?
                    'abstract',  # already appears on the same page
                    'key'        # sometimes inherited from crossrefs
                    );
@@ -163,15 +163,22 @@ sub fromcanon {
   $text .= "$cs_meta1100\n$downloads\n";
 
   if ($opt_withbibtex) {
-      my %bibentry = bp_bibtex::fromcanon(%entry);
-      # remove all non-standard bibtex keys from the entry
+      my %bibentry;
+      {
+        my $old_opt_omit_unknown = $bp_bibtex::opt_omit_unknown;
+        $bp_bibtex::opt_omit_unknown = 1;
+        %bibentry = bp_bibtex::fromcanon(%entry);
+        $bp_bibtex::opt_omit_unknown = $old_opt_omit_unknown;
+      }
+      # Non-standard keys aren't included by the above.
+      # Remove additional standard bibtex keys from the entry.
       foreach my $field (keys %bibentry) {
           # keep 'CITEKEY' and 'TYPE'
           delete $bibentry{$field} if
               grep {/$field/i} @omitted_fields;
       }
       $text .= $cs_meta1100 . "\n";
-      $text .= $cs_meta0103 . "Bibtex entry:" . $cs_meta0113 . "\n";
+      $text .= $cs_meta0103 . "BibTeX entry:" . $cs_meta0113 . "\n";
       $text .= $cs_meta1101 . "\n";
       $text .= bp_bibtex::implode(%bibentry);
       $text .= $cs_meta1111 . "\n";
