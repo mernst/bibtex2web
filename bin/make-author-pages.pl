@@ -79,24 +79,30 @@ while (<AUTHORS>) {
   my $this_headfootfile = "$filename_base-headfoot.html";
 
   {
+    my $alq = shell_quote($author_link);
+    my $ahq = shell_quote($author_html);
+    my $apuq = shell_quote($author_pubs_url);
     ## Substitute for AUTHOR_LINK, AUTHOR_HTML, and AUTHOR_PUBS.
-    ## Don't call perl externally because of potential problems with quoting
-    ## the names (they might contain single- or double-quote characters).
-    # system_or_die("perl -p -e 's|AUTHOR_LINK|$author_link|g; s|AUTHOR_HTML|$author_html|g; s|AUTHOR_PUBS|$author_pubs_url|;' < author-headfoot.html > $this_headfootfile");
-    open(AUTHOR_HEADFOOT, "author-headfoot.html") or die "Can't open 'author-headfoot.html': $!";
-    open(THIS_HEADFOOT, ">$this_headfootfile") or die "Can't open '$this_headfootfile': $!";
-    while (<AUTHOR_HEADFOOT>) {
-      s|AUTHOR_LINK|$author_link|g;
-      s|AUTHOR_HTML|$author_html|g;
-      s|AUTHOR_PUBS|$author_pubs_url|g;
-      print THIS_HEADFOOT $_;
-    }
-    close(AUTHOR_HEADFOOT);
-    close(THIS_HEADFOOT);
+    system_or_die("perl -p -e 's|AUTHOR_LINK|$alq|g; s|AUTHOR_HTML|$ahq|g; s|AUTHOR_PUBS|$apuq|;' < author-headfoot.html > $this_headfootfile");
+    ## Alternate implementation:
+    # ## Don't call perl externally because of potential problems with quoting
+    # ## the names (they might contain single- or double-quote characters).
+    # open(AUTHOR_HEADFOOT, "author-headfoot.html") or die "Can't open 'author-headfoot.html': $!";
+    # open(THIS_HEADFOOT, ">$this_headfootfile") or die "Can't open '$this_headfootfile': $!";
+    # while (<AUTHOR_HEADFOOT>) {
+    #   s|AUTHOR_LINK|$author_link|g;
+    #   s|AUTHOR_HTML|$author_html|g;
+    #   s|AUTHOR_PUBS|$author_pubs_url|g;
+    #   print THIS_HEADFOOT $_;
+    # }
+    # close(AUTHOR_HEADFOOT);
+    # close(THIS_HEADFOOT);
   }
 
   unlink "outfile.txt";
-  my $command = "$bwconv_program -format=bibtex,htmlpubs -author '$author' -headfoot $this_headfootfile -to $filename $filter ${BIBFILES} >& outfile.txt";
+  # Quote any single-quote marks to protect them from the shell.  (Yuck.)
+  $author_quoted = shell_quote($author);
+  my $command = "$bwconv_program -format=bibtex,htmlpubs -author '$author_quoted' -headfoot $this_headfootfile -to $filename $filter ${BIBFILES} >& outfile.txt";
   # print $command . "\n";
   system_or_die($command);
   unlink "outfile.txt";
@@ -173,3 +179,11 @@ sub file_contents {
   }
 }
 
+# Given a string, return a string that can be put inside single-quote
+# characters in a shell command.  It doesn't add the surrounding
+# single-quotes, though.
+sub shell_quote {
+  my ($string) = @_;
+  $string =~ s/\'/\'\"\'\"\'/;
+  return $string;
+}
