@@ -150,6 +150,7 @@ sub system_or_die ( $ )
   return $result;
 }
 
+# FIXME: consolidate with bwconv.pl::read_author_urls
 sub read_author_urls ( $ ) {
   my ($file) = @_;
   open(URLS, $file) or die "Couldn't open $file";
@@ -158,7 +159,7 @@ sub read_author_urls ( $ ) {
     chomp $line;
     if ($line =~ /^$/) { next; }
     if ($line =~ /^\#/) { next; }
-    $line =~ /^(.*) +([^ ]+)$/;
+    $line =~ /^(.*?) +([^ ]+)$/;
     if (defined $authorurls{$1}) {
       warn "URL redefinition for $1:\n old: $authorurls{$1}\n new: $2\n";
     }
