@@ -497,6 +497,8 @@ sub fromcanon {
   # We no longer check for font matching here, as that should be done by a
   # call to bib'font_check in the tocanon code.
 
+  $text =~ s/${bib::cs_meta}2200${bib::cs_meta}2300([^{}]+)${bib::cs_meta}2310\1${bib::cs_meta}2210/\\url\{$1\}/g;
+
   if ($protect) {
     $text =~ s/\\/$bib::cs_temp/go;
     $text =~ s/#/\\#/g;
