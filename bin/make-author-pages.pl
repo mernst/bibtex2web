@@ -139,11 +139,10 @@ sub author_as_filename ( $ ) {
   return $author;
 }
 
-# This is partial and a hack.
+# This is partial and a hack.  Should use character set conversion instead.
 sub author_as_html ( $ ) {
   my ($author) = @_;
-  # For Adam Kiezun
-  $author =~ s/{\\\.z}/&\#0380;/g;
+  $author =~ s/{\\\.z}/&\#0380;/g; # For Adam Kiezun
   $author =~ s/[{}]//g;         # For grouped names: "Toh {Ne Win}"
   return $author;
 }
