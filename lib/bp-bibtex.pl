@@ -588,6 +588,11 @@ sub implode {
   return &bib::goterror("BibTeX: no CITEKEY field") unless defined $entry{'CITEKEY'};
 
   $ent = join("", '@', $entry{'TYPE'}, '{', $entry{'CITEKEY'}, ",\n");
+  if (($entry{'TYPE'} eq 'mastersthesis')
+      && defined($entry{'type'})
+      && ($entry{'type'} eq 'Masters')) {
+    delete $entry{'type'};
+  }
   delete $entry{'TYPE'};
   delete $entry{'CITEKEY'};
 
