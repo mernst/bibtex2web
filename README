@@ -104,39 +104,10 @@ line rather than at the beginning of the next line, because otherwise there
 can be two line breaks (ie, a blank line) rather than just a single line
 break.
 
-To do:
-
-Bug in bp-htmlabstract.pl:
-The "BibTeX entry" part of bp-htmlabstract.pl uses the same charset as
-the rest of the webpage (bp-c-html.pl), but it should use the tex charset
-(bp-c-tex.pl).  Test case:
- http://pag.csail.mit.edu/pubs/refactoring-tip-ecoop2003-abstract.html
-
-Would it be a valuable feature, or merely distracting, to add
-cross references from each abstract to other publications as follows?
- * by the same author,
- * on the same topic,
- * published in the same year.
-
-Permit printing superseded articles rather than suppressing them (but do
-add links to the subsequent version); this gives a list of all
-publications, including duplicates.
-
-Generalize to look for any file with the given basename, not just .pdf,
-.ps, .doc, and .ppt.
-
-The Perl expressions in -filter arguments are starting to get out of hand;
-permit simplifying them.
-
-Add some field to indicating awards or other notes to add on the webpage.
-
-Permit multiple categories per entry, because some entries span catagores.
-How to do this without overhauling bwconv.pl?
-
-Create a shared utility package for duplicated subroutines like
-read_author_urls.
+===========================================================================
 
 Add to the above documenation:
+
 htmlabstracts support the linkauthors option: this links author names
 on abstract pages to the authors' publications lists.  Specify this
 option like this:
@@ -147,11 +118,6 @@ Separate multiple options with spaces:
 -outopts=withbibtex\ linkauthors
 FIXME: Some code was copied from make-author-pages.pl; this should be
 consolidated.
-
-Change "author-urls" file to "link-names"
-
-Add a noabstractpage field, to replace the old nobasefilename field.
-(Then get rid of Ernst89a-abstract.html and Ernst89c-abstract.html.)
 
 BIBTEX2WEB_NOTICE is replaced by 
 "This page was generated $timestamp by "
@@ -180,3 +146,43 @@ abstract files (default "../pubs").
 Bugs: generates too much space in the HTML (a newline is generated for
 each entry, even if it's omitted!  Is there a way to tell the system to
 stop processing entries?).
+
+===========================================================================
+
+To do:
+
+Bug: slides appear twice at
+  http://www.pag.csail.mit.edu/pubs/ref-immutability-oopsla2004-abstract.html
+They should appear just once there, and once at
+  http://www.pag.csail.mit.edu/~mernst/pubs/ref-immutability-oopsla2004-abstract.html
+
+Permit multiple categories per entry, because some entries span catagores.
+How to do this without overhauling bwconv.pl?
+
+Add additional cross-reference types (beyond supersededby), such as
+permitting a later technical report.
+
+Create a shared utility package for duplicated subroutines like
+read_author_urls.
+
+Bug in bp-htmlabstract.pl:
+The "BibTeX entry" part of bp-htmlabstract.pl uses the same charset as
+the rest of the webpage (bp-c-html.pl), but it should use the tex charset
+(bp-c-tex.pl).  Test case:
+ http://pag.csail.mit.edu/pubs/refactoring-tip-ecoop2003-abstract.html
+
+Permit printing superseded articles rather than suppressing them (but do
+add links to the subsequent version); this gives a list of all
+publications, including duplicates.
+
+The Perl expressions in -filter arguments are starting to get out of hand;
+permit simplifying them.
+
+Add some field to indicating awards or other notes to add on the webpage.
+
+Change "author-urls" file to "link-names"
+
+Add a noabstractpage field, to replace the old nobasefilename field.
+(Then get rid of Ernst89a-abstract.html and Ernst89c-abstract.html.)
+
+===========================================================================
