@@ -117,6 +117,3 @@ publications, including duplicates.
 
 Generalize to look for any file with the given basename, not just .pdf,
 .ps, .doc, and .ppt.
-
-Include a BibTeX entry, for convenience (and accuracy) of those who wish to
-cite the paper.

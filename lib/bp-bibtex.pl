@@ -56,6 +56,11 @@ $opt_complex = 1;
 #
 $opt_crossref = 1;
 
+# Set this to 1 if we want to ignore unrecognized fields.
+# if 0, they are included in the output, but a warning message is generated.
+#
+$opt_omit_unknown = 0;
+
 ######
 
 sub options {
@@ -72,6 +77,10 @@ sub options {
   }
   if ($field =~ /^crossref$/) {
     $opt_crossref = &bib::parse_num_option($val);
+    return 1;
+  }
+  if ($field =~ /^omit_unknown$/) {
+    $opt_omit_unknown = 1;
     return 1;
   }
   undef;
@@ -1025,8 +1034,12 @@ sub fromcanon {
     if (defined $can_to_btx_fields{$canf}) {
       $record{$can_to_btx_fields{$canf}} = $canv;
     } else {
-      &bib::gotwarn("Unknown field: $canf");
-      $record{$canf} = $canv;
+      if ($opt_omit_unknown) {
+        # Nothing to do; just ignore unknown fields.
+      } else {
+        &bib::gotwarn("Unknown field: $canf");
+        $record{$canf} = $canv;
+      }
     }
   }
 
