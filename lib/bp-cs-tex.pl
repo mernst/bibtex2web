@@ -494,7 +494,9 @@ sub change_tex_fonts {
 
 sub fromcanon {
   my ($text, $protect) = @_;
-  # print STDERR "bp-cs-tex::fromcanon <= $text\n";
+  my $debug_fromcanon = 0;
+  $debug_fromcanon = 1;
+  if ($debug_fromcanon) { print STDERR "bp-cs-tex::fromcanon <= $text\n"; }
 
   my $repl;
   # We no longer check for font matching here, as that should be done by a
@@ -518,7 +520,7 @@ sub fromcanon {
     $text =~ s/~/\\~{}/g;
     $text =~ s/$bib::cs_temp/\$\\backslash\$/go;
   }
-  # print STDERR "bp-cs-tex::fromcanon (1) : $text\n";
+  if ($debug_fromcanon) { print STDERR "bp-cs-tex::fromcanon (1) : $text\n"; }
 
   while ($text =~ /([\200-\237])/) {
     $repl = $1;
@@ -527,7 +529,7 @@ sub fromcanon {
     $text =~ s/$repl//g;
   }
 
-  # print STDERR "bp-cs-tex::fromcanon (2) : $text\n";
+  if ($debug_fromcanon) { print STDERR "bp-cs-tex::fromcanon (2) : $text\n"; }
 
   &init_cs unless $cs_init;
 
@@ -542,12 +544,12 @@ sub fromcanon {
     $text =~ s/$repl/$charmap{$unicode}/g;
   }
 
-  # print STDERR "bp-cs-tex::fromcanon (3) : $text\n";
+  if ($debug_fromcanon) { print STDERR "bp-cs-tex::fromcanon (3) : $text\n"; }
 
   # Maybe we can go now?
   return $text unless ($text =~ /$bib::cs_escape/o);
 
-  # print STDERR "bp-cs-tex::fromcanon (4) : $text\n";
+  if ($debug_fromcanon) { print STDERR "bp-cs-tex::fromcanon (4) : $text\n"; }
 
   while ($text =~ /${bib::cs_ext}(....)/) {
     $unicode = $1;
@@ -579,7 +581,7 @@ sub fromcanon {
     $text =~ s/${bib::cs_meta}$repl//g;
   }
 
-  # print STDERR "bp-cs-tex::fromcanon => $text\n";
+  if ($debug_fromcanon) { print STDERR "bp-cs-tex::fromcanon => $text\n"; }
 
   $text;
 }

@@ -151,6 +151,9 @@ if (defined($filter)) {
                     eval $filter; }
                   @records;
 }
+# print STDERR "records (2): ", scalar(@records), "\n";
+# print_records();
+# print "defined(author): ", defined($author), "\n";
 if (defined($author)) {
   @records = grep { my %rec = &bib::explode($_);
                     # print STDERR "author: $rec{'author'} for $rec{'title'}\n";
@@ -163,9 +166,8 @@ if (defined($author)) {
                   @records;
 }
 
-# print STDERR "records (2): ", scalar(@records), "\n";
-
-
+# print STDERR "records (3): ", scalar(@records), "\n";
+# print_records();
 
 ###
 ### Sorting
@@ -237,6 +239,13 @@ sub yearmonth {
   # avoid warnings about uninitialized values
   my $author = (defined($entry{'author'}) ? $entry{'author'} : "");
 
+  # my $undefined_field = 0;
+  # if (!defined($year)) { $undefined_field = 1; print STDERR "Undefined year\n"; $year = ""; }
+  # if (!defined($entry{title})) { $undefined_field = 1; print STDERR "Undefined title\n"; $entry{title} = ""; }
+  # if (!defined($author)) { $undefined_field = 1; print STDERR "Undefined author\n"; $author = ""; }
+  # if ($undefined_field) {
+  #   print STDERR "<<$year>><<$year_suffix>><<$entry{'title'}>><<$entry{'author'}>>\n";
+  # }
   # print STDERR "Result = $year$year_suffix for $entry{'year'} $entry{'month'}\n";
   # print STDERR "<<$year>><<$year_suffix>><<$entry{'title'}>><<$entry{'author'}>>\n";
   # Add a further suffix because we want the sort to be predictable.
@@ -291,7 +300,7 @@ if ((! defined($sortorder))
   die "Unrecognized sort order $sortorder";
 }
 
-# print STDERR "records (3): ", scalar(@records), "\n";
+# print STDERR "records (4): ", scalar(@records), "\n";
 
 
 ## Old technique
@@ -356,7 +365,7 @@ foreach my $record (@records) {
                   ! (defined($rec{'supersededby'})) }
                 @records;
 
-# print STDERR "records (4): ", scalar(@records), "\n";
+# print STDERR "records (5): ", scalar(@records), "\n";
 
 
 ###
@@ -510,5 +519,22 @@ sub set_supersedes ( $$$ ) {
       $supersedes{$superseder_key} .= "$superseded_key $how,";
       # print STDERR "$superseder_key supersedes $supersedes{$superseder_key}\n";
     }
+  }
+}
+
+# Briefly print the contents of @records, for debugging.
+sub print_records () {
+  foreach my $record (@records) {
+    my %entry = &bib::explode($record);
+    my $message = $entry{"CITEKEY"};
+    if (!defined($message)) {
+      $message = $entry{"title"};
+    }
+    if (!defined($message)) {
+      $message = $entry{"Title"};
+    }
+    print STDERR (defined($message) ? $message : %entry);
+    print STDERR "\n";
+    print STDERR %entry, "\n";
   }
 }
