@@ -37,6 +37,7 @@ if ($ARGV[0] eq "-headfoot") {
 
 # Use of "-footer" is deprecated.
 if ($ARGV[0] eq "-footer") {
+  print STDERR "Use of '-footer' option is deprecated; use '-headfoot' insetad.";
   shift @ARGV;
   $footer = file_contents(shift @ARGV);
 }
@@ -62,8 +63,15 @@ while (<>) {
 	  $line =~ s/(<\/A>) and /$1\nand\n/g;
 	  $line =~ s/(<\/A>) and/$1\nand/g;
 	} else {
-	  $line =~ s/^ *//;
-	  $line = join("\n", Text::Wrap::wrap("", "", $line));
+          # Wrap the line.
+          # If we are in a BibTeX entry, then special-case this.
+          if ($line =~ /^   \w+ = \{/) {
+            $line = join("\n", Text::Wrap::wrap("", "        ", $line));
+          } else {
+            # Ordinary line wrapping.
+            $line =~ s/^ *//;
+            $line = join("\n", Text::Wrap::wrap("", "", $line));
+          }
 	}
       }
       print ABSFILE $line;
