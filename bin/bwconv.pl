@@ -5,7 +5,11 @@ use strict;
 use English;
 $WARNING = 1;
 
-unshift(@INC, $ENV{'BPHOME'})  if defined $ENV{'BPHOME'};
+# Should really only do this if that entry doesn't already exist at the
+# front of @INC.
+if (defined $ENV{'BPHOME'}) {
+  unshift(@INC, $ENV{'BPHOME'});
+}
 require "bp.pl";
 
 &bib::errors('print', 'exit');
