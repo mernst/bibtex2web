@@ -8,6 +8,8 @@ package bp_htmlbw;
 
 use Carp;
 
+use LWP::Simple;
+
 # Global variables %supersedes and %citekeys are set in bwconv.pl.
 
 my $csmeta = ${bib::cs_meta};
@@ -107,7 +109,10 @@ sub downloads_text ( $$% ) {
     for my $download (@downloads) {
       chomp($download);  # omit trailing spaces
       my ($url, $anchor) = split(' ', $download, 2);
-      # Could check links for validity; do that elsewhere
+      # Check links for validity
+      if (! head($url)) {
+        print STDERR "Warning: invalid download URL $url\n";
+      }
       $result .= make_href($url, $anchor) . ",\n";
     }
     $result =~ s/,\n$/.\n/m;
