@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>bibtex2web: create webpages from BibTeX bibliography files</title>
-<!-- Time-stamp: "2004-12-04 17:20:58 mernst" -->
+<!-- Time-stamp: "2005-03-07 09:11:07 mernst" -->
 
 
 <h1>bibtex2web: create webpages from BibTeX bibliography files</h1> <!-- omit from toc -->
@@ -42,8 +42,10 @@ Contents:
 </p>
 
 
+<hr>
 <h2><a name="overview">Overview</a></h2>
 
+<p>
 It is convenient to produce webpages from BibTeX files, because you only
 need to keep one set of (BibTeX) sources up to date, thus avoiding skew
 between your webpages and bibliographies.
@@ -65,8 +67,10 @@ your liking; see below.
 
 <p>
 Here are two examples of webpages that were created by bibtex2web:
-  http://pag.csail.mit.edu/pubs/
-  http://pmg.csail.mit.edu/pubs/
+<ul>
+  <li><a href="http://pag.csail.mit.edu/pubs/">http://pag.csail.mit.edu/pubs/</a>
+  <li><a href="http://pmg.csail.mit.edu/pubs/">http://pmg.csail.mit.edu/pubs/</a>
+</ul>
 </p>
 
 <p>
@@ -81,15 +85,15 @@ this distribution.
 </p>
 
 
+<hr>
 <h2><a name="installation-and-use">Installation and use</a></h2>
-</p>
 
 <p>
 To install bibtex2web, unpack the distribution, and then set your BPHOME
 environment variable to point to its lib/ directory.  For example, in csh,
 add something like
 <pre>
-  setenv BPHOME /home/jruser/bibtex2web/lib
+  setenv BPHOME ${HOME}/bibtex2web/lib
 </pre>
 to your <tt>.cshrc</tt> file.  You may need to log out and log back in for
 this to take effect.
@@ -110,6 +114,7 @@ manual later.
 </p>
 
 
+<hr>
 <h2><a name="fields">BibTeX fields</a></h2>
 
 <p>
@@ -186,8 +191,10 @@ argument is to create a separate webpage for any article containing an
 </p>
 
 
+<hr>
 <h2><a name="arguments">Command-line arguments</a></h2>
 
+<p>
 The main program of the bibtex2web package is bwconv.pl.  You can supply it
 a variety of command-line arguments.
 
@@ -210,14 +217,17 @@ a variety of command-line arguments.
 <dd>
   Additional arguments for the output format.
 <dt>
-  -to
-
+  -to <em>file</em>
+<dd>
+  Places output in <em>file</em>.
 </dl>
 
 
 <h3><a name="output-formats">Output formats</a></h3>
 
+<p>
 The output formats supported by bibtex2web are as follows.
+</p>
 
 
 <h4><a name="htmlabstract">htmlabstract</a></h4>
@@ -260,7 +270,7 @@ Separate multiple options with spaces.
 
 <p>
 The htmllist output format generates a list of entry titles, each of which
-links to the abstract page for that entry, separated by &lt;br&gt; line
+links to the abstract page for that entry, separated by <tt>&lt;br&gt;</tt> line
 breaks.  This is useful to generate a list of "recent publications" on a
 home page.  For example, see "Selected Publications" list on
 <a href="http://pmg.csail.mit.edu/">http://pmg.csail.mit.edu/</a>.
@@ -322,6 +332,7 @@ COPYRIGHT_NOTICE
 </p>
 
 
+<hr>
 <h2><a name="problems">Reporting problems</a></h2>
 
 <p>
@@ -339,6 +350,21 @@ contributions by
 <a href="http://www.pmg.csail.mit.edu/~ajmani/">Sameer Ajmani</a>.
 </p>
 
+<p>
+bibtex2html builds on the bp library by Dana Jacobsen.
+</p>
+
+<p>
+Patches and suggestions were contributed by a number of users, including
+the following.  (Please let us know if your name was inadvertently omitted
+from this list.)
+<ul>
+  <li><a href="http://www-2.cs.cmu.edu/~dga/">David Andersen</a>
+</ul>
+</p>
+
+
+<hr>
 <h2><a name="implementation-details">Implementation details</a></h2>
 
 <p>
@@ -371,7 +397,7 @@ How to do this without overhauling bwconv.pl?
 <p>
 Add additional cross-reference types (beyond supersededby), such as
 permitting a later technical report.
-Example:  http://www.pag.csail.mit.edu/~mernst/pubs/instantiating-generics-oopsla2004-abstract.html.
+Example:  <a href="http://www.pag.csail.mit.edu/~mernst/pubs/instantiating-generics-oopsla2004-abstract.html">http://www.pag.csail.mit.edu/~mernst/pubs/instantiating-generics-oopsla2004-abstract.html</a>.
 </p>
 
 <p>
@@ -399,7 +425,9 @@ Add a field to indicate awards or other notes to add on the webpage.
 
 <p>
 Add a noabstractpage field, to replace the old nobasefilename field.
-(Then get rid of Ernst89a-abstract.html and Ernst89c-abstract.html.)
+<!--
+  (Then get rid of files Ernst89a-abstract.html and Ernst89c-abstract.html.)
+-->
 </p>
 
 <p>
