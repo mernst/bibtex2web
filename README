@@ -105,6 +105,12 @@ break.
 
 To do:
 
+Bug in bp-htmlabstract.pl:
+The "BibTeX entry" part of bp-htmlabstract.pl uses the same charset as
+the rest of the webpage (bp-c-html.pl), but it should use the tex charset
+(bp-c-tex.pl).  Test case:
+ http://pag.lcs.mit.edu/pubs/refactoring-tip-ecoop2003-abstract.html
+
 Would it be a valuable feature, or merely distracting, to add
 cross references from each abstract to other publications as follows?
  * by the same author,
@@ -122,3 +128,26 @@ The Perl expressions in -filter arguments are starting to get out of hand;
 permit simplifying them.
 
 Add some field to indicating awards or other notes to add on the webpage.
+
+Permit multiple categories per entry, because some entries span catagores.
+How to do this without overhauling bwconv.pl?
+
+Create a shared utility package for duplicated subroutines like
+read_author_urls.
+
+Add to the above documenation:
+htmlabstracts support the linkauthors option: this links author names
+on abstract pages to the authors' publications lists.  Specify this
+option like this:
+-outopts=linkauthors
+Override the default "authors" filename:
+-outopts=linkauthors:myauthorslist
+Separate multiple options with spaces:
+-outopts=withbibtex\ linkauthors
+FIXME: Some code was copied from make-author-pages.pl; this should be
+consolidated.
+
+Change "author-urls" file to "link-names"
+
+Add a noabstractpage field, to replace the old nobasefilename field.
+(Then get rid of Ernst89a-abstract.html and Ernst89c-abstract.html.)
