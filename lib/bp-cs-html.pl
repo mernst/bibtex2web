@@ -488,6 +488,7 @@ sub fromcanon {
   &bib::panic("cs-html fromcanon called with no arguments!") unless defined $_;
 
   # print STDERR "bp-cs-html.pl fromcanon: conv_func = " . (defined($conv_func) ? $conv_func : "<undef>") . "\n";
+  # print STDERR "bp-cs-html.pl fromcanon: text = $_\n";
 
   # Leave 8bit characters alone since we're assuming ISO-8859-1 HTML.
 
