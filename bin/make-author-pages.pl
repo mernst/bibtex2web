@@ -130,7 +130,7 @@ exit;
 
 sub author_as_filename ( $ ) {
   my ($author) = @_;
-  $author =~ s/[{}.]//g;
+  $author =~ s/[\'{}.]//g;
   $author =~ s/ /-/g;
   return $author;
 }
