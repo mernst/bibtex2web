@@ -48,16 +48,24 @@ require "bp-htmlpubs.pl";
 
 ######
 
+sub make_header {
+  my ($title) = @_;
+  # returns <h2> $title </h2>
+  return "${bib'cs_meta}2232" . $title . "${bib'cs_meta}2233";
+}
+
 my $lastyear = 0;
 
 sub fromcanon {
   my (%entry) = @_;
   my %rec = &bp_htmlpubs::fromcanon(%entry);
   my $text = $rec{'TEXT'};
-  my $year = $rec{'YEAR'};
-  if ($year != $lastyear) {
-      $text = "<h1>$year</h1>$text";
-      $lastyear = $year;
+  if (defined $entry{'Year'}) {
+      my $year = $entry{'Year'};
+      if ($year ne $lastyear) {
+          $text = make_header($year) . $text;
+          $lastyear = $year;
+      }
   }
   $rec{'TEXT'} = $text;
   %rec;
