@@ -109,8 +109,8 @@ sub downloads_text ( $$% ) {
     for my $download (@downloads) {
       chomp($download);  # omit trailing spaces
       my ($url, $anchor) = split(' ', $download, 2);
-      # Check links for validity
-      if (! head($url)) {
+      # Check non-local links for validity
+      if (($url =~ /^http/) && ! head($url)) {
         print STDERR "Warning: invalid download URL $url\n";
       }
       $result .= make_href($url, $anchor) . ",\n";
