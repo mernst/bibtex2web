@@ -766,21 +766,16 @@ sub tocanon {
     }
   }
 
-  # Handle title-like fields.
-  foreach $canf ('Title', 'SuperTitle', 'ReportType') {
+  # Shouldn't this be done for just about every field?
+  foreach $canf ('Title', 'SuperTitle', 'ReportType', 'Abstract', 'Note', 'Summary', 'Address', 'PubAddress') {
     next unless defined $can{$canf};
     # print STDERR "field $canf = $can{$canf}\n";
     $can{$canf} = &bp_cs_tex::change_tex_fonts($can{$canf});
-    $can{$canf} =~ s/\{([^\s}]+)\}/${bib::cs_meta}3100$1${bib::cs_meta}3110/g;
+    # In BibTeX, curly braces protect single characters and TeX commands, and
+    # also single capitalized words.  But permit spaces in the regexp also,
+    # for people who misuse the BibTeX curly braces.
+    $can{$canf} =~ s/\{([^\}]+)\}/${bib::cs_meta}3100$1${bib::cs_meta}3110/g;
     $can{$canf} =~ s/\s\s+/ /g;
-  }
-
-  # Shouldn't this be done for just about every field?
-  foreach $canf ('Abstract', 'Note', 'Summary') {
-    if (defined $can{$canf}) {
-      $can{$canf} = &bp_cs_tex::change_tex_fonts($can{$canf});
-      # print STDERR "$canf for $can{'CiteKey'} = $can{$canf}\n";
-    }
   }
 
   # tell them who we are
@@ -801,6 +796,7 @@ sub tocanon {
 # they are dealt with as one unit.
 #
 
+# Shouldn't this also call bp_cs_tex::change_tex_fonts?
 sub bibtex_name_to_canon {
   my ($name) = @_;
   my ($n);
