@@ -40,7 +40,7 @@ require "bp-htmlbw.pl";
   'write     uses output',
   'clear     uses output',
   'read      uses output',
-  'options   uses output',
+  'options',
   'implode   uses output',
   'explode   uses output',
   'tocanon   uses output',
@@ -49,6 +49,18 @@ require "bp-htmlbw.pl";
 );
 
 ######
+
+my $opt_withyears = 0;
+
+sub options {
+    $_ = shift @_;
+    /withyears/ && do {
+        print "htmlpubs withyears\n";
+        $opt_withyears = 1;
+        return 1;
+    };
+    return undef;
+}
 
 sub make_href {
   my ($url, $title) = @_;
@@ -69,6 +81,14 @@ my $cs_meta2150 = $csmeta . "2150"; # line break "<BR>"
 
 
 my $month_regexp = '(Jan(uary|\.)|Feb(ruary|\.)|Mar(ch|\.)|Apr(il|\.)|May|June|July|Aug(ust|\.)|Sep(tempber|\.)|Oct(ober|\.)|Nov(ember|\.)|Dec(ember|\.))';
+
+my $lastyear = 0;
+
+sub make_header {
+  my ($title) = @_;
+  # returns <h2> $title </h2>
+  return "${bib'cs_meta}2232" . $title . "${bib'cs_meta}2233";
+}
 
 sub fromcanon {
   my (%entry) = @_;
@@ -122,6 +142,14 @@ sub fromcanon {
 
     # print STDERR "text (5): $text\n";
 
+  }
+
+  if (defined $entry{'Year'}) {
+      my $year = $entry{'Year'};
+      if ($year ne $lastyear) {
+          $text = make_header($year) . $text;
+          $lastyear = $year;
+      }
   }
 
   # Done with edits.

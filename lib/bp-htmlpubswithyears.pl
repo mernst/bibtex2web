@@ -9,6 +9,8 @@
 #           All this is is a link to the output module.
 #
 
+### DEPRECATED: use htmlpubs -outopts=withyears instead
+
 package bp_htmlpubswithyears;
 
 $version = "html (dj 14 mar 96)";
@@ -57,6 +59,7 @@ sub make_header {
 my $lastyear = 0;
 
 sub fromcanon {
+    print "'htmlpubswithyears' is deprecated; use 'htmlpubs -outopts=withyears' instead\n";
   my (%entry) = @_;
   my %rec = &bp_htmlpubs::fromcanon(%entry);
   my $text = $rec{'TEXT'};
