@@ -117,3 +117,8 @@ publications, including duplicates.
 
 Generalize to look for any file with the given basename, not just .pdf,
 .ps, .doc, and .ppt.
+
+The Perl expressions in -filter arguments are starting to get out of hand;
+permit simplifying them.
+
+Add some field to indicating awards or other notes to add on the webpage.
