@@ -83,7 +83,7 @@ sub downloads_text ( $$% ) {
     # webpage, where PDF appears first and .ppt last.
     # TODO: generalize this to permit
     if (-e "$htmldir/$basefilename.ppt") {
-      unshift @local_downloads, "$basefilename.ppt PowerPoint";
+      unshift @local_downloads, "$basefilename.ppt Slides (PowerPoint)";
     }
     if (-e "$htmldir/$basefilename.doc") {
       unshift @local_downloads, "$basefilename.doc MS Word";
