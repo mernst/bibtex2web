@@ -590,6 +590,10 @@ sub implode {
     $ent .= "   $field = \{$entry{$field}\},\n";
   }
 
+  # use double-dash for page ranges
+  my $dash = "${bib::cs_ext}2013";
+  $ent =~ s/(\d)$dash(\d)/$1$dash$dash$2/g;
+
   # XXXXX This should be smarter
   $ent =~ s/   month = \{(...)\},/   month = \L$1,/;
 
