@@ -49,6 +49,9 @@ The programs take advantage of several additional BibTeX fields:
 		is semicolon-separated, and each entry consists of a URL
 		(which may not contain whitespace) and anchor text (which
 		may contain whitespace), separated by whitespace.
+  downloadsnonlocal A list of other downloads, used (in addition to the
+		"downloads" field) only if no local files are found via the
+		"basefilename" mechanism.
   supersededby	A comma-separated list of keys of articles that supersede
 		this one.  A superseded article does not get its own
 		per-article webpage, but is briefly noted on the webpage of
