@@ -1,0 +1,61 @@
+
+# Booklist format.  For listing fiction books.
+#
+# Written 13 March 1996, Dana Jacobsen (dana@acm.org)
+#
+# requires genmod v1.0
+
+Name:	booklist
+
+Field:	CiteType is required, default 'book'.
+
+Type:	use CiteType, default 'book'.
+
+Field:	Authors is name, format 'plain'.
+Field:	Editors is name, format 'plain'.
+Label:	(pp,wp) is pages, format 'normal'.
+
+Field:	read is new.
+Field:	auth is local.
+Field:	auth is name, format 'plain'.
+Field:	newauth is local.
+Field:	endauth is local.
+
+CODE
+if (defined $can{'Authors'}) {
+  $auth = $can{'Authors'};
+} elsif (defined $can{'Editors'}) {
+  $auth = $can{'Editors'};
+} else {
+  $auth = '(none)';
+}
+if (defined $oldauth) {
+  if ($auth eq $oldauth) {
+    $newauth = $endauth = undef;
+  } else {
+    $oldauth = $auth;
+    $newauth = $endauth = '';
+  }
+} else {
+  $oldauth = $auth;
+  $newauth = '';
+  $endauth = undef;
+}
+ECODE
+
+TYPE: book
+  TEXT
+[ </UL>'endauth'\n]
+['newauth'<LI><B>'auth'</B>\n <UL>\n]
+[  <LI><EM>'Title'</EM>]
+  ETEXT
+
+ETYPE
+
+CODE
+$str =~ s/,\s*$/./;
+ECODE
+
+TRAILER
+</UL>
+ETRAILER

@@ -1,0 +1,122 @@
+
+# The generic output format.
+#
+# Built on the style used in <http://www.research.att.com/biblio.html>
+#
+# Written 12 March 1996, Dana Jacobsen (dana@acm.org)
+#
+# requires genmod v1.0
+
+Name:	generic
+
+Field:	CiteType is required, default 'misc'.
+
+Type:	use CiteType, default 'misc'.
+
+Field:	Authors is name, format 'plain'.
+Field:	Editors is name, format 'plain'.
+Label:	edname for Editors, single 'ed.', plural 'eds.'.
+Label:	date is date, format 'short'.
+Label:	(pp,wp) is pages, format 'normal'.
+
+PREFIX
+<P>
+EPREFIX
+
+TYPE: article
+  Field: Journal is required.
+  TEXT
+['Authors', ]
+["'Title'," ]
+[<EM>'Journal'</EM>, ]
+[('Editors', 'edname'), ]
+[vol. 'Volume', ]
+[no. 'Number', ]
+[pp. 'pp', ]
+['Publisher', ]
+['date', ]
+  ETEXT
+
+TYPE: report
+  TEXT
+['Authors', ]
+["'Title'," ]
+['ReportType'[ 'ReportNumber'], ]
+['Organization', ]
+['School', ]
+['PubAddress', ]
+[pp. 'pp', ]
+['date', ]
+['wp' pages, ]
+  ETEXT
+
+TYPE: book
+  TEXT
+['Authors', ]
+[<EM>'Title'</EM>, ]
+[('Editors', 'edname'), ]
+[vol. 'Volume', ]
+[pp. 'pp', ]
+['Publisher', ]
+['Edition' ed., ]
+['date', ]
+['wp' pages, ]
+  ETEXT
+
+TYPE: inproceedings
+  Field: SuperTitle is required.
+  TEXT
+['Authors', ]
+["'Title'," ]
+[in <EM>'SuperTitle'</EM>, ]
+[('Editors', 'edname'), ]
+[('PubAddress'), ]
+[pp. 'pp', ]
+['Organization', ]
+[published as <EM>'Journal'</EM>, [vol. 'Volume', ][no. 'Number'], ]
+['date', ]
+  ETEXT
+
+TYPE: inbook
+  Field: SuperTitle is required.
+  TEXT
+['Authors', ]
+["'Title'," ]
+[in <EM>'SuperTitle'</EM>, ]
+[vol. 'Volume', ]
+[no. 'Number']
+[('Editors', 'edname'), ]
+[('PubAddress'), ]
+[pp. 'pp', ]
+['Organization', ]
+['date', ]
+  ETEXT
+
+TYPE: misc unpublished manual avmaterial proceedings thesis map
+  TEXT
+['Authors', ]
+["'Title'", ]
+[<EM>'Journal'</EM>, [v'Volume', ][n'Number', ]]
+[in <EM>'SuperTitle'</EM>, ]
+[edited by 'Editors', ]
+['Publisher', ]
+['date', ]
+[pp. 'pp', ]
+['wp' pages, ]
+  ETEXT
+
+ETYPE
+
+CODE
+$str =~ s/,\s*$/./ || $str =~ s/,"\s*$/."/;
+ECODE
+
+TEXT
+[\n<BLOCKQUOTE><B>Abstract:  </B>\n'Abstract'</BLOCKQUOTE>]
+[\n<BLOCKQUOTE><B>Keywords:  </B>\n'Keywords'</BLOCKQUOTE>]
+[\n<BLOCKQUOTE><B>Annotation:  </B>\n'Annotation'</BLOCKQUOTE>]
+ETEXT
+
+SUFFIX
+\n
+ESUFFIX

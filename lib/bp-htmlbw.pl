@@ -1,0 +1,167 @@
+#
+# bibliography package for Perl
+#
+# HTML extra routines
+#
+
+package bp_htmlbw;
+
+use Carp;
+
+# Global variables %supersedes and %citekeys are set in bwconv.pl.
+
+my $csmeta = ${bib::cs_meta};
+my $cs_meta0103 = $csmeta . "0103"; # begin bold "<B>"
+my $cs_meta0113 = $csmeta . "0113"; # end bold "</B>"
+my $cs_meta1100 = $csmeta . "1100";
+# my $cs_meta2101 = $csmeta . "2101";
+my $cs_meta2150 = $csmeta . "2150"; # line break "<BR>"
+
+sub make_href {
+  my ($url, $title) = @_;
+
+  return
+    "${bib'cs_meta}2200"
+    . "${bib'cs_meta}2300"
+    . $url   . "${bib'cs_meta}2310"
+    . $title . "${bib'cs_meta}2210";
+}
+
+# Either return the first argument (if second is missing), or
+# append the two arguments, separated by a linebreak.
+sub join_linebreak ( $;$ ) {
+  my ($text1, $text2) = @_;
+
+  if ((defined $text2) && ($text2 ne "")) {
+    # remove newlines before line break.  As of 10/5/2002, both Netscape
+    # and Internet Explorer can insert two line breaks (ie, a blank line)
+    # if <BR> is at the beginning of a line.
+    $text1 =~ s/\n*$//;
+    $text1 .= "$cs_meta2150\n"; # line break (<BR> tag)
+    $text1 .= $text2;
+  }
+  return $text1;
+}
+
+
+sub downloads_text ( $$% ) {
+  my ($htmldir, $abstract, %entry) = @_;
+  if ($abstract eq "no_abstract") {
+    $abstract = 0;
+  } elsif ($abstract ne "with_abstract") {
+    die "abstract argument '$abstract' should be 'with_abstract' or 'no_abstract'";
+  }
+
+  my $result = "";
+
+  #   <a href="graycodes-abstract.html">Abstract</a>.
+  #   Download: <a href="graycodes.ps">PostScript</a>,
+  #   <a href="graycodes.pdf">PDF</a>.
+  my $basefilename = $entry{'basefilename'};
+  if ((! defined($basefilename)) && (! defined($entry{'nobasefilename'}))) {
+    print STDERR "Warning: no basefilename for $entry{'CiteKey'}\n";
+  }
+  my @downloads = ();
+  if (defined $entry{'downloads'}) {
+    @downloads = split(';\s*', $entry{'downloads'});
+  }
+  if (defined($basefilename)) {
+
+    if ($abstract eq 'with_abstract') {
+      my $absfile = "$basefilename-abstract.html";
+      if (! -e "$htmldir/$absfile") {
+	confess "Can't find $htmldir/$absfile";
+      }
+      $result .= make_href("$absfile", "Abstract") . ".\n";
+    }
+
+    # Note that these are in reverse order from how they will appear on the
+    # webpage, where PDF appears first and .ppt last.
+    # TODO: generalize this to permit
+    if (-e "$htmldir/$basefilename.ppt") {
+      unshift @downloads, "$basefilename.ppt PowerPoint";
+    }
+    if (-e "$htmldir/$basefilename.doc") {
+      unshift @downloads, "$basefilename.doc MS Word";
+    }
+    if (-e "$htmldir/$basefilename.ps") {
+      unshift @downloads, "$basefilename.ps PostScript";
+    }
+    if (-e "$htmldir/$basefilename.pdf") {
+      unshift @downloads, "$basefilename.pdf PDF";
+    }
+  }
+  if (scalar(@downloads) > 0) {
+    $result .= "Download:\n";
+    for my $download (@downloads) {
+      my ($url, $anchor) = split(' ', $download, 2);
+      # Could check links for validity; do that elsewhere
+      $result .= make_href($url, $anchor) . ",\n";
+    }
+    $result =~ s/,\n$/.\n/m;
+  }
+  return $result;
+
+}
+
+sub previous_versions_text ( $% ) {
+  my ($title_author, %entry) = @_;
+
+  my $result;
+
+  my $citekey = $entry{'CiteKey'};
+
+  # Add "previous version appeared as" information.
+  my $supersedees = $supersedes{$citekey};
+  # if (! defined $supersedees) { print STDERR "$citekey supersedes nothing\n"; }
+  if (defined $supersedees) {
+    # print STDERR "$citekey supersedes $supersedees\n";
+    for my $subkey (split /,/, $supersedees) {
+      my $subrec = $citekeys{$subkey};
+      # print STDERR "subrec = $subrec\n";
+      my %subentry = &bib::explode($subrec);
+      # print STDERR "subentry keys = ", join(' ', keys %subentry), "\n";
+      my %subrec = &bib::tocanon(%subentry);
+      # print STDERR "subrec keys = ", join(' ', keys %subrec), "\n";
+      my %subhtmlentry = &bp_htmlpubs::fromcanon(%subrec);
+      # Do not call implode; that will interfere with the subsequent call.
+      my $subtext = $subhtmlentry{'TEXT'};
+      # Don't boldface title, don't break across any lines.
+      $subtext =~ s/$cs_meta0103(.*)$cs_meta0113/$1/;
+      $subtext =~ s/$cs_meta2150//g;
+      # If title and authors are identical to final version, eliminate them.
+      # (Commas in technical report institutions seem to confuse this, as
+      # they turn the period at the end of the author list into a period.)
+      $subtext =~ s/\Q$title_author//;
+      # print STDERR "subtext = $subtext\n";
+      # print STDERR "title_author = $title_author\n";
+      # Remove paragraph break
+      $subtext =~ s/^$cs_meta1100//;
+      if ($subtext =~ s/^In /in /) {
+	# nothing to do
+      } elsif ($subtext =~ /^(Masters|Bachelors) thesis/) {
+	$subtext = "as a $subtext";
+      } else {
+	$subtext = "as $subtext";
+      }
+      # Convert some periods to commas, perhaps.
+      # $subtext =~ s/\. *Revised/, revised/g;
+      # $subtext =~ s/\. /, /g;
+      # <BR> needs to be at end of previous line, not start of new line.
+      if (defined $result) {
+	$result = join_linebreak($result,
+				 "A previous version appeared $subtext");
+      } else {
+	$result = "A previous version appeared $subtext";
+      }
+    }
+  }
+  return $result;
+}
+
+
+#######################
+# end of package
+#######################
+
+1;

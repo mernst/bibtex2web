@@ -1,0 +1,90 @@
+
+# American Anthropologist Citation Format
+#
+# More or less as specified in <http://coombs.anu.edu.au/~marck/anhmpg.htm>.
+#
+# Written 14 March 1996, Dana Jacobsen (dana@acm.org)
+#
+# Note that until genmod.pl has the author formats completed, this is
+# not correct.
+#
+# requires genmod v1.0
+
+Name:	aacf
+
+Field:	CiteType is required, default 'misc'.
+
+Type:	use CiteType, default 'misc'.
+
+Field:	Authors is name, format 'lname1'.
+Field:	Editors is name, format 'lname1'.
+Label:	date is date, format 'short'.
+#Label:	(pp,wp) is pages, format 'normal'.
+
+CODE
+if (defined $can{'Year'}) {
+  $can{'CiteKey'} = $can{'Year'};
+} else {
+  $can{'CiteKey'} = "????";
+}
+if ($can{'CiteKey'} =~ /\d\d\d\d/) {
+  $can{'CiteKey'} = &bp_util'regkey($can{'CiteKey'});
+}
+ECODE
+
+PREFIX
+<P>
+EPREFIX
+
+TYPE: book
+  TEXT
+['Authors' ]
+# This is awkward -- what do we do with author _and_ editor?
+['Editors', Ed. ]
+[('CiteKey'). ]
+['Title'. ]
+['SuperTitle', ]
+['PubAddress': ]
+['Publisher'. ]
+  ETEXT
+
+TYPE: inbook misc
+  TEXT
+['Authors' ]
+[('CiteKey'). ]
+["'Title'". ]
+# First, this seems to be in a different format: "F. von Last".
+# Secondly, instead of ", Ed. " it seems to have just " " which seems wrong.
+['Editors', Ed. ]
+['SuperTitle'. ]
+['Pages'. ]
+['PubAddress': ]
+['Publisher'. ]
+  ETEXT
+
+TYPE: article
+  TEXT
+['Authors' ]
+[('CiteKey'). ]
+["'Title'." ]
+['Journal' ['Volume':]['Pages']. ]
+  ETEXT
+
+TYPE: thesis
+  TEXT
+['Authors' ]
+[('CiteKey'). ]
+['Title'. ]
+['ReportType'. ]
+['School'. ]
+  ETEXT
+
+ETYPE
+
+CODE
+$str =~ s/.\s+$/./;
+ECODE
+
+SUFFIX
+\n
+ESUFFIX

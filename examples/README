@@ -1,0 +1,20 @@
+This directory contains an example Makefile and supporting files to create
+a website from BibTeX files via bibtex2web.  (You can see the result of
+running the Makefile at http://pag.lcs.mit.edu/pubs/.)
+
+In order to make your own website from BibTeX files:
+ 1. Set your BPHOME environment variable to the lib directory of the
+    unpacked distribution.  For example, if you use csh or tcsh, add
+       setenv BPHOME /home/jruser/bibtex2web/lib
+    to your .cshrc (with the target directory appropriately modified).
+    You may need to log out and log back in for this to take effect.
+ 2. Copy all the files in this directory to a directory where you would
+    like to create a bibliography website.
+ 3. Update the definition of BIBFILES in the Makefile.
+    If you wish to use the html-update-toc script, which is referenced by the
+    Makefile, you can obtain it at
+    http://pag.lcs.mit.edu/~mernst/software/#html-update
+ 4. Run make
+ 5. After examining the output, you may wish to customize some of the
+    template files that you copied from the bibtex2web directory, which
+    will customize the HTML files that get created.
