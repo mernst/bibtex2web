@@ -217,7 +217,9 @@ sub fromcanon {
       foreach my $field (keys %bibentry) {
           # keep 'CITEKEY' and 'TYPE'
           delete $bibentry{$field} if
-              grep {/$field/i} @omitted_fields;
+              # The "^" and "$" are crucial to avoid omitting "note" just
+              # because "annote" is on @omitted_fields.
+              grep {/^$field$/i} @omitted_fields;
       }
       $text .= $cs_meta1100 . "\n";
       $text .= $cs_meta0103 . "BibTeX entry:" . $cs_meta0113 . "\n";
