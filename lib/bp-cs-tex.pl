@@ -200,7 +200,7 @@ sub init_cs {
 '0240', '~',
 '2715', '\times',
 # These are really meta, but I don't know how to make it work.
-# Used to be 1110, but I don't know how to conver that to ISO-8859-1.
+# Used to be 1110, but I don't know how to convert that to ISO-8859-1.
 # '2029', '\par',			# Unicode paragraph separator
 # '000A', '\\',
 );
@@ -275,7 +275,8 @@ $cmap_from8_eval .= "$cmapvar s/\\240/\\~/g;\ns/\\255/-/g;";
 #'bsol',		'$\backslash$',
 #);
 
-# Careful. This is from only.
+# Careful. This is from canonical only.
+# Conversion to canonical must be done by hand in change_tex_fonts().
 %metamap = (
 '3100', '{',   # Begin protection
 '3110', '}',   # End   protection
@@ -289,6 +290,11 @@ $cmap_from8_eval .= "$cmapvar s/\\240/\\~/g;\ns/\\255/-/g;";
 '0113', '}',
 '0114', '}',
 '0110', '}',	# previous font.  We don't need a font stack to handle it.
+'1300', '\item',
+'1301', '\begin{itemize}',
+'1311', '\end{itemize}',
+'1302', '\begin{enumerate}',
+'1312', '\end{enumerate}',
 '2102', '{\em ',
 '2112', '}',
 '1100', '\par ', 	   # ought to be 2029, Unicode paragraph separator
@@ -437,7 +443,7 @@ sub tocanon {
   $text;
 }
 
-# NOTE: This is also defined in bp-bibtex.pl; change it both places!!
+# This also takes care of other cs_meta translations in %metamap.
 sub change_tex_fonts {
   my ($string) = @_;
 
@@ -458,6 +464,7 @@ sub change_tex_fonts {
   $string =~ s/\\textbf\{([^{}]*)\}/${bib::cs_meta}0103$1${bib::cs_meta}0110/g;
   $string =~ s/\\texttt\{([^{}]*)\}/${bib::cs_meta}0104$1${bib::cs_meta}0110/g;
   $string =~ s/\\textem\{([^{}]*)\}/${bib::cs_meta}2102$1${bib::cs_meta}2112/g;
+  $string =~ s/\\emph\{([^{}]*)\}/${bib::cs_meta}2102$1${bib::cs_meta}2112/g;
 
   $string = &bib::font_check($string) if /${bib::cs_meta}01/o;
   # done with font changing
@@ -470,6 +477,12 @@ sub change_tex_fonts {
   $string =~ s/\$\$?([^\$]+)\$\$?/${bib::cs_meta}0102$1${bib::cs_meta}0110/g;
   $string =~ s/\\(log)\b/${bib::cs_meta}0102$1${bib::cs_meta}0112/g;
   $string =~ s/\\url\{([^{}]+)\}/${bib::cs_meta}2200${bib::cs_meta}2300$1${bib::cs_meta}2310$1${bib::cs_meta}2210/g;
+
+  $string =~ s/\\item\b/${bib::cs_meta}1300/g;
+  $string =~ s/\\begin{itemize}/${bib::cs_meta}1301/g;
+  $string =~ s/\\end{itemize}/${bib::cs_meta}1311/g;
+  $string =~ s/\\begin{enumerate}/${bib::cs_meta}1302/g;
+  $string =~ s/\\end{enumerate}/${bib::cs_meta}1312/g;
 
   return $string;
 }
