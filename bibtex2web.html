@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>bibtex2web: create webpages from BibTeX bibliography files</title>
-<!-- Time-stamp: "2005-03-07 09:11:07 mernst" -->
+<!-- Time-stamp: "2005-05-07 09:54:49 mernst" -->
 
 
 <h1>bibtex2web: create webpages from BibTeX bibliography files</h1> <!-- omit from toc -->
@@ -66,7 +66,7 @@ your liking; see below.
 </p>
 
 <p>
-Here are two examples of webpages that were created by bibtex2web:
+Here are two examples of sets of webpages that were created by bibtex2web:
 <ul>
   <li><a href="http://pag.csail.mit.edu/pubs/">http://pag.csail.mit.edu/pubs/</a>
   <li><a href="http://pmg.csail.mit.edu/pubs/">http://pmg.csail.mit.edu/pubs/</a>
@@ -156,14 +156,24 @@ several additional BibTeX fields:
 		A comma-separated list of keys of articles that supersede
                 this one.  A superseded article does not get its own
                 per-article webpage, but is briefly noted on the webpage of
-                each article that supersedes it.  Optionally, in the
+                each article that supersedes it.
+
+                <p>
+                Optionally, in the
                 comma-separated list, the key may be followed by whitespace
                 and (comma-free) text; when bibtex2web generates webpages,
-                that text is used instead of "A previous version".
+                that text is used instead of "A previous version".  For
+                instance, in a subsequent TR version, you could add the
+                field
+                <pre>
+                  supersededby = "ConfVer An extended version",
+                </pre>
+                to ensure that the BibTeX entry with key "ConfVer" remains
+                the canonial version.
 <dt>
   category
 <dd>
-      The name of the topic under which this article should be
+                The name of the topic under which this article should be
                 listed in the by-topic webpage.
 <dt>
   summary
@@ -175,7 +185,7 @@ several additional BibTeX fields:
 <dt>
 alsosee
 <dd>
-This field is not currently processed.
+                This field is not currently processed.
 </dl>
 </p>
 
