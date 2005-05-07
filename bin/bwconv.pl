@@ -27,6 +27,7 @@ my $sortorder = "reverse_chronological";
 my @categories;
 my %linknames = ();
 my $author; # Only output matches for this author.
+my $author_re; # Optional, also output any matches for this regexp.
 my $filter; # Filter to apply but this expression overrides $author.
 
 while (@ARGV) {
@@ -35,7 +36,11 @@ while (@ARGV) {
   /^-help$/       && do { &dieusage; };
   /^-to$/         && do { $outfile = shift @ARGV; next; };
   /^-todir$/      && do { $outdir = shift @ARGV; next; };
-  /^-author$/     && do { $author = shift @ARGV; next; };
+  /^-author$/     && do { $author = shift @ARGV;
+                          if ($author =~ /^(.*?) \/(.*)\/$/) {
+                            ($author, $author_re) = ($1, $2);
+                          }
+                          next; };
   /^-filter$/     && do { $filter = shift @ARGV; next; };
   /^-hfbodyline$/ && do { $hfbodyline = shift @ARGV; next; };
   /^-headfoot$/   && do { my $filename = shift @ARGV;
@@ -159,9 +164,13 @@ if (defined($author)) {
                     # print STDERR "author: $rec{'author'} for $rec{'title'}\n";
                     # print STDERR "editor: $rec{'editor'} for $rec{'title'}\n";
                     ((defined($rec{'author'})
-                      && $rec{'author'} =~ /\Q$author/o)
+                      && ($rec{'author'} =~ /\Q$author/o
+                          || (defined($author_re)
+                              && $rec{'author'} =~ /$author_re/o)))
                      || (defined($rec{'editor'})
-                         && $rec{'editor'} =~ /\Q$author/o));
+                         && ($rec{'editor'} =~ /\Q$author/o
+                             || (defined($author_re)
+                                 && $rec{'editor'} =~ /$author_re/o))));
                   }
                   @records;
 }

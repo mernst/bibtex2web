@@ -57,12 +57,18 @@ $bwconv_program =~ s/make-author-pages\.pl/bwconv.pl/;
 
 open(AUTHORS, $authorfile) or die "Can't open '$authorfile': $!";
 while (<AUTHORS>) {
-  if (/^\#/) { next; }
+  if (/^ *\#/) { next; }
+  if (/^ *$/) { next; }
   chomp;
   my $author = $_;
   my $author_pubs_url;
   if ($author =~ /^(.*?)[ \t]+(http:.*)$/) {
     ($author, $author_pubs_url) = ($1, $2);
+  }
+  my $author_with_regexp = $author;
+  my $author_re;
+  if ($author =~ /^(.*?) \/(.*)\/$/) {
+    ($author, $author_re) = ($1, $2);
   }
   my $author_html = author_as_html($author);
   my $author_link;
@@ -73,7 +79,7 @@ while (<AUTHORS>) {
     $author_link = $author_html;
   }
   if ($debug) {
-    print STDERR "author: $author\n  link: $author_link\n";
+    print STDERR "author: $author\n  author_with_regexp: $author_with_regexp\n  link: $author_link\n";
   }
   if (defined($author_pubs_url)) {
     $author_pubs_url =
@@ -108,7 +114,7 @@ while (<AUTHORS>) {
 
   unlink "outfile.txt";
   # Quote any single-quote marks to protect them from the shell.  (Yuck.)
-  my $author_quoted = shell_quote($author);
+  my $author_quoted = shell_quote($author_with_regexp);
   my $command = "$bwconv_program -format=bibtex,htmlpubs -author '$author_quoted' -headfoot $this_headfootfile -to $filename $filter ${BIBFILES} >& outfile.txt";
   # print $command . "\n";
   system_or_die($command);
@@ -116,8 +122,9 @@ while (<AUTHORS>) {
   unlink $this_headfootfile;
   if (-z $filename) {
     unlink $filename;
-    # print STDERR "No publications for $author\n";
+    # print STDERR "No publications for $author_with_regexp\n";
   } else {
+    # What is the point of this test?  It doesn't seem to be used.
     $author =~ s/[{}]//g;
     push @authors, $author_html;
   }
