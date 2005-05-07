@@ -488,7 +488,7 @@ sub set_supersedes ( $$$ ) {
 
   my %entry = &bib::explode($superseder);
   if (defined $entry{'supersededby'}) {
-    for my $next_superseder (split(/,/, $entry{'supersededby'})) {
+    for my $next_superseder (split(/\s*,\s*/, $entry{'supersededby'})) {
       if ($next_superseder =~ /^([^ ]+) (.*)$/) {
         $next_superseder = $1;
         $how = $2;
