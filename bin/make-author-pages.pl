@@ -117,7 +117,13 @@ while (<AUTHORS>) {
   my $author_quoted = shell_quote($author_with_regexp);
   my $command = "$bwconv_program -format=bibtex,htmlpubs -author '$author_quoted' -headfoot $this_headfootfile -to $filename $filter ${BIBFILES} >& outfile.txt";
   # print $command . "\n";
-  system_or_die($command);
+  ## Inline system_or_die so we can print file "outfile.txt".
+  # system_or_die($command);
+  { my $result = system($command);
+    if ($result != 0)
+      { system_or_die("cat outfile.txt");
+        die "Failed executing $command"; }
+  }
   unlink "outfile.txt";
   unlink $this_headfootfile;
   if (-z $filename) {
@@ -147,7 +153,7 @@ exit;
 sub author_as_filename ( $ ) {
   my ($author) = @_;
   $author =~ s/&\#0380;/z/g;
-  $author =~ s/[\'{}.]//g;
+  $author =~ s/[\\\'\{\}.]//g;
   $author =~ s/ /-/g;
   return $author;
 }
