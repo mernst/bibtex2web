@@ -185,10 +185,11 @@ sub init_cs_fr {
   # Map various unicode entities to HTML.
   %charmap_from = (
   '2212', '-',
-  # '2013', '--',
-  # '2014', '---',
+  # "&ndash;" is more correct, but is a pain when doing cut-and-paste from
+  # a webpage, in which case the ASCII equivalent is more convenient.
+  # '2013', '&ndash;',
   '2013', '-',
-  '2014', ' -- ',
+  '2014', ' &mdash; ',
   '2002', ' ',    # These two are probably wrong.
   '2003', '  ',
   '2192', '->',
