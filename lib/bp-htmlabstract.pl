@@ -118,17 +118,20 @@ sub make_href {
 }
 
 my $csmeta = "${bib::cs_meta}";
+my $csext = ${bib::cs_ext};
 my $cs_meta0103 = $csmeta . "0103"; # begin bold "<B>"
 my $cs_meta0113 = $csmeta . "0113"; # end bold "</B>"
 my $cs_meta1100 = $csmeta . "1100"; # paragraph break "<P>"
 my $cs_meta1101 = $csmeta . "1101"; # begin preformatted "<PRE>"
 my $cs_meta1111 = $csmeta . "1111"; # end preformatted "</PRE>"
+my $cs_ext2013  = $csext . "2013"; # en dash "--"
 my $cs_meta2101 = $csmeta . "2101"; # "<EM>"
 ## These were for the abstract.
 # my $cs_meta2210 = $csmeta . "2210";
 # my $cs_meta2310 = $csmeta . "2310";
 
-my $month_regexp = '(Jan(uary|\.)|Feb(ruary|\.)|Mar(ch|\.)|Apr(il|\.)|May|June|July|Aug(ust|\.)|Sep(tempber|\.)|Oct(ober|\.)|Nov(ember|\.)|Dec(ember|\.))';
+my $month_regexp = '(Jan(uary|\.)|Feb(ruary|\.)|Mar(ch|\.)|Apr(il|\.)|May|June|July|Aug(ust|\.)|Sep(tember|\.)|Oct(ober|\.)|Nov(ember|\.)|Dec(ember|\.))';
+my $date_range_regexp = '(:?' . $month_regexp . '[  ](:?[0123]?[0-9](:?(:?-|' . $cs_ext2013 . ')[0123]?[0-9])?, )?[12][0-9][0-9][0-9])';
 
 sub fromcanon {
   my (%entry) = @_;
@@ -148,7 +151,7 @@ sub fromcanon {
   $text =~ s/($cs_meta1100)/$1\n/;
   my $title_author;
   my $title;
-  if ($text =~ s/(''),? ((?:edited )?by .*?), ((in )?$cs_meta2101|Ph\.D\. dissertation|Masters thesis|Bachelors thesis|[^,]*(Technical Report|Memo|Video)|$month_regexp[  ]([0123]?[0-9], )?[12][0-9][0-9][0-9])/$1\n$2.\n\u$3/i) {
+  if ($text =~ s/(''),? ((?:edited )?by .*?), ((:?in )?$cs_meta2101|Ph\.D\. dissertation|Masters thesis|Bachelors thesis|[^,]*(:?Technical Report|Memo|Video)|$date_range_regexp)/$1\n$2.\n\u$3/i) {
     # print STDERR "split fields = <<$1>><<$2>><<$3>>\n";
     $text =~ /(^.*\n(.*)\n((edited )?by .*)\n)/m;
     # print STDERR "text = <<$text>>\n";
@@ -244,12 +247,9 @@ sub fromcanon {
     if (! defined $basefile) {
       $text = "";
     } else {
-      # print STDERR "basefile:<<$basefile>> title:<<$title>>\n";
+      # print STDERR "basefile:<<$basefile>> title:<<$title>> text:<<$text>>\n";
       $text = "\n\nNEWFILE: $basefile $title\n"
 	. $text
-	# . "\n\n${csmeta}2151\n"
-	# . "Back to " . make_href("./", "Michael Ernst's publications")
-	# . "."
         . "\n\nENDFILE\n\n";
     }
   }

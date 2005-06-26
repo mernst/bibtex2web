@@ -73,14 +73,17 @@ sub make_href {
 }
 
 my $csmeta = ${bib::cs_meta};
+my $csext = ${bib::cs_ext};
 my $cs_meta0103 = $csmeta . "0103"; # begin bold "<B>"
 my $cs_meta0113 = $csmeta . "0113"; # end bold "</B>"
 my $cs_meta1100 = $csmeta . "1100";
+my $cs_ext2013  = $csext . "2013"; # en dash "--"
 my $cs_meta2101 = $csmeta . "2101";
 my $cs_meta2150 = $csmeta . "2150"; # line break "<BR>"
 
 
-my $month_regexp = '(Jan(uary|\.)|Feb(ruary|\.)|Mar(ch|\.)|Apr(il|\.)|May|June|July|Aug(ust|\.)|Sep(tempber|\.)|Oct(ober|\.)|Nov(ember|\.)|Dec(ember|\.))';
+my $month_regexp = '(:?Jan(uary|\.)|Feb(ruary|\.)|Mar(ch|\.)|Apr(il|\.)|May|June|July|Aug(ust|\.)|Sep(tember|\.)|Oct(ober|\.)|Nov(ember|\.)|Dec(ember|\.))';
+my $date_range_regexp = '(:?' . $month_regexp . '[  ](:?[0123]?[0-9](:?(:?-|' . $cs_ext2013 . ')[0123]?[0-9])?, )?[12][0-9][0-9][0-9])';
 
 my $lastyear = 0;
 
@@ -118,7 +121,7 @@ sub fromcanon {
   # line 3, and all other info on line 4.
   $text =~ s/($cs_meta1100)/$1\n$cs_meta0103/;
   my $title_author;
-  if ($text =~ s/(''),? ((?:edited )?by .*?), ((in )?$cs_meta2101|Ph\.D\. dissertation|Masters thesis|Bachelors thesis|[^,]*(Technical Report|Memo|Video)|$month_regexp[  ]([0123]?[0-9], )?[12][0-9][0-9][0-9])/$1$cs_meta0113$cs_meta2150\n$2.$cs_meta2150\n\u$3/i) {
+  if ($text =~ s/(''),? ((?:edited )?by .*?), ((:?in )?$cs_meta2101|Ph\.D\. dissertation|Masters thesis|Bachelors thesis|[^,]*(:?Technical Report|Memo|Video)|$date_range_regexp)/$1$cs_meta0113$cs_meta2150\n$2.$cs_meta2150\n\u$3/i) {
     # print STDERR "split fields = <<$1>><<$2>><<$3>>\n";
     $text =~ /(^.*\n(.*)\n((edited )?by .*)\n)/m;
     # print STDERR "text = <<$text>>\n";
