@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>bibtex2web: create webpages from BibTeX bibliography files</title>
-<!-- Time-stamp: "2005-06-20 18:13:35 mernst" -->
+<!-- Time-stamp: "2005-10-30 10:56:39 mernst" -->
 
 
 <h1>bibtex2web: create webpages from BibTeX bibliography files</h1> <!-- omit from toc -->
@@ -261,13 +261,18 @@ how to
 <dt>
 -outopts=linkauthors
 <dd>
-Link author names to authors' (bibtext2web-generated) publications lists.
+Link author names to authors' (bibtex2web-generated) publications lists.
 <dt>
 -outopts=linkauthors:myauthorslist
 <dd>
 Override the default "authors" filename.
 <dt>
--outopts=withbibtex\ linkauthors
+-outopts=withbibtex
+<dd>
+Place a BibTeX entry on the summary page, ready for readers to cut and
+paste into their own bibliographies.
+<dt>
+-outopts=linkauthors\ withbibtex
 <dd>
 Separate multiple options with spaces.
 </dl>
@@ -458,7 +463,7 @@ the system to stop processing entries?
  -->
 <!--  LocalWords:  crossref underreview informat outformat htmlpubs outopts bp
  -->
-<!--  LocalWords:  linknames linkauthors bibtext myauthorslist withbibtex BWBIN
+<!--  LocalWords:  linknames linkauthors myauthorslist withbibtex BWBIN
  -->
 <!--  LocalWords:  headfoot BIBFILES timestamp ctime Sameer Ajmani btool
  -->
