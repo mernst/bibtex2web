@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>bibtex2web: create webpages from BibTeX bibliography files</title>
-<!-- Time-stamp: "2005-10-30 10:56:39 mernst" -->
+<!-- Time-stamp: "2006-01-28 14:54:35 mernst" -->
 
 
 <h1>bibtex2web: create webpages from BibTeX bibliography files</h1> <!-- omit from toc -->
@@ -360,7 +360,7 @@ best to help, though I cannot make any guarantee.
 
 <p>
 bibtex2html was written by <a
-href="http://pag.csail.mit.edu/~mernst/">Michael Ernst</a>, with substantial
+href="http://pag.csail.mit.edu/~mernst/">Michael Ernst</a>, with
 contributions by
 <a href="http://www.pmg.csail.mit.edu/~ajmani/">Sameer Ajmani</a>.
 </p>
@@ -370,6 +370,12 @@ bibtex2html builds on the bp library by Dana Jacobsen.
 </p>
 
 <p>
+<a href="http://www-2.cs.cmu.edu/~dga/">David Andersen</a> contributed
+patches and suggestions.
+</p>
+
+<!--
+<p>
 Patches and suggestions were contributed by a number of users, including
 the following.  (Please let us know if your name was inadvertently omitted
 from this list.)
@@ -377,7 +383,7 @@ from this list.)
   <li><a href="http://www-2.cs.cmu.edu/~dga/">David Andersen</a>
 </ul>
 </p>
-
+-->
 
 <hr>
 <h2><a name="implementation-details">Implementation details</a></h2>
@@ -388,7 +394,7 @@ distribution is simply the bp distribution, with corrections and
 enhancements.  bp-README is the original README file for the bp Perl
 library, and other files and directories have been similarly prefixed with
 "bp-" to avoid confusion to users of bibtex2web.  bp documentation appears
-at http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html (but
+at <a href="http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html">http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html</a> (but
 unfortunately isn't packaged with bp itself).  bp has not been supported
 since December 1996, but it works well enough for me, particularly with my
 enhancements.  (Another library is btool, but bp is better.)  Other systems
@@ -396,11 +402,12 @@ exist, but did not have the features I needed.
 </p>
 
 <p>
-Under both Netscape and Internet Explorer, <BR> needs to be at the end of a
+Under both Netscape and Internet Explorer, &lt;BR&gt; needs to be at the end of a
 line rather than at the beginning of the next line, because otherwise there
 can be two line breaks (i.e., a blank line) rather than just a single line
 break.
 </p>
+
 
 <h3><a name="to-do">To do</a></h3>
 
