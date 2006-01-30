@@ -49,4 +49,5 @@ tar: ../bibtex2web.tar.gz
 
 dist: ../bibtex2web.tar.gz
 	cp -pf $< ${HOME}/www/software/
+	cp -pf bibtex2web.html ${HOME}/www/software/
 	$(MAKE) -C ${HOME}/www/software/ linkdates
