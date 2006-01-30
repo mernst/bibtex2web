@@ -197,6 +197,10 @@ sub init_cs {
 '201D', '\'\'',
 '2192', '$\rightarrow',
 '21D2', '$\Rightarrow$',
+'2208', '\in',
+'2260', '\ne',
+'2264', '\le',
+'2265', '\ge',
 '0240', '~',
 '2715', '\times',
 # These are really meta, but I don't know how to make it work.
@@ -462,10 +466,10 @@ sub change_tex_fonts {
   $string =~ s/\\bgroup\\bf ([^{}]*)\\egroup/${bib::cs_meta}0103$1${bib::cs_meta}0110/g;
   $string =~ s/\\bgroup\\tt ([^{}]*)\\egroup/${bib::cs_meta}0104$1${bib::cs_meta}0110/g;
   $string =~ s/\\bgroup\\em ([^{}]*)\\egroup/${bib::cs_meta}2102$1${bib::cs_meta}2112/g;
-  $string =~ s/\\textrm\{([^{}]*)\}/${bib::cs_meta}0101$1${bib::cs_meta}0110/g;
-  $string =~ s/\\textit\{([^{}]*)\}/${bib::cs_meta}0102$1${bib::cs_meta}0110/g;
-  $string =~ s/\\textbf\{([^{}]*)\}/${bib::cs_meta}0103$1${bib::cs_meta}0110/g;
-  $string =~ s/\\texttt\{([^{}]*)\}/${bib::cs_meta}0104$1${bib::cs_meta}0110/g;
+  $string =~ s/\\(?:text|math)rm\{([^{}]*)\}/${bib::cs_meta}0101$1${bib::cs_meta}0110/g;
+  $string =~ s/\\(?:text|math)it\{([^{}]*)\}/${bib::cs_meta}0102$1${bib::cs_meta}0110/g;
+  $string =~ s/\\(?:text|math)bf\{([^{}]*)\}/${bib::cs_meta}0103$1${bib::cs_meta}0110/g;
+  $string =~ s/\\(?:text|math)tt\{([^{}]*)\}/${bib::cs_meta}0104$1${bib::cs_meta}0110/g;
   $string =~ s/\\textem\{([^{}]*)\}/${bib::cs_meta}2102$1${bib::cs_meta}2112/g;
   $string =~ s/\\emph\{([^{}]*)\}/${bib::cs_meta}2102$1${bib::cs_meta}2112/g;
 
