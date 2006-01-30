@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>bibtex2web: create webpages from BibTeX bibliography files</title>
-<!-- Time-stamp: "2006-01-28 14:54:35 mernst" -->
+<!-- Time-stamp: "2006-01-29 20:23:25 mernst" -->
 
 
 <h1>bibtex2web: create webpages from BibTeX bibliography files</h1> <!-- omit from toc -->
@@ -29,6 +29,7 @@ Contents:
             </ul>
           <li><a href="#templates">Webpage templates</a>
         </ul>
+      <li><a href="#new-chars">Supporting new LaTeX commands</a>
       <li><a href="#problems">Reporting problems</a>
         <ul>
           <li><a href="#credits">Credits</a>
@@ -169,7 +170,7 @@ several additional BibTeX fields:
                   supersededby = "ConfVer An extended version",
                 </pre>
                 to ensure that the BibTeX entry with key "ConfVer" remains
-                the canonial version.
+                the canonical version.
 <dt>
   category
 <dd>
@@ -347,6 +348,38 @@ COPYRIGHT_NOTICE
 </p>
 
 
+<h2><a name="new-chars">Supporting new LaTeX commands</a></h2>
+
+<p>
+bibtex2web has built-in support for many LaTeX commands, but you may find
+additional commands that are not supported.  A common symptom of an
+unsupported command in an abstract is the warning
+<pre>
+bp warning (main): Unknown TeX characters (backslashes) in ...
+</pre>
+</p>
+
+<p>
+To support a new LaTeX command, you need to add information about how to
+convert it to bibtex2web's internal representation (based on Unicode) and
+from that representation to HTML and other formats.  A good way to find the
+places you need to change is to grep for "017C", which is the Unicode code
+for a z with a dot above it (&#0380;), or for "21D2", which is a right
+arrow (&rArr;), and then mimic one or the other of them.
+</p>
+
+<p>
+You can find Unicode character codes (and HTML equivalents) at
+<a
+href="http://www.fileformat.info/info/unicode/char/search.htm">http://www.fileformat.info/info/unicode/char/search.htm</a>.
+Two other lists of HTML character codes are
+<a
+href="http://www.w3.org/TR/REC-html40/sgml/entities.html">http://www.w3.org/TR/REC-html40/sgml/entities.html</a>
+and
+<a href="http://www.alanwood.net/unicode/arrows.html">http://www.alanwood.net/unicode/arrows.html</a>.
+</p>
+
+
 <hr>
 <h2><a name="problems">Reporting problems</a></h2>
 
@@ -470,9 +503,11 @@ the system to stop processing entries?
  -->
 <!--  LocalWords:  crossref underreview informat outformat htmlpubs outopts bp
  -->
-<!--  LocalWords:  linknames linkauthors myauthorslist withbibtex BWBIN
+<!--  LocalWords:  linknames linkauthors myauthorslist withbibtex BWBIN BibTeX
  -->
-<!--  LocalWords:  headfoot BIBFILES timestamp ctime Sameer Ajmani btool
+<!--  LocalWords:  headfoot BIBFILES timestamp ctime Sameer Ajmani btool br
  -->
-<!--  LocalWords:  noabstractpage nobasefilename
+<!--  LocalWords:  noabstractpage nobasefilename Webpage webpage ConfVer grep
+ -->
+<!--  LocalWords:  omitiffield includeiffield
  -->
