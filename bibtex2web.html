@@ -1,7 +1,12 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>bibtex2web: create webpages from BibTeX bibliography files</title>
-<!-- Time-stamp: "2006-03-07 20:48:22 mernst" -->
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <title>bibtex2web: create webpages from BibTeX bibliography files</title>
+</head>
+<!-- Time-stamp: "2006-05-14 16:34:19 mernst" -->
+<body>
 
 
 <h1>bibtex2web: create webpages from BibTeX bibliography files</h1> <!-- omit from toc -->
@@ -41,7 +46,7 @@ webpages from BibTeX bibliography files.  It can be downloaded from
 <!-- end toc -->
 
 
-<hr>
+<hr />
 <h2><a name="overview">Overview</a></h2>
 
 <p>
@@ -52,48 +57,55 @@ between your webpages and bibliographies.
 
 <p>
 Given a collection of BibTeX files, bibtex2web creates
+</p>
 <ul>
   <li>one webpage per article (giving the abstract and a BibTeX entry, and
-   linking to the article itself and to the authors and venue)
-  <li>a webpage listing all articles by date
-  <li>a webpage listing all articles by topic
-  <li>one webpage per author, listing that author's articles
-  <li>a webpage listing all authors
+   linking to the article itself and to the authors and venue)</li>
+  <li>a webpage listing all articles by date</li>
+  <li>a webpage listing all articles by topic</li>
+  <li>one webpage per author, listing that author's articles</li>
+  <li>a webpage listing all authors</li>
 </ul>
+<p>
 Each of these webpages is built from a template that you can customize to
 your liking; see below.
 </p>
 
 <p>
 Here are two examples of sets of webpages that were created by bibtex2web:
-<ul>
-  <li><a href="http://pag.csail.mit.edu/pubs/">http://pag.csail.mit.edu/pubs/</a>
-  <li><a href="http://pmg.csail.mit.edu/pubs/">http://pmg.csail.mit.edu/pubs/</a>
-</ul>
 </p>
+<ul>
+  <li><a href="http://pag.csail.mit.edu/pubs/">http://pag.csail.mit.edu/pubs/</a></li>
+  <li><a href="http://pmg.csail.mit.edu/pubs/">http://pmg.csail.mit.edu/pubs/</a></li>
+</ul>
+
 
 <p>
 The bibtex2web package consists of three programs:
+</p>
 <ul>
-  <li>bwconv.pl does most of the work
-  <li>htmlabstract-split.pl assists with the creation of one webpage per article
-  <li>make-author-pages.pl makes the author webpages (by calling bwconv.pl).
+  <li>bwconv.pl does most of the work</li>
+  <li>htmlabstract-split.pl assists with the creation of one webpage per article</li>
+  <li>make-author-pages.pl makes the author webpages (by calling bwconv.pl)</li>
 </ul>
+<p>
 For examples of how to call these programs, see file examples/README in
 this distribution.
 </p>
 
 
-<hr>
+<hr />
 <h2><a name="installation-and-use">Installation and use</a></h2>
 
 <p>
 To install bibtex2web, unpack the distribution, and then set your BPHOME
 environment variable to point to its lib/ directory.  For example, in csh,
 add something like
+</p>
 <pre>
   setenv BPHOME ${HOME}/bibtex2web/lib
 </pre>
+<p>
 to your <tt>.cshrc</tt> file.  You may need to log out and log back in for
 this to take effect.
 </p>
@@ -113,19 +125,23 @@ manual later.
 </p>
 
 
-<hr>
+<hr />
 <h2><a name="fields">BibTeX fields</a></h2>
 
 <p>
 bibtex2web works with ordinary BibTeX files, but it can take advantage of
 several additional BibTeX fields:
+</p>
 <dl>
 <dt>
   abstract
+</dt>
 <dd>
 	        The abstract, in LaTeX format.
+</dd>
 <dt>
   basefilename
+</dt>
 <dd>
 		The file name for the article itself, without the
 		extension.  Automatically recognized extensions are ".ps",
@@ -135,27 +151,35 @@ several additional BibTeX fields:
 		the per-article webpage (which includes the abstract).  If
 		the basefilename is not specified, then the entry's cite
 		key is used instead.
+</dd>
 <dt>
   downloads
+</dt>
 <dd>
 		A list of other downloads, in addition to those automatically
                 detected by virtue of matching the basefilename.  The list
                 is semicolon-separated, and each entry consists of a URL
                 (which may not contain whitespace) and anchor text (which
                 may contain whitespace), separated by whitespace.
+</dd>
 <dt>
   downloadsnonlocal
+</dt>
 <dd>
 		A list of other downloads, used (in addition to the
                 "downloads" field) only if no local files are found via the
                 "basefilename" mechanism.
+</dd>
 <dt>
   supersededby
+</dt>
 <dd>
+		<p>
 		A comma-separated list of keys of articles that supersede
                 this one.  A superseded article does not get its own
                 per-article webpage, but is briefly noted on the webpage of
                 each article that supersedes it.
+		</p>
 
                 <p>
                 Optionally, in the
@@ -164,29 +188,39 @@ several additional BibTeX fields:
                 that text is used instead of "A previous version".  For
                 instance, in a subsequent TR version, you could add the
                 field
+		</p>
                 <pre>
                   supersededby = "ConfVer An extended version",
                 </pre>
+		<p>
                 to ensure that the BibTeX entry with key "ConfVer" remains
                 the canonical version.
+		</p>
+</dd>
 <dt>
   category
+</dt>
 <dd>
                 The name of the topic under which this article should be
                 listed in the by-topic webpage.
+</dd>
 <dt>
   summary
+</dt>
 <dd>
                 A brief description of the article (shorter than the
                 abstract) that appears in the by-topic webpage.  (Including
                 the full abstracts of all the papers on that webpage would
                 make that page too long.)
+</dd>
 <dt>
 alsosee
+</dt>
 <dd>
                 This field is not currently processed.
+</dd>
 </dl>
-</p>
+
 
 <p>
 You can also define your own additional fields.  For instance, the example
@@ -200,18 +234,19 @@ argument is to create a separate webpage for any article containing an
 </p>
 
 
-<hr>
+<hr />
 <h2><a name="arguments">Command-line arguments</a></h2>
 
 <p>
 The main program of the bibtex2web package is bwconv.pl.  You can supply it
 a variety of command-line arguments.
+</p>
 
 <dl>
 <dt>
-  -format=<em>informat</em>[,<em>outformat</em>]<br>
-<dt>
+  -format=<em>informat</em>[,<em>outformat</em>]<br />
   -outformat=<em>outformat</em>
+</dt>
 <dd>
   Required.  -outformat need not be supplied if the optional
   <em>outformat</em> part of the -format argument is supplied.  For
@@ -221,14 +256,19 @@ a variety of command-line arguments.
  -format=bibtex,htmlsummary
  -format=bibtex -outformat=htmlabstract
 </pre>
+</dd>
 <dt>
   -outopts
+</dt>
 <dd>
   Additional arguments for the output format.
+</dd>
 <dt>
   -to <em>file</em>
+</dt>
 <dd>
   Places output in <em>file</em>.
+</dd>
 </dl>
 
 
@@ -256,24 +296,33 @@ a link to that author's homepage.
 By contrast, if the linkauthors option is given, then author names
 on abstract pages are linked to the authors' publications lists.  Here is
 how to
+</p>
 <dl>
 <dt>
 -outopts=linkauthors
+</dt>
 <dd>
 Link author names to authors' (bibtex2web-generated) publications lists.
+</dd>
 <dt>
 -outopts=linkauthors:myauthorslist
+</dt>
 <dd>
 Override the default "authors" filename.
+</dd>
 <dt>
 -outopts=withbibtex
+</dt>
 <dd>
 Place a BibTeX entry on the summary page, ready for readers to cut and
 paste into their own bibliographies.
+</dd>
 <dt>
 -outopts=linkauthors\ withbibtex
+</dt>
 <dd>
 Separate multiple options with spaces.
+</dd>
 </dl>
 
 
@@ -292,11 +341,11 @@ home page.  For example, see "Selected Publications" list on
 
 <p>
 Example make rule:
+</p>
 <pre>
 index.html:
         ${BWBIN}/bwconv.pl -format=bibtex,htmllist -outopts=limit:5\ abstract_dir:pubs -headfoot index-headfoot.html -copyright ../copyright -to $@ $(FILTER) ${BIBFILES}
 </pre>
-</p>
 
 <p>
 The "limit" output option limits the list to the specified number of
@@ -318,23 +367,27 @@ bwconv.pl program.
 <p>
 A template turns into the final webpage, but certain special strings are
 replaced replaced first:
+</p>
 <dl>
 <dt>
 BODY
+</dt>
 <dd>
 	contains the actual content produced by bibtex2web
-
+</dd>
 <dt>
 BIBTEX2WEB_NOTICE
+</dt>
 <dd>
 	is replaced by
 <blockquote>This page was generated $timestamp by <a
 	href="http://pag.csail.mit.edu/~mernst/software/#bibtex2web">bibtex2web</a>
 </blockquote>
 	where $timestamp is the local time in ctime(3) format.
-
+</dd>
 <dt>
 COPYRIGHT_NOTICE
+</dt>
 <dd>
 	 is replaced by the contents of the file specified by
 	the -copyright parameter.
@@ -342,8 +395,9 @@ COPYRIGHT_NOTICE
 	doesn't work yet for the author index page (which uses
 	make-author-pages.pl) or the per-paper pages (which uses
 	htmlabstract-split.pl).
+</dd>
 </dl>
-</p>
+
 
 
 <h2><a name="new-chars">Supporting new LaTeX commands</a></h2>
@@ -352,10 +406,10 @@ COPYRIGHT_NOTICE
 bibtex2web has built-in support for many LaTeX commands, but you may find
 additional commands that are not supported.  A common symptom of an
 unsupported command in an abstract is the warning
+</p>
 <pre>
 bp warning (main): Unknown TeX characters (backslashes) in ...
 </pre>
-</p>
 
 <p>
 To support a new LaTeX command, you need to add information about how to
@@ -378,7 +432,7 @@ and
 </p>
 
 
-<hr>
+<hr />
 <h2><a name="problems">Reporting problems</a></h2>
 
 <p>
@@ -410,13 +464,14 @@ patches and suggestions.
 Patches and suggestions were contributed by a number of users, including
 the following.  (Please let us know if your name was inadvertently omitted
 from this list.)
-<ul>
-  <li><a href="http://www-2.cs.cmu.edu/~dga/">David Andersen</a>
-</ul>
 </p>
+<ul>
+  <li><a href="http://www-2.cs.cmu.edu/~dga/">David Andersen</a></li>
+</ul>
+
 -->
 
-<hr>
+<hr />
 <h2><a name="implementation-details">Implementation details</a></h2>
 
 <p>
