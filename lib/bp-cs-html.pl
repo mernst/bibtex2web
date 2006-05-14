@@ -100,10 +100,14 @@ sub init_cs {
 # HTML 2.0 markup and the bp-meta equivalent
 %metamap_2 = (
 # '0101', ...,    # HTML can't specify upright text!
+# Add this to avoid warnings
+'0101', '',
 '0102', 'I',
 '0103', 'B',
 '0104', 'TT',
 # '0111', ...,    # HTML can't specify upright text!
+# Add this to avoid warnings
+'0111', '',
 '0112', '/I',
 '0113', '/B',
 '0114', '/TT',
@@ -194,7 +198,7 @@ sub init_cs_fr {
   '2003', '  ',
   '2192', '&rarr;',
   '21D2', '&rArr;',
-  '2208', '&isin',
+  '2208', '&isin;',
   '2260', '&ne;',
   '2264', '&le;',
   '2265', '&ge;',
@@ -565,6 +569,7 @@ sub fromcanon {
     defined $can  &&  s/$bib::cs_meta$repl/$can/g  &&  next;
 
     &bib::gotwarn("Can't convert ".&bib::meta_name($repl)." to HTML");
+    # &bib::gotwarn("  in: $_");
     s/${bib::cs_meta}$repl//g;
   }
 
