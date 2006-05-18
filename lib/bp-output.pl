@@ -237,7 +237,6 @@ sub close {
 
 sub write {
   my ($file, $out) = @_;
-  my ($outstr, $bibname);
 
   &panic("output write called with no arguments")  unless defined $file;
   &panic("output write called with no output")     unless defined $out;
