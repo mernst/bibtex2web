@@ -228,7 +228,6 @@ sub read {
       #     But this is not:
       #       @string(j2 = j1 # " of Imaging")
 
-      my $braces = 1;
       my ($delim);
 
       while (<$bib::glb_current_fh>) {
@@ -769,13 +768,14 @@ sub tocanon {
   # Shouldn't this be done for just about every field?
   foreach $canf ('Title', 'SuperTitle', 'ReportType', 'Abstract', 'Note', 'Summary', 'Address', 'PubAddress') {
     next unless defined $can{$canf};
-    # print STDERR "field $canf = $can{$canf}\n";
+    # print STDERR "field before $canf = $can{$canf}\n";
     $can{$canf} = &bp_cs_tex::change_tex_fonts($can{$canf});
     # In BibTeX, curly braces protect single characters and TeX commands, and
     # also single capitalized words.  But permit spaces in the regexp also,
     # for people who misuse the BibTeX curly braces.
     $can{$canf} =~ s/\{([^\}]+)\}/${bib::cs_meta}3100$1${bib::cs_meta}3110/g;
     $can{$canf} =~ s/\s\s+/ /g;
+    # print STDERR "field after $canf = $can{$canf}\n";
   }
 
   # tell them who we are
