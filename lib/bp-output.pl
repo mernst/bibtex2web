@@ -22,7 +22,7 @@ $version = "output (dj 12 mar 96)";
 
 ######
 
-&bib'reg_format(
+&bib::reg_format(
   'output',    # name
   'out',       # short name
   'bp_output', # package name
@@ -61,14 +61,14 @@ $opt_full_document = 1;
 sub options {
   my ($opt) = @_;
 
-  &bib'panic("output options called with no arguments!") unless defined $opt;
-  &bib'debugs("parsing output option '$opt'", 64);
+  &bib::panic("output options called with no arguments!") unless defined $opt;
+  &bib::debugs("parsing output option '$opt'", 64);
   if ($opt !~ /=/) {
     # Assume this is a style being asked for.
     $opt =~ s/^/style=/;
   }
   my ($fname, $val) = split(/\s*=\s*/, $opt, 2);
-  &bib'debugs("option split: $_ = $val", 8);
+  &bib::debugs("option split: $_ = $val", 8);
   ($fname =~ /^style$/)    && do { return &load_style($val); };
   ($fname =~ /^full$/)     && do { $opt_full_document = 1; return 1; };
   ($fname =~ /^list$/)     && do { $opt_full_document = 0; return 1; };
@@ -87,15 +87,15 @@ sub load_style {
   # print STDERR "set conv_func to $conv_func\n";
   return 1 if defined $styles{$opt_style};
 
-  &bib'debugs("loading output style $opt_style...", 1024);
-  $func = "require \"${bib'glb_bpprefix}s-$opt_style.pl\";";
+  &bib::debugs("loading output style $opt_style...", 1024);
+  $func = "require \"${bib::glb_bpprefix}s-$opt_style.pl\";";
   eval $func;
   if ($@) {
     $conv_func = 'bp_s_generic::conv_generic';
-    if ($@ =~ /^Can't locate ${bib'glb_bpprefix}/) {
-      return &bib'goterror("style $opt_style is not supported.");
+    if ($@ =~ /^Can't locate ${bib::glb_bpprefix}/) {
+      return &bib::goterror("style $opt_style is not supported.");
     }
-    return &bib'goterror("error in style $opt_style: $@", "module");
+    return &bib::goterror("error in style $opt_style: $@", "module");
   }
   $styles{$opt_style} = 1;
 
@@ -108,7 +108,7 @@ sub implode {
   my %rec = @_;
 
   return $rec{'TEXT'} if defined $rec{'TEXT'};
-  return &bib'goterror("No TEXT entry in record");
+  return &bib::goterror("No TEXT entry in record");
 }
 
 ######
@@ -133,8 +133,8 @@ sub fromcanon {
   # Well, almost.  We do care if we're using HTML, because we want a number
   # of special things done for it.  As of 0.2.2, we have glb_current_cset
   # set for us for fromcanon.
-  if ($bib'glb_current_cset eq 'html') {
-    #$ent = "${bib'cs_meta}1100\n";
+  if ($bib::glb_current_cset eq 'html') {
+    #$ent = "${bib::cs_meta}1100\n";
     if (defined $entry{'Source'}) {
       my ($url, $title);
       $url = $entry{'Source'};
@@ -142,9 +142,9 @@ sub fromcanon {
       $url =~ s/^url:\s*(.*)/$1/i;
       if ($url =~ /^\w+:\/\//) {
         $title = $entry{'Title'};
-        $entry{'Title'} = "${bib'cs_meta}2200" . "${bib'cs_meta}2300"
-                        . $url   . "${bib'cs_meta}2310"
-                        . $title . "${bib'cs_meta}2210";
+        $entry{'Title'} = "${bib::cs_meta}2200" . "${bib::cs_meta}2300"
+                        . $url   . "${bib::cs_meta}2310"
+                        . $title . "${bib::cs_meta}2210";
       }
     }
   }
@@ -159,7 +159,7 @@ sub fromcanon {
   $ent .= &$conv_func(%entry);
 
   #$ent =~ s/\s\s+/ /g;
-  $ent =~ s/$bib'cs_sep/ ; /go;
+  $ent =~ s/$bib::cs_sep/ ; /go;
 
   $rec{'TEXT'} = $ent;
 
@@ -195,21 +195,21 @@ sub open {
   $file_modes{$name} = -1  unless $opt_full_document;
 
   if ($mode eq 'write') {
-    &bib'debugs("output write", 128, 'module');
-    return &bib'goterror("Can't open file $file")
-           unless open($bib'glb_current_fh, $file);
-    return $bib'glb_current_fmt;
+    &bib::debugs("output write", 128, 'module');
+    return &bib::goterror("Can't open file $file")
+           unless open($bib::glb_current_fh, $file);
+    return $bib::glb_current_fmt;
   } elsif ($mode eq 'append') {
-    &bib'debugs("output append", 128, 'module');
-    return &bib'goterror("Can't open file $file")
-           unless open($bib'glb_current_fh, $file);
+    &bib::debugs("output append", 128, 'module');
+    return &bib::goterror("Can't open file $file")
+           unless open($bib::glb_current_fh, $file);
     # XXXXX Is there anything special we should do here?
-    return $bib'glb_current_fmt;
+    return $bib::glb_current_fmt;
   } else {
-    &bib'debugs("output read", 128, 'module');
+    &bib::debugs("output read", 128, 'module');
     # XXXXX What exactly would this mean?  Skip headers of some kind?
-    return $bib'glb_current_fmt  if open($bib'glb_current_fh, $file);
-    &bib'goterror("Can't open file $file");
+    return $bib::glb_current_fmt  if open($bib::glb_current_fh, $file);
+    &bib::goterror("Can't open file $file");
   }
 }
 
@@ -223,14 +223,14 @@ sub close {
   if (    $opt_full_document
        && (defined $file_modes{$file})
        && ($file_modes{$file} == 1)
-       && (defined $tailstr{$bib'glb_current_cset})
+       && (defined $tailstr{$bib::glb_current_cset})
      ) {
-    print $bib'glb_current_fh $tailstr{$bib'glb_current_cset};
+    print $bib::glb_current_fh $tailstr{$bib::glb_current_cset};
   }
 
-#  &bib'clear($file);
+#  &bib::clear($file);
 
-  close($bib'glb_current_fh);
+  close($bib::glb_current_fh);
 }
 
 ######
@@ -241,26 +241,26 @@ sub write {
   &panic("output write called with no arguments")  unless defined $file;
   &panic("output write called with no output")     unless defined $out;
 
-  &bib'debugs("writing $file<html>", 32);
+  &bib::debugs("writing $file<html>", 32);
 
   if ($file_modes{$file} == 0) {
     $file_modes{$file} = 1;
-    if (defined $headstr{$bib'glb_current_cset}) {
+    if (defined $headstr{$bib::glb_current_cset}) {
       my ($outstr, $bibname);
-      $outstr = $headstr{$bib'glb_current_cset};
+      $outstr = $headstr{$bib::glb_current_cset};
       # XXXXX Why not use $file for bibname?
-      if (defined $bib'glb_Ifilename) {
-        $bibname = $bib'glb_Ifilename;
+      if (defined $bib::glb_Ifilename) {
+        $bibname = $bib::glb_Ifilename;
       } else {
         $bibname = '';
       }
       # get the first two occurrences of this.
       $outstr =~ s/Bibliography: =name=/Bibliography: $bibname/;
       $outstr =~ s/Bibliography: =name=/Bibliography: $bibname/;
-      print $bib'glb_current_fh $outstr;
+      print $bib::glb_current_fh $outstr;
     }
   }
-  print $bib'glb_current_fh ($out, "\n\n");
+  print $bib::glb_current_fh ($out, "\n\n");
 }
 
 ######
@@ -285,7 +285,7 @@ sub clear {
 $headstr{'html'} =<<"EOH-HTML";
 <HTML><HEAD>
 <LINK REV="made" HREF="http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html">
-<!-- Created by bp $bib'glb_version -->
+<!-- Created by bp $bib::glb_version -->
 <TITLE>Bibliography: =name=</TITLE>
 </HEAD>
 
@@ -296,7 +296,7 @@ EOH-HTML
 $tailstr{'html'} =<<"EOT-HTML";
 <HR>
 <ADDRESS>
-<I>Created automatically by bp $bib'glb_version
+<I>Created automatically by bp $bib::glb_version
 using module $version, style $opt_style.</I>
 </ADDRESS>
 </BODY></HTML>
