@@ -153,17 +153,18 @@ sub fromcanon {
   $text =~ s/($cs_meta1100)/$1\n/;
   my $title_author;
   my $title;
-  if ($text =~ s/(''),? ((?:edited )?by .*?), ((:?in )?$cs_meta2101|Ph\.D\. dissertation|Masters thesis|Bachelors thesis|[^,]*(:?Technical Report|Memo|Video)|$date_range_regexp)/$1\n$2.\n\u$3/i) {
+  if ($text =~ s/(''|${bib::cs_ext}201D),? ((?:edited )?by .*?), ((:?in )?$cs_meta2101|Ph\.D\. dissertation|Masters thesis|Bachelors thesis|[^,]*(:?Technical Report|Memo|Video)|$date_range_regexp)/$1\n$2.\n\u$3/i) {
     # print STDERR "split fields = <<$1>><<$2>><<$3>>\n";
     $text =~ /(^.*\n(.*)\n((edited )?by .*)\n)/m;
     # print STDERR "text = <<$text>>\n";
     # print STDERR "split2 fields = <<$2>><<$3>>\n";
     $title_author = $1;
     $title = $2;
-    $title =~ s/``(.*)''/$1/;
+    $title =~ s/(?:``|${bib::cs_ext}201C)(.*)(?:''|${bib::cs_ext}201D)/$1/;
     # print STDERR "title_author = $title_author\n";
   } else {
-    # print STDERR "failed to split lines: $text\n";
+    ## This is a problem, so leave it uncommented.
+    print STDERR "failed to split lines: $text\n";
   }
   # print STDERR "text (2): $text\n";
 
