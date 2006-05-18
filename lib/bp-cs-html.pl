@@ -102,49 +102,50 @@ sub init_cs {
 # '0101', ...,    # HTML can't specify upright text!
 # Add this to avoid warnings
 '0101', '',
-'0102', 'I',
-'0103', 'B',
-'0104', 'TT',
+'0102', 'i',
+'0103', 'b',
+'0104', 'tt',
 # '0111', ...,    # HTML can't specify upright text!
 # Add this to avoid warnings
 '0111', '',
-'0112', '/I',
-'0113', '/B',
-'0114', '/TT',
-'1100', 'P',	   # really ought to use 2029, Unicode paragraph separator
-'1101', 'PRE',
-'1102', 'ADDRESS',
-'1103', 'BLOCKQUOTE',
-'1110', '/P',
-'1111', '/PRE',
-'1112', '/ADDRESS',
-'1113', '/BLOCKQUOTE',
-'1300', 'LI',
-'1301', 'UL',
-'1311', '/UL',
-'1302', 'OL',
-'1312', '/OL',
-'2100', 'CITE',
-'2101', 'EM',
-'2102', 'VAR',
-'2103', 'STRONG',
-'2104', 'CODE',
-'2105', 'KBD',
-'2106', 'SAMP',
-'2110', '/CITE',
-'2111', '/EM',
-'2112', '/VAR',
-'2113', '/STRONG',
-'2114', '/CODE',
-'2115', '/KBD',
-'2116', '/SAMP',
-'2150', 'BR',
-'2151', 'HR',
+'0112', '/i',
+'0113', '/b',
+'0114', '/tt',
+'1100', 'p',	   # really ought to use 2029, Unicode paragraph separator
+'1101', 'pre',
+'1102', 'address',
+'1103', 'blockquote',
+'1110', '/p',
+'1111', '/pre',
+'1112', '/address',
+'1113', '/blockquote',
+'1120', '/pp',                  # end, then start, a paragraph; must fix up later
+'1300', 'li',
+'1301', 'ul',
+'1311', '/ul',
+'1302', 'ol',
+'1312', '/ol',
+'2100', 'cite',
+'2101', 'em',
+'2102', 'var',
+'2103', 'strong',
+'2104', 'code',
+'2105', 'kbd',
+'2106', 'samp',
+'2110', '/cite',
+'2111', '/em',
+'2112', '/var',
+'2113', '/strong',
+'2114', '/code',
+'2115', '/kbd',
+'2116', '/samp',
+'2150', 'br /',
+'2151', 'hr /',
 # Arbitrarily chosen numbers
-'2222', 'DL',
-'2223', 'DT',
-'2224', 'DD',
-'2225', '/DL',
+'2222', 'dl',
+'2223', 'dt',
+'2224', 'dd',
+'2225', '/dl',
 # '2715', "&nbsp;", doesn't belong here
 '0240', "&nbsp;",
 '2208', "&nbsp;",
@@ -152,30 +153,30 @@ sub init_cs {
 
 # HTML+ markup and the bp-meta equivalent
 %metamap_p = (
-'0302',	'SUP',
-'0312',	'SUB',
-'030F',	'/SUP',
-'031F',	'/SUB',
-'2230', 'H1',
-'2231', '/H1',
-'2232', 'H2',
-'2233', '/H2',
-'2234', 'H3',
-'2235', '/H3',
-'2236', 'H4',
-'2237', '/H4',
-'2238', 'H5',
-'2239', '/H5',
-'2240', 'H6',
-'2241', '/H6',
+'0302',	'sup',
+'0312',	'sub',
+'030f',	'/sup',
+'031f',	'/sub',
+'2230', 'h1',
+'2231', '/h1',
+'2232', 'h2',
+'2233', '/h2',
+'2234', 'h3',
+'2235', '/h3',
+'2236', 'h4',
+'2237', '/h4',
+'2238', 'h5',
+'2239', '/h5',
+'2240', 'h6',
+'2241', '/h6',
 );
 
 # HTML 3.0 markup and the bp-meta equivalent
 %metamap_3 = (
-'0200',	'BIG',
-'020F',	'/BIG',
-'0210', 'SMALL',
-'021F', '/SMALL',
+'0200',	'big',
+'020f',	'/big',
+'0210', 'small',
+'021f', '/small',
 );
 
   $cs_init = 1;
@@ -208,8 +209,8 @@ sub init_cs_fr {
   # HTML 2.0 Secondary meta mappings for fromcanon
   # Note that these do _not_ get wrapped in <> like metamap_2 does.
   %metafrs_2 = (
-  '2200',	'<A ',
-  '2210',	'</A>',
+  '2200',	'<a ',
+  '2210',	'</a>',
   '2300',	'href="',
   '2301',	'name="',
   '2310',	'">',
@@ -359,21 +360,21 @@ sub tocanon {
 
   # Handle links first.
   local($link, $text);
-  while (/<A\s+href="([\"]+)">(.*)<\/A>/) {
+  while (/<a\s+href="([\"]+)">(.*)<\/a>/) {
     ($link, $text) = ($1, $2);
     # Why, oh why, couldn't perl4 have had minimal matching?  I HATE this.
-    $text =~ s/<\/A>.*//;
-    s/<A\s+href="$link">$text<\/A>/${bib::cs_meta}2200${bib::cs_meta}2300$link${bib::cs_meta}2310$text${bib::cs_meta}2210/g;
+    $text =~ s/<\/a>.*//;
+    s/<a\s+href="$link">$text<\/a>/${bib::cs_meta}2200${bib::cs_meta}2300$link${bib::cs_meta}2310$text${bib::cs_meta}2210/g;
   }
 
   # XXXXX Zap these for now
-  s/<A[^>]*>//gi;
-  s/<BASE[^>]*>//gi;
-  s/<\/A>//gi;
-  s/<\/?(BODY|HEAD|HTML|TITLE)>//gi;
-  s/<\/?H\d[^>]*>//gi;
-  s/<IMG[^>]*>//gi;
-  s/<(BR|HR)>//gi;
+  s/<a[^>]*>//gi;
+  s/<base[^>]*>//gi;
+  s/<\/a>//gi;
+  s/<\/?(body|head|html|title)>//gi;
+  s/<\/?h\d[^>]*>//gi;
+  s/<img[^>]*>//gi;
+  s/<(br|hr)( \/)?>//gi;
 
   return $_ unless /<|\&/;
 
@@ -513,6 +514,11 @@ sub fromcanon {
   s{(http://[-a-zA-Z0-9.]*/)\240}{$1~}g;
   s/\240/&nbsp;/g;
 
+#  print "cs_ext: ${bib::cs_meta}\n";
+#  print $_;
+  s/(${bib::cs_meta}1301)/${bib::cs_meta}1110$1/g;
+  s/(${bib::cs_meta}1311)/$1${bib::cs_meta}1100/g;
+#  print $_;
 
   return $_ unless /$bib::cs_escape/o;
 
