@@ -197,6 +197,8 @@ sub init_cs_fr {
   '2014', ' &mdash; ',
   '2002', ' ',    # These two are probably wrong.
   '2003', '  ',
+  '201C', '&#8220;',            # left double quotation mark
+  '201D', '&#8221;',            # right double quotation mark
   '2192', '&rarr;',
   '21D2', '&rArr;',
   '2208', '&isin;',

@@ -287,7 +287,7 @@ sub format_editors_parens {
 sub dq {
   my ($str) = @_;
   if ($smartquotes) {
-    return "``$str''";
+    return "${bib::cs_ext}201C$str${bib::cs_ext}201D";
   } else {
     return "\"$str\"";
   }
