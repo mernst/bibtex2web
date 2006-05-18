@@ -13,11 +13,11 @@ use LWP::Simple;
 # Global variables %supersedes and %citekeys are set in bwconv.pl.
 
 my $csmeta = ${bib::cs_meta};
-my $cs_meta0103 = $csmeta . "0103"; # begin bold "<B>"
-my $cs_meta0113 = $csmeta . "0113"; # end bold "</B>"
+my $cs_meta0103 = $csmeta . "0103"; # begin bold "<b>"
+my $cs_meta0113 = $csmeta . "0113"; # end bold "</b>"
 my $cs_meta1100 = $csmeta . "1100";
 # my $cs_meta2101 = $csmeta . "2101";
-my $cs_meta2150 = $csmeta . "2150"; # line break "<BR>"
+my $cs_meta2150 = $csmeta . "2150"; # line break "<br />"
 
 sub make_href {
   my ($url, $title) = @_;
@@ -37,15 +37,19 @@ sub join_linebreak ( $;$ ) {
   if ((defined $text2) && ($text2 ne "")) {
     # remove newlines before line break.  As of 10/5/2002, both Netscape
     # and Internet Explorer can insert two line breaks (ie, a blank line)
-    # if <BR> is at the beginning of a line.
+    # if <br /> is at the beginning of a line.
     $text1 =~ s/\n*$//;
-    $text1 .= "$cs_meta2150\n"; # line break (<BR> tag)
+    $text1 .= "$cs_meta2150\n"; # line break (<br /> tag)
     $text1 .= $text2;
   }
   return $text1;
 }
 
 
+# The result is *not* surrounded by <p>...</p> (really,
+# ${bib::cs_meta}1100...${bib::cs_meta}1110).  It's the caller's
+# responsibility to do that, since not all callers want this as a separate
+# paragraph.
 sub downloads_text ( $$% ) {
   my ($htmldir, $abstract, %entry) = @_;
   if ($abstract eq "no_abstract") {
@@ -188,7 +192,7 @@ sub previous_versions_text ( $% ) {
       # Convert some periods to commas, perhaps.
       # $subtext =~ s/\. *Revised/, revised/g;
       # $subtext =~ s/\. /, /g;
-      # <BR> needs to be at end of previous line, not start of new line.
+      # <br /> needs to be at end of previous line, not start of new line.
       if (defined $result) {
 	$result = join_linebreak($result,
 				 "$how appeared $subtext");

@@ -301,7 +301,7 @@ $cmap_from8_eval .= "$cmapvar s/\\240/\\~/g;\ns/\\255/-/g;";
 '1312', '\end{enumerate}',
 '2102', '{\em ',
 '2112', '}',
-'1100', '\par ', 	   # ought to be 2029, Unicode paragraph separator
+'1120', '\par ', 	   # ought to be 2029, Unicode paragraph separator
 );
 
   $cs_init = 1;
@@ -479,7 +479,7 @@ sub change_tex_fonts {
   $string =~ s/\{?\\,---\\,\}?/ ${bib::cs_meta}2014 /g;	# not sure why I need this
   $string =~ s/\b--\b/${bib::cs_meta}2013/g;	# not sure why I need this
   $string =~ s/\\,/ /g; 		# not sure why I need this
-  $string =~ s/\\par\b/${bib::cs_meta}1100/g;
+  $string =~ s/\\par\b/${bib::cs_meta}1120/g;
   $string =~ s/\\cite\{([^{}]+)\}/[$1]/g;
   $string =~ s/\$\$?([^\$]+)\$\$?/${bib::cs_meta}0102$1${bib::cs_meta}0110/g;
   $string =~ s/\\(log)\b/${bib::cs_meta}0102$1${bib::cs_meta}0112/g;

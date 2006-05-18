@@ -79,7 +79,7 @@ my $cs_meta0113 = $csmeta . "0113"; # end bold "</B>"
 my $cs_meta1100 = $csmeta . "1100";
 my $cs_ext2013  = $csext . "2013"; # en dash "--"
 my $cs_meta2101 = $csmeta . "2101";
-my $cs_meta2150 = $csmeta . "2150"; # line break "<BR>"
+my $cs_meta2150 = $csmeta . "2150"; # line break "<br />"
 
 
 my $month_regexp = '(:?Jan(uary|\.)|Feb(ruary|\.)|Mar(ch|\.)|Apr(il|\.)|May|June|July|Aug(ust|\.)|Sep(tember|\.)|Oct(ober|\.)|Nov(ember|\.)|Dec(ember|\.))';

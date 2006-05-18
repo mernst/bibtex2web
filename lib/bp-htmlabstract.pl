@@ -119,13 +119,15 @@ sub make_href {
 
 my $csmeta = "${bib::cs_meta}";
 my $csext = ${bib::cs_ext};
-my $cs_meta0103 = $csmeta . "0103"; # begin bold "<B>"
-my $cs_meta0113 = $csmeta . "0113"; # end bold "</B>"
-my $cs_meta1100 = $csmeta . "1100"; # paragraph break "<P>"
-my $cs_meta1101 = $csmeta . "1101"; # begin preformatted "<PRE>"
-my $cs_meta1111 = $csmeta . "1111"; # end preformatted "</PRE>"
+my $cs_meta0103 = $csmeta . "0103"; # begin bold "<b>"
+my $cs_meta0113 = $csmeta . "0113"; # end bold "</b>"
+my $cs_meta1100 = $csmeta . "1100"; # paragraph start "<p>"
+my $cs_meta1101 = $csmeta . "1101"; # begin preformatted "<pre>"
+my $cs_meta1110 = $csmeta . "1110"; # paragraph end "</p>"
+my $cs_meta1120 = $csmeta . "1120"; # paragraph end and start "</pp>"
+my $cs_meta1111 = $csmeta . "1111"; # end preformatted "</pre>"
 my $cs_ext2013  = $csext . "2013"; # en dash "--"
-my $cs_meta2101 = $csmeta . "2101"; # "<EM>"
+my $cs_meta2101 = $csmeta . "2101"; # "<em>"
 ## These were for the abstract.
 # my $cs_meta2210 = $csmeta . "2210";
 # my $cs_meta2310 = $csmeta . "2310";
@@ -170,15 +172,23 @@ sub fromcanon {
     # print STDERR "downloads (1): $downloads\n";
     $downloads =~ s/(Download:)\n/$cs_meta0103$1$cs_meta0113\n/;
     # print STDERR "downloads (2): $downloads\n";
-    $text = "$downloads\n\n$text";
+    $text = "${bib::cs_meta}1100\n$downloads${bib::cs_meta}1110\n\n$text";
   }
   my $prev_versions = bp_htmlbw::previous_versions_text($title_author, %entry);
   $prev_versions = bp_htmlbw::join_linebreak("", $prev_versions);
 
-  # Adjust formatting of the abstract
-  $text =~ s/${bib::cs_meta}1103${bib::cs_meta}0103Abstract:  ${bib::cs_meta}0113\n(.*)${bib::cs_meta}1113/$prev_versions\n\n${bib::cs_meta}2232Abstract${bib::cs_meta}2233\n\n$1\n/;
+  ## Problem:  if no abstract, then $prev_versions isn't inserted?
+# Do not add paragraph end; there migth be downloads and such to come.
+#  if ($text !~ /${bib::cs_meta}1103${bib::cs_meta}0103Abstract:/) {
+#    $text .= "${bib::cs_meta}1110\n";
+#  }
+  # Adjust formatting of the abstract, and insert $prev_versions.
+  $text =~ s/${bib::cs_meta}1103${bib::cs_meta}0103Abstract:  ${bib::cs_meta}0113\n(.*)${bib::cs_meta}1113/$prev_versions${bib::cs_meta}1110\n\n${bib::cs_meta}2232Abstract${bib::cs_meta}2233\n\n${bib::cs_meta}1100\n$1\n${bib::cs_meta}1110\n/;
+  # Convert 1120 into 1110 plus 1100
+  $text =~ s/$cs_meta1120/\n$cs_meta1110\n\n$cs_meta1100\n/g;
   # Introduce line breaks
-  $text =~ s/($cs_meta1100)([^\n])/\n$1\n$2/g;
+  $text =~ s/($cs_meta1100|$cs_meta1110|$cs_meta1120)([^\n])/\n$1\n$2/g;
+
 
   if (! defined($entry{'supersededby'})) {
 
@@ -202,7 +212,8 @@ sub fromcanon {
 
   }
 
-  $text .= "$cs_meta1100\n$downloads\n";
+  $text .= "$downloads\n";
+  $text .= "${bib::cs_meta}1110\n"; # end the paragraph
 
   if ($opt_withbibtex) {
       my %bibentry;
@@ -225,6 +236,7 @@ sub fromcanon {
       }
       $text .= $cs_meta1100 . "\n";
       $text .= $cs_meta0103 . "BibTeX entry:" . $cs_meta0113 . "\n";
+      $text .= $cs_meta1110 . "\n";
       $text .= $cs_meta1101 . "\n";
       # my @be_list = %bibentry;
       # print STDERR "pre-implode: @be_list\n";
@@ -241,7 +253,7 @@ sub fromcanon {
   # into <HTML> etc. when the file is converted into multiple files.
   {
     # Remove leading paragraph break.
-    $text =~ s/^\n\n($cs_meta1100)/\n/;
+    # $text =~ s/^\n\n($cs_meta1100)/\n/;
 
     my $basefile = $entry{'basefilename'};
     if (! defined $basefile) {
@@ -254,6 +266,7 @@ sub fromcanon {
     }
   }
   $rec{'TEXT'} = $text;
+  # print "return value: $text\n";
   %rec;
 }
 

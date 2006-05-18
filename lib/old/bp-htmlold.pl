@@ -75,7 +75,7 @@ sub implode {
     $url =~ s/^url:(.*)/$1/i;
     if ($url =~ /^\w+:\/\//) {
       $title = $entry{'Title'};
-      $entry{'Title'} = '<A href="' . $url . '">' . $entry{'Title'} . '</A>';
+      $entry{'Title'} = '<a href="' . $url . '">' . $entry{'Title'} . '</a>';
     }
   }
   $ent .= &bp_util'output($emchars, %entry);

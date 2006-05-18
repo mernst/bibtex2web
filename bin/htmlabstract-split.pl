@@ -58,10 +58,10 @@ while (<>) {
       }
       if ((length($line) > 80) && ($line !~ /^[\`<]/)) {
 	if ($line =~ /^by /) {
-	  $line =~ s/ (<A href=)/\n$1/g;
-	  $line =~ s/(<\/A>,) /$1\n/g;
-	  $line =~ s/(<\/A>) and /$1\nand\n/g;
-	  $line =~ s/(<\/A>) and/$1\nand/g;
+	  $line =~ s/ (<a href=)/\n$1/g;
+	  $line =~ s/(<\/a>,) /$1\n/g;
+	  $line =~ s/(<\/a>) and /$1\nand\n/g;
+	  $line =~ s/(<\/a>) and/$1\nand/g;
 	} else {
           # Wrap the line.
           # If we are in a BibTeX entry, then special-case this.
