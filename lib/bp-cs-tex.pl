@@ -32,7 +32,8 @@ $bib::charsets{'tex', 'i_name'} = 'tex';
 $bib::charsets{'tex', 'tocanon'}   = "bp_cs_tex'tocanon";
 $bib::charsets{'tex', 'fromcanon'} = "bp_cs_tex'fromcanon";
 
-$bib::charsets{'tex', 'toesc'}   = "[\$\\\\]";
+# This regexp should match any (La)TeX character that needs to be escaped.
+$bib::charsets{'tex', 'toesc'}   = "([\$\\\\]|``|'')";
 # XXXXX We have so many characters to protect, should we even bother?
 $bib::charsets{'tex', 'fromesc'} = "[\\#\$\%\&{}_\|><\^~\200-\377]|${bib::cs_ext}|${bib::cs_meta}";
 
@@ -55,7 +56,7 @@ sub init_cs {
 # My eth is pretty nice, but the thorn leaves a little to be desired.
 
 %charmap = (
-'00A1', "!'",
+'00A1', "!'",                   # inverted exclamation mark
 '00A2', '\leavevmode\hbox{\rm\rlap/c}',
 '00A3', '{\pounds}',
 '00A4', '$\spadesuit$',
@@ -87,7 +88,7 @@ sub init_cs {
 '00BC', '$1\over4$',
 '00BD', '$1\over2$',
 '00BE', '$3\over4$',
-'00BF', '?`',
+'00BF', '?`',                   # inverted question mark
 '00C0', '{\`A}',
 '00C1', q-{\'A}-,
 '00C2', '{\^A}',
@@ -193,15 +194,13 @@ sub init_cs {
 '03C9', '\omega',
 '2007', '$\:$',
 '2009', '$\,$',
-'201C', '``',
-'201D', '\'\'',
 '2192', '$\rightarrow',
 '21D2', '$\Rightarrow$',
 '2208', '\in',
 '2260', '\ne',
 '2264', '\le',
 '2265', '\ge',
-'0240', '~',
+#  '0240', '~',
 '2715', '\times',
 # These are really meta, but I don't know how to make it work.
 # Used to be 1110, but I don't know how to convert that to ISO-8859-1.
@@ -217,6 +216,8 @@ sub init_cs {
 '2002', '\ ',
 '2003', '\ \ ',
 '2014', '---',
+'201C', '``',
+'201D', "''",
 '03BF', 'o',
 );
 
@@ -312,8 +313,6 @@ $cmap_from8_eval .= "$cmapvar s/\\240/\\~/g;\ns/\\255/-/g;";
 sub tocanon {
   local($text, $protect) = @_;
 
-  # print STDERR "bp_cs_tex::tocanon($text)\n";
-
   # unprotect the TeX characters
   if ($protect) {
     # input  is assumed to be in TeX format, before _any_ canon processing.
@@ -341,7 +340,7 @@ sub tocanon {
     # leave -
   }
   if ($text =~ /~/) {
-    1 while ($text =~ s/([^\\])~/$1\240/g);
+    1 while ($text =~ s/([^\\])~/$1\240/g); # should be 00A0?
   }
   $text =~ s/\\ \\ /${bib::cs_ext}2003/go;
   $text =~ s/\\ /${bib::cs_ext}2002/go;
@@ -349,6 +348,12 @@ sub tocanon {
   # take its place.
   $text =~ s/\\@//g;
 
+  # Do these really need to be here, or could I move them back up?
+  $text =~ s/``/${bib::cs_ext}201C/go;
+  $text =~ s/''/${bib::cs_ext}201D/go;
+
+  ## This test assumes that if there is no backslash, there is nothing more
+  ## to do.  So characters like "``", "''", "~" must be handled above.
   # Can we go now?
   return $text unless ($text =~ /\\/);
 
