@@ -207,6 +207,7 @@ sub conv_generic {
   if (defined $can{'Annotation'}) {
     $str .= "\nm1103m0103Annotation:  m0113\n$can{'Annotation'}m1113";
   }
+  $str .= "m1110";
 
   $str .= "\n";
 

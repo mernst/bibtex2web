@@ -76,7 +76,8 @@ my $csmeta = ${bib::cs_meta};
 my $csext = ${bib::cs_ext};
 my $cs_meta0103 = $csmeta . "0103"; # begin bold "<B>"
 my $cs_meta0113 = $csmeta . "0113"; # end bold "</B>"
-my $cs_meta1100 = $csmeta . "1100";
+my $cs_meta1100 = $csmeta . "1100"; # <p>
+my $cs_meta1110 = $csmeta . "1110"; # </p>
 my $cs_ext2013  = $csext . "2013"; # en dash "--"
 my $cs_meta2101 = $csmeta . "2101";
 my $cs_meta2150 = $csmeta . "2150"; # line break "<br />"
@@ -141,6 +142,9 @@ sub fromcanon {
   $text =~ s/${bib::cs_meta}1103${bib::cs_meta}0103Abstract:  ${bib::cs_meta}0113\n.*${bib::cs_meta}1113//;
   $text =~ s/${bib::cs_meta}1103${bib::cs_meta}0103Keywords:  ${bib::cs_meta}0113\n.*${bib::cs_meta}1113//;
   $text =~ s/${bib::cs_meta}1103${bib::cs_meta}0103Annotation:  ${bib::cs_meta}0113\n.*${bib::cs_meta}1113//;
+  # Remove paragraph end.  This doesn't harm the abstract, which has
+  # already been removed.
+  $text =~ s/${bib::cs_meta}1110//;
 
   if (! defined($entry{'supersededby'})) {
     # Add extra information.
@@ -158,6 +162,9 @@ sub fromcanon {
           $lastyear = $year;
       }
   }
+
+  # Reinstate paragraph end.
+  $text .= "${bib::cs_meta}1110";
 
   # Done with edits.
 

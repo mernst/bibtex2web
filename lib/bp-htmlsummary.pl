@@ -64,6 +64,7 @@ sub make_href {
 sub make_aname {
   my ($name, $title) = @_;
 
+  $name =~ s/ /_/g;
   return
     "${bib'cs_meta}2200"
     . "${bib'cs_meta}2301"
@@ -170,7 +171,7 @@ sub fromcanon {
     $summary = "";
   }
   # print STDERR "<<${csmeta}>><<$csmeta>><<$text>><<$summary>>\n";
-  $text = "\n${csmeta}2223\n$text\n${csmeta}2224\n$summary";
+  $text = "\n${csmeta}2223\n$text${csmeta}2226\n${csmeta}2224\n$summary\n${csmeta}2227";
 
   my $category = $entry{'category'};
   if (! defined($category)) { die "no category: $text"; }

@@ -179,12 +179,12 @@ sub fromcanon {
   $prev_versions = bp_htmlbw::join_linebreak("", $prev_versions);
 
   ## Problem:  if no abstract, then $prev_versions isn't inserted?
-# Do not add paragraph end; there migth be downloads and such to come.
+# Do not add paragraph end; there might be downloads and such to come.
 #  if ($text !~ /${bib::cs_meta}1103${bib::cs_meta}0103Abstract:/) {
 #    $text .= "${bib::cs_meta}1110\n";
 #  }
   # Adjust formatting of the abstract, and insert $prev_versions.
-  $text =~ s/${bib::cs_meta}1103${bib::cs_meta}0103Abstract:  ${bib::cs_meta}0113\n(.*)${bib::cs_meta}1113/$prev_versions${bib::cs_meta}1110\n\n${bib::cs_meta}2232Abstract${bib::cs_meta}2233\n\n${bib::cs_meta}1100\n$1\n${bib::cs_meta}1110\n/;
+  $text =~ s/${bib::cs_meta}1103${bib::cs_meta}0103Abstract:  ${bib::cs_meta}0113\n(.*)${bib::cs_meta}1113/$prev_versions${bib::cs_meta}1110\n\n${bib::cs_meta}2232Abstract${bib::cs_meta}2233\n\n${bib::cs_meta}1100\n$1\n\n/;
   # Convert 1120 into 1110 plus 1100
   $text =~ s/$cs_meta1120/\n$cs_meta1110\n\n$cs_meta1100\n/g;
   # Introduce line breaks
@@ -213,8 +213,11 @@ sub fromcanon {
 
   }
 
-  $text .= "$downloads\n";
-  $text .= "${bib::cs_meta}1110\n"; # end the paragraph
+  if (defined $downloads) {
+    $text .= "${bib::cs_meta}1100\n"; # paragraph start
+    $text .= "$downloads";
+    $text .= "${bib::cs_meta}1110\n\n"; # end the paragraph
+  }
 
   if ($opt_withbibtex) {
       my %bibentry;
