@@ -16,6 +16,7 @@ my $csmeta = ${bib::cs_meta};
 my $cs_meta0103 = $csmeta . "0103"; # begin bold "<b>"
 my $cs_meta0113 = $csmeta . "0113"; # end bold "</b>"
 my $cs_meta1100 = $csmeta . "1100";
+my $cs_meta1110 = $csmeta . "1110";
 # my $cs_meta2101 = $csmeta . "2101";
 my $cs_meta2150 = $csmeta . "2150"; # line break "<br />"
 
@@ -148,6 +149,7 @@ sub downloads_text ( $$% ) {
 
 }
 
+# Result has no paragraph start/end markers.
 sub previous_versions_text ( $% ) {
   my ($title_author, %entry) = @_;
 
@@ -182,6 +184,8 @@ sub previous_versions_text ( $% ) {
       # print STDERR "title_author = $title_author\n";
       # Remove paragraph break
       $subtext =~ s/^$cs_meta1100//;
+      $subtext =~ s/$cs_meta1110$//;
+      $subtext =~ s/\n+\n$/\n/;
       if ($subtext =~ s/^In /in /) {
 	# nothing to do
       } elsif ($subtext =~ /^(Masters|Bachelors) thesis/) {
