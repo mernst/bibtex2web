@@ -77,6 +77,7 @@ sub options {
 
 ######
 
+# Used for styles such as CACM, I think. -MDE
 sub load_style {
   my ($style) = @_;
   # For some reason, $style gets undefined after the eval.  So we store
