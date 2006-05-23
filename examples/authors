@@ -1,11 +1,17 @@
+# This file contains author names (in TeX format), plus (optionally) a link
+# to that author's other (non-PAG) publications.
+# There is no harm including extra people here; they won't be included on
+# the list if they have no publications.
+Shay Artzi
 Adrian Birka
-Yuriy Brun
+Yuriy Brun http://nomar.usc.edu/pubs.html
 Laura Dean
 Nii Dodoo
-Alan Donovan
-Michael D. Ernst
-Stephen J. Garland
+Alan Donovan /Alan A. A. Donovan/
+Michael D. Ernst /Michael Ernst/ http://pag.csail.mit.edu/~mernst/pubs/
+Stephen J. Garland http://people.csail.mit.edu/garland/publications/
 Michael Harder
+Adam Kie{\.z}un http://people.csail.mit.edu/akiezun/research.html
 Lee Lin
 Stephen McCamant
 Jeff Mellen
@@ -13,5 +19,9 @@ Samir V. Meghani
 Benjamin Morse
 Toh {Ne Win}
 Jeremy W. Nimmer
+Carlos Pacheco
+Jeff H. Perkins
 Alex Rolfe
-David Saff
+David Saff /David E. Saff/
+Matthew S. Tschantz
+Amy Williams /Amy Lynne Williams/ http://pag.csail.mit.edu/~amy/
