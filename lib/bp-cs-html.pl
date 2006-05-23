@@ -123,6 +123,7 @@ sub init_cs {
 '1300', 'li',
 '1301', 'ul',
 '1311', '/ul',
+'1310', '/li',
 '1302', 'ol',
 '1312', '/ol',
 '2100', 'cite',
@@ -520,8 +521,15 @@ sub fromcanon {
 
 #  print "cs_ext: ${bib::cs_meta}\n";
 #  print $_;
-  s/(${bib::cs_meta}1301)/${bib::cs_meta}1110$1/g;
-  s/(${bib::cs_meta}1311)/$1${bib::cs_meta}1100/g;
+  # Add paragraph break end before list, and paragraph start after list.
+  # Add item end delimiters.
+  # (This does not work for multi-level lists.)
+  # <li> => </li><li>
+  s/(${bib::cs_meta}1300)/${bib::cs_meta}1310\n$1/g;
+  # <ul></li> => </p><ul>
+  s/(${bib::cs_meta}1301|${bib::cs_meta}1302)([ \n]*${bib::cs_meta}1310)/${bib::cs_meta}1110\n$1/g;
+  # </ul> => </li></ul><p>
+  s/(${bib::cs_meta}1311|${bib::cs_meta}1312)/${bib::cs_meta}1310\n$1\n${bib::cs_meta}1100/g;
 #  print $_;
 
   return $_ unless /$bib::cs_escape/o;
