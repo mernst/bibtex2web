@@ -42,7 +42,7 @@ tags:
 
 tar: ../bibtex2web.tar.gz
 
-../bibtex2web.tar.gz: .
+../bibtex2web.tar.gz: . lib
 	cd ..; find bibtex2web -name '*~' -o -name TAGS -o -name CVS > bibtex2web-exclude
 	cd ..; tar czf bibtex2web.tar.gz --exclude-from bibtex2web-exclude  bibtex2web
 	rm ../bibtex2web-exclude
