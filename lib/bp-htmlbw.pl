@@ -135,6 +135,10 @@ sub downloads_text ( $$% ) {
     for my $download (@downloads) {
       chomp($download);  # omit trailing spaces
       my ($url, $anchor) = split(' ', $download, 2);
+      if (! defined($anchor)) {
+        print STDERR "Missing anchor text (e.g., \"PDF\"): $download\n";
+        $anchor = "??";
+      }
       # Check non-local links for validity
       if (($url =~ /^http/) && ! head($url)) {
         print STDERR "Warning: invalid download URL $url\n";
