@@ -209,6 +209,7 @@ sub init_cs_fr {
   '2264', '&le;',
   '2265', '&ge;',
   '2715', 'x',			# \times (??)
+  '0131', '&#305;',             # "&inodot;" isn't supported by Firefox 1.5.0.3
   );
 
   # HTML 2.0 Secondary meta mappings for fromcanon

@@ -16,6 +16,8 @@
 
 # XXXXX We really ought to be reading these in from tables
 
+# If you are tempted to add to this file, also see file bp-cs-html.pl.
+
 %mapprox_tab = (
 '0000',	'0000',
   # HTML 2.0 idiomatic mappings -> common display styles
@@ -44,7 +46,6 @@
 %uapprox_tab = (
 '0107', 'c',
 '010D', 'c',
-'0131', 'i',			# without this, the character is lost
 '0159', 'r',
 '0161', 's',
 '017A',	'z',
