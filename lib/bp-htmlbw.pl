@@ -146,12 +146,12 @@ sub downloads_text ( $$% ) {
       $result .= make_href($url, $anchor) . ",\n";
     }
     $result =~ s/,\n$/.\n/m;
-  } else {
+  } elsif (! defined $entry{'nodownloads'}) {
     print STDERR "Warning: no downloads for $entry{'CiteKey'}\n";
   }
   return $result;
-
 }
+
 
 # Result has no paragraph start/end markers.
 sub previous_versions_text ( $% ) {
