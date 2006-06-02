@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <title>bibtex2web: create webpages from BibTeX bibliography files</title>
 </head>
-<!-- Time-stamp: "2006-05-14 18:04:32 mernst" -->
+<!-- Time-stamp: "2006-06-02 09:53:08 mernst" -->
 <body>
 
 
@@ -171,31 +171,32 @@ several additional BibTeX fields:
                 "basefilename" mechanism.
 </dd>
 <dt>
+  nodownloads
+</dt>
+<dd>
+		If present, this field suppresses a warning that there are
+		no downloads for a given paper.
+</dd>
+<dt>
   supersededby
 </dt>
 <dd>
-		<p>
 		A comma-separated list of keys of articles that supersede
                 this one.  A superseded article does not get its own
                 per-article webpage, but is briefly noted on the webpage of
                 each article that supersedes it.
-		</p>
-
-                <p>
+		<br /><br />
                 Optionally, in the
                 comma-separated list, the key may be followed by whitespace
                 and (comma-free) text; when bibtex2web generates webpages,
                 that text is used instead of "A previous version".  For
                 instance, in a subsequent TR version, you could add the
                 field
-		</p>
                 <pre>
                   supersededby = "ConfVer An extended version",
                 </pre>
-		<p>
                 to ensure that the BibTeX entry with key "ConfVer" remains
                 the canonical version.
-		</p>
 </dd>
 <dt>
   category
