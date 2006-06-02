@@ -93,7 +93,7 @@ $glb_eval_repl = 0;
 
 # Initialize the macro list with the entries from plain.bst.
 # XXXXX At some point we need to get these from a configuration file
-%glb_replace = (
+%glb_replace_builtin = (
 'jan',	'January',
 'feb',	'February',
 'mar',	'March',
@@ -127,6 +127,7 @@ $glb_eval_repl = 0;
 'toplas',	'ACM Transactions on Programming Languages and Systems',
 'tcs',		'Theoretical Computer Science',
 );
+%glb_replace = %glb_replace_builtin;
 $glb_replace = '';
 
 $glb_noreadahead = 0;
@@ -284,7 +285,11 @@ sub read {
             &bib::gotwarn("Illegal string name: $name");
           } else {
             $name =~ tr/A-Z/a-z/;
-            &bib::gotwarn("Redefinition of string: $name") if defined $glb_replace{$name};
+            # Permit redefinition of built-ins without warning.
+            if ((defined $glb_replace{$name})
+                && (! defined $glb_replace_builtin{$name})) {
+              &bib::gotwarn("Redefinition of string: $name");
+            }
             #$value =~ s/(\W)/\\$1/g;
             $glb_replace{$name} = $value;
             $glb_eval_repl = 1;
