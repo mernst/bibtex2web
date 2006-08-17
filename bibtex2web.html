@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <title>bibtex2web: create webpages from BibTeX bibliography files</title>
 </head>
-<!-- Time-stamp: "2006-08-16 21:18:17 mernst" -->
+<!-- Time-stamp: "2006-08-16 21:45:33 mernst" -->
 <body>
 
 
@@ -145,14 +145,16 @@ several additional BibTeX fields:
 </dt>
 <dd>
 	        The abstract, in LaTeX format.
+	        Do not include blank lines to separate paragraphs; use
+	        &ldquo;\par&rdquo; instead.
 </dd>
 <dt>
   basefilename
 </dt>
 <dd>
 		The file name for the article itself, without the
-		extension.  Automatically recognized extensions are ".ps",
-		".pdf", ".doc", ".ppt", "-slides.ps", "-slides.pdf".  You
+		extension.  Automatically recognized extensions are &ldquo;.ps&rdquo;,
+		&ldquo;.pdf&rdquo;, &ldquo;.doc&rdquo;, &ldquo;.ppt&rdquo;, &ldquo;-slides.ps&rdquo;, &ldquo;-slides.pdf&rdquo;.  You
 		must put these files in the destination directory before
 		running the programs.  The basefilename is also used for
 		the per-article webpage (which includes the abstract).  If
@@ -174,8 +176,8 @@ several additional BibTeX fields:
 </dt>
 <dd>
 		A list of other downloads, used (in addition to the
-                "downloads" field) only if no local files are found via the
-                "basefilename" mechanism.
+                &ldquo;downloads&rdquo; field) only if no local files are found via the
+                &ldquo;basefilename&rdquo; mechanism.
 </dd>
 <dt>
   nodownloads
@@ -196,13 +198,13 @@ several additional BibTeX fields:
                 Optionally, in the
                 comma-separated list, the key may be followed by whitespace
                 and (comma-free) text; when bibtex2web generates webpages,
-                that text is used instead of "A previous version".  For
+                that text is used instead of &ldquo;A previous version&rdquo;.  For
                 instance, in a subsequent TR version, you could add the
                 field
                 <pre>
                   supersededby = "ConfVer An extended version",
                 </pre>
-                to ensure that the BibTeX entry with key "ConfVer" remains
+                to ensure that the BibTeX entry with key &ldquo;ConfVer&rdquo; remains
                 the canonical version.
 </dd>
 <dt>
@@ -211,15 +213,24 @@ several additional BibTeX fields:
 <dd>
                 The name of the topic under which this article should be
                 listed in the by-topic webpage.
+		<br /><br />
+		In general, when adding a
+                new entry, one should choose an existing category rather
+                than making up a new one (lest you end up with few papers
+                per category, defeating the purpose of this field).
 </dd>
 <dt>
   summary
 </dt>
 <dd>
-                A brief description of the article (shorter than the
-                abstract) that appears in the by-topic webpage.  (Including
-                the full abstracts of all the papers on that webpage would
-                make that page too long.)
+                A brief description of the article that appears in the
+                by-topic webpage.  To include the full abstracts of all the
+                papers would make that webpage too long.
+		For example, see
+		<a
+		href="http://pag.csail.mit.edu/pubs/bytopic.html">http://pag.csail.mit.edu/pubs/bytopic.html</a>
+		(where the standard is a 3-line description in the BibTeX file).
+		
 </dd>
 <dt>
 alsosee
@@ -232,13 +243,13 @@ alsosee
 
 <p>
 You can also define your own additional fields.  For instance, the example
-Makefile that is distributed with bibtex2web uses the "-filter" argument
-to the programs to make them ignore any article containing an "omitfromcv"
-field.  Additionally, it ignores any entry containing an "onlycrossref"
+Makefile that is distributed with bibtex2web uses the &ldquo;-filter&rdquo; argument
+to the programs to make them ignore any article containing an &ldquo;omitfromcv&rdquo;
+field.  Additionally, it ignores any entry containing an &ldquo;onlycrossref&rdquo;
 field (unless that field was inherited via a crossref); this permits info
-about just the conferences from appearing.  Another use of the "-filter"
+about just the conferences from appearing.  Another use of the &ldquo;-filter&rdquo;
 argument is to create a separate webpage for any article containing an
-"underreview" field.
+&ldquo;underreview&rdquo; field.
 </p>
 
 
@@ -295,7 +306,7 @@ links to the paper itself.
 </p>
 
 <p>
-If the "-linknames <em>link-names-file</em>" command-line argument is also
+If the &ldquo;-linknames <em>link-names-file</em>&rdquo; command-line argument is also
 given, then each author name (or conference name, etc.) may be replaced by
 a link to that author's homepage.
 </p>
@@ -316,7 +327,7 @@ Link author names to authors' (bibtex2web-generated) publications lists.
 -outopts=linkauthors:myauthorslist
 </dt>
 <dd>
-Override the default "authors" filename.
+Override the default &ldquo;authors&rdquo; filename.
 </dd>
 <dt>
 -outopts=withbibtex
@@ -342,8 +353,8 @@ Separate multiple options with spaces.
 <p>
 The htmllist output format generates a list of entry titles, each of which
 links to the abstract page for that entry, separated by <tt>&lt;br /&gt;</tt> line
-breaks.  This is useful to generate a list of "recent publications" on a
-home page.  For example, see "Selected Publications" list on
+breaks.  This is useful to generate a list of &ldquo;recent publications&rdquo; on a
+home page.  For example, see &ldquo;Selected Publications&rdquo; list on
 <a href="http://pmg.csail.mit.edu/">http://pmg.csail.mit.edu/</a>.
 </p>
 
@@ -356,10 +367,10 @@ index.html:
 </pre>
 
 <p>
-The "limit" output option limits the list to the specified number of
-entries (without this option, list is unlimited).  The "abstract_dir"
+The &ldquo;limit&rdquo; output option limits the list to the specified number of
+entries (without this option, list is unlimited).  The &ldquo;abstract_dir&rdquo;
 option specifies the relative directory containing the per-entry
-abstract files (default "../pubs").
+abstract files (default &ldquo;../pubs&rdquo;).
 </p>
 
 
@@ -423,8 +434,8 @@ bp warning (main): Unknown TeX characters (backslashes) in ...
 To support a new LaTeX command, you need to add information about how to
 convert it to bibtex2web's internal representation (based on Unicode) and
 from that representation to HTML and other formats.  A good way to find the
-places you need to change is to grep for "017C", which is the Unicode code
-for a z with a dot above it (&#0380;), or for "21D2", which is a right
+places you need to change is to grep for &ldquo;017C&rdquo;, which is the Unicode code
+for a z with a dot above it (&#0380;), or for &ldquo;21D2&rdquo;, which is a right
 arrow (&rArr;), and then mimic one or the other of them.
 </p>
 
@@ -487,7 +498,7 @@ bibtex2web is built on the bp Perl library.  The bibtex2web
 distribution is simply the bp distribution, with corrections and
 enhancements.  bp-README is the original README file for the bp Perl
 library, and other files and directories have been similarly prefixed with
-"bp-" to avoid confusion to users of bibtex2web.  bp documentation appears
+&ldquo;bp-&rdquo; to avoid confusion to users of bibtex2web.  bp documentation appears
 at <a href="http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html">http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html</a> (but
 unfortunately isn't packaged with bp itself).  bp has not been supported
 since December 1996, but it works well enough for me, particularly with my
