@@ -139,7 +139,7 @@ sub fromcanon {
     }
   }
   if (! defined($where)) {
-    warn "No publication data for $title\n";
+    warn "No publication data for \"$title\" of type \"$type\"\n";
     $where = "";
   }
   my $where_when;
