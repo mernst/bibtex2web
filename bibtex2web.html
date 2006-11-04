@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <title>bibtex2web: create webpages from BibTeX bibliography files</title>
 </head>
-<!-- Time-stamp: "2006-08-16 21:45:33 mernst" -->
+<!-- Time-stamp: "2006-11-04 09:38:01 mernst" -->
 <body>
 
 
@@ -517,8 +517,15 @@ break.
 <h3><a name="to-do">To do</a></h3>
 
 <p>
+Permit specifying a file of URLs for which not to issue this message:
+</p>
+<pre>
+        print STDERR "Warning: invalid download URL $url\n";
+</pre>
+
+<p>
 Permit multiple categories per entry, because some entries span categories.
-How to do this without overhauling bwconv.pl?
+I'm not sure how to do this without overhauling bwconv.pl.
 </p>
 
 <p>
