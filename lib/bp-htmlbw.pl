@@ -140,7 +140,7 @@ sub downloads_text ( $$% ) {
         $anchor = "??";
       }
       # Check non-local links for validity
-      if (($url =~ /^http/) && ! head($url)) {
+      if ((! defined($validurls{$url})) && ($url =~ /^http/) && (! head($url))) {
         print STDERR "Warning: invalid download URL $url\n";
       }
       $result .= make_href($url, $anchor) . ",\n";

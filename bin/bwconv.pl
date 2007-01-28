@@ -26,6 +26,7 @@ my $copyright;
 my $sortorder = "reverse_chronological";
 my @categories;
 my %linknames = ();
+my %validurls = ();
 my $author; # Only output matches for this author.
 my $author_re; # Optional, also output any matches for this regexp.
 my $filter; # Filter to apply but this expression overrides $author.
@@ -58,6 +59,8 @@ while (@ARGV) {
   /^-copyright$/  && do { $copyright = file_contents(shift @ARGV);
                           next; };
   /^-linknames$/  && do { read_link_names(shift @ARGV);
+                          next; };
+  /^-validurls$/  && do { read_valid_urls(shift @ARGV);
                           next; };
   /^-categories$/ && do { my $categories = file_contents(shift @ARGV);
                           @categories = split('\n', $categories);
@@ -360,7 +363,10 @@ foreach my $record (@records) {
 %bp_htmlbw::supersedes = %supersedes;
 %bp_htmlbw::citekeys = %citekeys;
 # print STDERR "linknames: " . scalar(%linknames) . "\n";
+# print STDERR "validurls: " . scalar(%validurls) . "\n";
 %bp_htmlabstract::linknames = %linknames;
+%bp_htmlabstract::validurls = %validurls;
+%bp_htmlbw::validurls = %validurls;
 
 ###
 ### More filtering
@@ -486,6 +492,27 @@ sub read_link_names ( $ ) {
   }
   close(URLS);
   # print STDERR "read_link_names: " . scalar(%linknames) . "\n";
+}
+
+# FIXME: consolidate with bwconv.pl::read_link_names
+sub read_valid_urls ( $ ) {
+  my ($file) = @_;
+  open(URLS, $file) or die "Couldn't open $file";
+  my $line;
+  while (defined($line = <URLS>)) {
+    chomp $line;
+    if ($line =~ /^$/) { next; }
+    if ($line =~ /^\#/) { next; }
+    if (defined $validurls{$line}) {
+      warn "Duplicated URL in valid-urls file $file\n";
+    }
+    $validurls{$line} = 1;
+  }
+  close(URLS);
+  # print STDERR "read_valid_urls: " . scalar(%validurls) . "\n";
+  # for my $key (keys %validurls) {
+  #   print STDERR "    $key\n";
+  # }
 }
 
 sub set_supersedes ( $$$ ) {
