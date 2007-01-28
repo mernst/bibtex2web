@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <title>bibtex2web: create webpages from BibTeX bibliography files</title>
 </head>
-<!-- Time-stamp: "2006-11-28 07:31:45 mernst" -->
+<!-- Time-stamp: "2007-01-28 09:31:45 mernst" -->
 <body>
 
 
@@ -344,6 +344,13 @@ Separate multiple options with spaces.
 </dd>
 </dl>
 
+<p>
+If the &ldquo;-validurls <em>urls-file</em>&rdquo; command-line argument is 
+given, then each URL in the file (one per line) is considered to be valid
+and is not checked for validity.
+</p>
+
+
 
 <h4><a name="htmlsummary">htmlsummary</a></h4>
 
@@ -531,14 +538,6 @@ Don't require an extra "/dl" close tag after BODY in webpage templates.
 </p>
 
 <p>
-Permit specifying a file of URLs for which not to issue this message:
-</p>
-<pre>
-        print STDERR "Warning: invalid download URL $url\n";
-</pre>
-<!-- An example is: http://arxiv.org/pdf/cs.SE/0508108 -->
-
-<p>
 Permit multiple categories per entry, because some entries span categories.
 I'm not sure how to do this without overhauling bwconv.pl.
 </p>
@@ -600,9 +599,11 @@ the system to stop processing entries?
  -->
 <!--  LocalWords:  linknames linkauthors myauthorslist withbibtex BWBIN BibTeX
  -->
-<!--  LocalWords:  headfoot BIBFILES timestamp ctime Sameer Ajmani btool br
+<!--  LocalWords:  headfoot BIBFILES timestamp ctime Sameer Ajmani btool br dl
  -->
 <!--  LocalWords:  noabstractpage nobasefilename Webpage webpage ConfVer grep
  -->
-<!--  LocalWords:  omitiffield includeiffield
+<!--  LocalWords:  omitiffield includeiffield nodownloads validurls urls LNCS
+ -->
+<!--  LocalWords:  STDERR url
  -->
