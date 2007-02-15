@@ -194,26 +194,26 @@ sub read_link_names ( $ ) {
   # print STDERR "read_link_names: " . scalar(%linknames) . "\n";
 }
 
-# FIXME: consolidate with bwconv.pl::read_link_names
-sub read_valid_urls ( $ ) {
-  my ($file) = @_;
-  open(URLS, $file) or die "Couldn't open $file";
-  my $line;
-  while (defined($line = <URLS>)) {
-    chomp $line;
-    if ($line =~ /^$/) { next; }
-    if ($line =~ /^\#/) { next; }
-    if (defined $validurls{$line}) {
-      warn "Duplicated URL in valid-urls file $file\n";
-    }
-    $validurls{$line} = 1;
-  }
-  close(URLS);
-  # print STDERR "read_valid_urls: " . scalar(%validurls) . "\n";
-  # for my $key (keys %validurls) {
-  #   print STDERR "    $key\n";
-  # }
-}
+# # FIXME: consolidate with bwconv.pl::read_valid_urls
+# sub read_valid_urls ( $ ) {
+#   my ($file) = @_;
+#   open(URLS, $file) or die "Couldn't open $file";
+#   my $line;
+#   while (defined($line = <URLS>)) {
+#     chomp $line;
+#     if ($line =~ /^$/) { next; }
+#     if ($line =~ /^\#/) { next; }
+#     if (defined $validurls{$line}) {
+#       warn "Duplicated URL in valid-urls file $file\n";
+#     }
+#     $validurls{$line} = 1;
+#   }
+#   close(URLS);
+#   # print STDERR "read_valid_urls: " . scalar(%validurls) . "\n";
+#   # for my $key (keys %validurls) {
+#   #   print STDERR "    $key\n";
+#   # }
+# }
 
 sub file_contents {
   my ($file) = @_;
