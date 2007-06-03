@@ -192,19 +192,19 @@ sub init_cs_fr {
   # XXXXX We should just use unicode_approx.
   # Map various unicode entities to HTML.
   %charmap_from = (
-  '2212', '-',
+  '2002', ' ',    # These two are probably wrong.
+  '2003', '  ',
   # "&ndash;" is more correct, but is a pain when doing cut-and-paste from
   # a webpage, in which case the ASCII equivalent is more convenient.
   # '2013', '&ndash;',
   '2013', '-',
   '2014', ' &mdash; ',
-  '2002', ' ',    # These two are probably wrong.
-  '2003', '  ',
   '201C', '&#8220;',            # left double quotation mark
   '201D', '&#8221;',            # right double quotation mark
   '2192', '&rarr;',
   '21D2', '&rArr;',
   '2208', '&isin;',
+  '2212', '-',
   '2260', '&ne;',
   '2264', '&le;',
   '2265', '&ge;',
@@ -560,6 +560,8 @@ sub fromcanon {
     defined $can  &&  s/$bib::cs_ext$repl/$can/g  &&  next;
 
     &bib::gotwarn("Can't convert ".&bib::unicode_name($repl)." to HTML");
+    # For debugging:
+    # &bib::gotwarn("  in (1): $_");
     s/${bib::cs_ext}$repl//g;
   }
 
@@ -588,7 +590,8 @@ sub fromcanon {
     defined $can  &&  s/$bib::cs_meta$repl/$can/g  &&  next;
 
     &bib::gotwarn("Can't convert ".&bib::meta_name($repl)." to HTML");
-    # &bib::gotwarn("  in: $_");
+    # For debugging:
+    # &bib::gotwarn("  in (2): $_");
     s/${bib::cs_meta}$repl//g;
   }
 
