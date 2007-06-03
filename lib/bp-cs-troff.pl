@@ -152,6 +152,7 @@ sub init_cs {
 '2003',	'\ \ ',
 '2007',	'\|',  # I think this is wrong.  It's a "numsp" Number Space.
 '2009',	'\^',
+'2013',	'-',
 '2014',	'\-',
 '201C',	'\*Q',
 '201D',	'\*U',
