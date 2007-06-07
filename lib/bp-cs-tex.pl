@@ -33,7 +33,7 @@ $bib::charsets{'tex', 'tocanon'}   = "bp_cs_tex'tocanon";
 $bib::charsets{'tex', 'fromcanon'} = "bp_cs_tex'fromcanon";
 
 # This regexp should match any (La)TeX character that needs to be escaped.
-$bib::charsets{'tex', 'toesc'}   = "([\$\\\\]|``|'')";
+$bib::charsets{'tex', 'toesc'}   = "([\$\\\\]|``|''|---)";
 # XXXXX We have so many characters to protect, should we even bother?
 $bib::charsets{'tex', 'fromesc'} = "[\\#\$\%\&{}_\|><\^~\200-\377]|${bib::cs_ext}|${bib::cs_meta}";
 
@@ -337,7 +337,6 @@ sub tocanon {
     $text =~ s/ --- / ${bib::cs_ext}2014 /go;
     $text =~ s/\{?\\,---\\,\}?/ ${bib::cs_ext}2014 /go;
     $text =~ s/ -- / ${bib::cs_ext}2014 /go;
-# print STDERR "bp_cs_tex::tocanon[2]($text)\n";
     # leave -
   }
   if ($text =~ /~/) {
