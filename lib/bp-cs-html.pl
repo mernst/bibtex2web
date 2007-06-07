@@ -99,15 +99,11 @@ sub init_cs {
 
 # HTML 2.0 markup and the bp-meta equivalent
 %metamap_2 = (
-# '0101', ...,    # HTML can't specify upright text!
-# Add this to avoid warnings
-'0101', '',
+'0101', 't',
 '0102', 'i',
 '0103', 'b',
 '0104', 'tt',
-# '0111', ...,    # HTML can't specify upright text!
-# Add this to avoid warnings
-'0111', '',
+'0111', '/t',
 '0112', '/i',
 '0113', '/b',
 '0114', '/tt',
