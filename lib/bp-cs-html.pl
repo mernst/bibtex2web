@@ -99,11 +99,12 @@ sub init_cs {
 
 # HTML 2.0 markup and the bp-meta equivalent
 %metamap_2 = (
-'0101', 't',
+'0101', '/i',           # upright text. 't' was (only) in a HTML 3.0 draft.
+                        # I hope this is only used within <i>...</i>.
 '0102', 'i',
 '0103', 'b',
 '0104', 'tt',
-'0111', '/t',
+'0111', 'i',            # end upright text.
 '0112', '/i',
 '0113', '/b',
 '0114', '/tt',
