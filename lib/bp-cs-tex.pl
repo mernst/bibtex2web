@@ -313,6 +313,9 @@ $cmap_from8_eval .= "$cmapvar s/\\240/\\~/g;\ns/\\255/-/g;";
 
 sub tocanon {
   local($text, $protect) = @_;
+  my $debug_tocanon = 0;
+  # $debug_tocanon = 1;
+  if ($debug_tocanon) { print STDERR "bp-cs-tex::tocanon <= $text\n"; }
 
   # unprotect the TeX characters
   if ($protect) {
@@ -451,6 +454,8 @@ sub tocanon {
   # XXXXX We really ought to remove the escape and meta characters we have
   #       converted when we give them this warning.
   &bib::gotwarn("Unknown TeX characters (backslashes) in '$text'");
+
+  if ($debug_tocanon) { print STDERR "bp-cs-tex::tocanon => $text\n"; }
 
   $text;
 }
