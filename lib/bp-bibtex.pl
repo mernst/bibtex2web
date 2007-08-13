@@ -811,6 +811,7 @@ sub bibtex_name_to_canon {
   my $canon_name = '';
 
   $name =~ s/\s+/ /g;
+  $name =~ s/~/\240/g;
 
   # Move each item enclosed in braces to an atomic character.
   while ($name =~ s/(\{[^\}]*\})/$bib::cs_temp$saveptr/) {
