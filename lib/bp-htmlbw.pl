@@ -132,9 +132,14 @@ sub downloads_text ( $$% ) {
 
   if (scalar(@downloads) > 0) {
     $result .= "Download:\n";
+    my %urls = ();
     for my $download (@downloads) {
       chomp($download);  # omit trailing spaces
       my ($url, $anchor) = split(' ', $download, 2);
+      if (defined($urls{$url})) {
+        print STDERR "Duplicate download link $url for $entry{'CiteKey'}";
+      }
+      $urls{$url} = 1;
       if (! defined($anchor)) {
         print STDERR "Missing anchor text (e.g., \"PDF\"): $download\n";
         $anchor = "??";
