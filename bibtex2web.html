@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <title>bibtex2web: create webpages from BibTeX bibliography files</title>
 </head>
-<!-- Time-stamp: "2007-06-04 12:39:41 mernst" -->
+<!-- Time-stamp: "2007-08-18 11:49:55 mernst" -->
 <body>
 
 
@@ -529,13 +529,13 @@ break.
 
 <p>
 This page:
-http://pag.csail.mit.edu/~mernst/pubs/groupthink-2006-abstract.html
+<a href="http://pag.csail.mit.edu/~mernst/pubs/groupthink-2006-abstract.html">http://pag.csail.mit.edu/~mernst/pubs/groupthink-2006-abstract.html</a>
 is missing "LNCS".
 </p>
 
 <p>
 The author list at
-   http://www.cs.umd.edu/~atif/papers/PorterSPIP2006-abstract.html
+   <a href="http://www.cs.umd.edu/~atif/papers/PorterSPIP2006-abstract.html">http://www.cs.umd.edu/~atif/papers/PorterSPIP2006-abstract.html</a>
 looks a bit strange, with a period after the second author.
 </p>
 
@@ -590,6 +590,28 @@ Add a noabstractpage field, to replace the old nobasefilename field.
 htmllist output format : generates too much space in the HTML.  A newline
 is generated for each entry, even if it's omitted!  Is there a way to tell
 the system to stop processing entries?
+</p>
+
+<p>
+When the <code>-q</code> flag is supplied, this warning message
+</p>
+<pre>
+Parsing of undecoded UTF-8 will give garbage when decoding entities at checklink.pl line 1075.
+</pre>
+<p>
+appears to be referring to the last page whose URL is printed (the last
+page for which there was a problem).  The warning message is coming from
+HTML::Parser, but I can't find the exact place in the code (maybe it's in
+C, not Perl?), and the parse method doesn't return an error status.  The
+workaround is to run without the <code>-q</code> command-line option,
+determine where the problem is, and fix it.
+Alternately, follow these suggestsions from HTML::Parser:
+  The solution is to use the Encode::encode_utf8() on the data before
+  feeding it to the $p-&gt;parse().  For $p-&gt;parse_file() pass a file that
+  has been opened in ":utf8" mode.
+
+  The parser can process raw undecoded UTF-8 sanely if the C&lt;utf8_mode&gt;
+  is enabled or if the "attr", "@attr" or "dtext" argspecs is avoided.
 </p>
 
 </body>
