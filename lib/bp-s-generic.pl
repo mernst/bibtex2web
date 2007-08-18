@@ -129,7 +129,10 @@ sub conv_generic {
       $str .= "in m2101$can{'SuperTitle'}m2111, ";
     }
     $str .= "vol. $can{'Volume'}, "      if defined $can{'Volume'};
+    # Remove comma if Series but no Number.
+    $str =~ s/, $//                      if defined $can{'Volume'} && defined $can{'Series'} && ! defined $can{'Number'};
     $str .= "no. $can{'Number'}"         if defined $can{'Number'};
+    $str .= " of $can{'Series'}, "       if defined $can{'Series'};
     $str .= format_editors_parens(%can);
     $str .= "($can{'PubAddress'}), "     if defined $can{'PubAddress'};
     $str .= "${date}, "                  if defined ${date};

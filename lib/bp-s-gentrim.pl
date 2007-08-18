@@ -154,7 +154,10 @@ sub conv_gentrim {
       $str .= "in m2101$can{'SuperTitle'}m2111, ";
     }
     $str .= "vol. $can{'Volume'}, "      if defined $can{'Volume'};
+    # Remove comma if Series but no Number.
+    $str =~ s/, $//                      if defined $can{'Volume'} && defined $can{'Series'} && ! defined $can{'Number'};
     $str .= "no. $can{'Number'}"         if defined $can{'Number'};
+    $str .= " of $can{'Series'}, "       if defined $can{'Series'};
     if (defined $can{'Editors'}) {
       local($tEditors);
       $tEditors = &bp_util::canon_to_name($can{'Editors'}, 'plain');
