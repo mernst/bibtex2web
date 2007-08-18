@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <title>bibtex2web: create webpages from BibTeX bibliography files</title>
 </head>
-<!-- Time-stamp: "2007-08-18 11:49:55 mernst" -->
+<!-- Time-stamp: "2007-08-18 15:24:35 mernst" -->
 <body>
 
 
@@ -528,18 +528,6 @@ break.
 <h3><a name="to-do">To do</a></h3>
 
 <p>
-This page:
-<a href="http://pag.csail.mit.edu/~mernst/pubs/groupthink-2006-abstract.html">http://pag.csail.mit.edu/~mernst/pubs/groupthink-2006-abstract.html</a>
-is missing "LNCS".
-</p>
-
-<p>
-The author list at
-   <a href="http://www.cs.umd.edu/~atif/papers/PorterSPIP2006-abstract.html">http://www.cs.umd.edu/~atif/papers/PorterSPIP2006-abstract.html</a>
-looks a bit strange, with a period after the second author.
-</p>
-
-<p>
 Don't require an extra "/dl" close tag after BODY in webpage templates.
 </p>
 
@@ -570,13 +558,9 @@ publications, including duplicates.
 </p>
 
 <p>
-The Perl expressions in -filter arguments are starting to get out of hand;
-permit simplifying them.  For examples, add a -omitiffield[exists] and/or
-an -includeiffield[exists]?
-</p>
-
-<p>
-Add a field to indicate awards or other notes to add on the webpage.
+The Perl expressions in -filter arguments can get long;
+permit simplifying them.  For examples, add a -omitiffieldexists and/or
+an -includeiffieldexists?
 </p>
 
 <p>
@@ -586,11 +570,14 @@ Add a noabstractpage field, to replace the old nobasefilename field.
 -->
 </p>
 
+<!-- Such a trivial non-problem that I've commented it out. -->
+<!--
 <p>
-htmllist output format : generates too much space in the HTML.  A newline
+htmllist output format : generates a newline (in the HTML source)
 is generated for each entry, even if it's omitted!  Is there a way to tell
 the system to stop processing entries?
 </p>
+-->
 
 <p>
 When the <code>-q</code> flag is supplied, this warning message
