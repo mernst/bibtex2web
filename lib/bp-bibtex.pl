@@ -525,7 +525,10 @@ sub explode {
   }
   if (! defined $be_entry{'basefilename'}) {
       # print STDERR "Using citekey $be_entry{'CITEKEY'} as basefilename\n";
-      $be_entry{'basefilename'} = $be_entry{'CITEKEY'};
+      my $citekey =  = $be_entry{'CITEKEY'};
+      $citekey =~ s/:/_/g;      # URLs shouldn't contain colons
+      $citekey =~ s:/:_;g;
+      $be_entry{'basefilename'} = $citekey;
   }
   # warning: crossref_fill copies any missing fields into this entry
   # from the crossref entry, so set "default values" before or after
