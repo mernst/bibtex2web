@@ -179,57 +179,7 @@ sub init_cs {
 '021f', '/small',
 );
 
-  $cs_init = 1;
-}
-
-sub init_cs_fr {
-
-  &init_cs unless $cs_init;
-
-  # XXXXX We should just use unicode_approx.
-  # Map various unicode entities to HTML.
-  %charmap_from = (
-  '2002', ' ',    # These two are probably wrong.
-  '2003', '  ',
-  # "&ndash;" is more correct, but is a pain when doing cut-and-paste from
-  # a webpage, in which case the ASCII equivalent is more convenient.
-  # '2013', '&ndash;',
-  '2013', '-',
-  '2014', ' &mdash; ',
-  '201C', '&#8220;',            # left double quotation mark
-  '201D', '&#8221;',            # right double quotation mark
-  '2192', '&rarr;',
-  '21D2', '&rArr;',
-  '2208', '&isin;',
-  '2212', '-',
-  '2260', '&ne;',
-  '2264', '&le;',
-  '2265', '&ge;',
-  '2715', 'x',			# \times (??)
-  '0131', '&#305;',             # "&inodot;" isn't supported by Firefox 1.5.0.3
-  );
-
-  # HTML 2.0 Secondary meta mappings for fromcanon
-  # Note that these do _not_ get wrapped in <> like metamap_2 does.
-  %metafrs_2 = (
-  '2200',	'<a ',
-  '2210',	'</a>',
-  '2300',	'href="',
-  '2301',	'name="',
-  '2310',	'">',
-  );
-
-  $cs_fr_init = 1;
-}
-
-sub init_cs_to {
-  local($f);
-
-  &init_cs unless $cs_init;
-
   # HTML 2.0 entity names that map to ISO-8859-1 codes.
-  # This is used in tocanon only.  We leave the rest in 8 bits because it
-  # seems every browser can display that, but many of them don't map the names.
 
   %entitynames = (
   'nbsp',	160,
@@ -329,6 +279,59 @@ sub init_cs_to {
   'thorn',	254,
   'yuml',	255,
   );
+
+  # Backwards map for entitynames
+  foreach $f (keys %entitynames) {
+    $bentitynames{pack("C", $entitynames{$f})} = $f;
+  }
+
+  $cs_init = 1;
+}
+
+sub init_cs_fr {
+
+  &init_cs unless $cs_init;
+
+  # XXXXX We should just use unicode_approx.
+  # Map various unicode entities to HTML.
+  %charmap_from = (
+  '2002', ' ',    # These two are probably wrong.
+  '2003', '  ',
+  # "&ndash;" is more correct, but is a pain when doing cut-and-paste from
+  # a webpage, in which case the ASCII equivalent is more convenient.
+  # '2013', '&ndash;',
+  '2013', '-',
+  '2014', ' &mdash; ',
+  '201C', '&#8220;',            # left double quotation mark
+  '201D', '&#8221;',            # right double quotation mark
+  '2192', '&rarr;',
+  '21D2', '&rArr;',
+  '2208', '&isin;',
+  '2212', '-',
+  '2260', '&ne;',
+  '2264', '&le;',
+  '2265', '&ge;',
+  '2715', 'x',			# \times (??)
+  '0131', '&#305;',             # "&inodot;" isn't supported by Firefox 1.5.0.3
+  );
+
+  # HTML 2.0 Secondary meta mappings for fromcanon
+  # Note that these do _not_ get wrapped in <> like metamap_2 does.
+  %metafrs_2 = (
+  '2200',	'<a ',
+  '2210',	'</a>',
+  '2300',	'href="',
+  '2301',	'name="',
+  '2310',	'">',
+  );
+
+  $cs_fr_init = 1;
+}
+
+sub init_cs_to {
+  local($f);
+
+  &init_cs unless $cs_init;
 
   # Construct the backwards map for these unique characters
   foreach $f (keys %metamap_2) {
@@ -514,11 +517,11 @@ sub fromcanon {
   s/</\&lt;/g;
   s/>/\&gt;/g;
   s/${bib::cs_ext}0026/\&amp;/go;
-  s{(http://[-a-zA-Z0-9.]*/)\240}{$1~}g;
+  s{(http://[-_a-zA-Z0-9.]*/)\240}{$1~}g; # homepage URLs with "~user".
   s/\240/&nbsp;/g;
 
-#  print "cs_ext: ${bib::cs_meta}\n";
-#  print $_;
+#  print STDERR "cs_ext: ${bib::cs_meta}\n";
+#  print STDERR $_;
   # Add paragraph break end before list, and paragraph start after list.
   # Add item end delimiters.
   # (This does not work for multi-level lists.)
@@ -530,16 +533,26 @@ sub fromcanon {
   s/(${bib::cs_meta}1311|${bib::cs_meta}1312)/${bib::cs_meta}1310\n$1\n${bib::cs_meta}1100/g;
 #  print $_;
 
-  return $_ unless /$bib::cs_escape/o;
-
   &init_cs_fr unless $cs_fr_init;
+
+  if ($canada) { print STDERR "Oh, Canada: $_\n"; }
+
+  # Change 8bit characters
+  foreach $f (keys %bentitynames) {
+    s/$f/\&$bentitynames{$f};/g;
+  }
+
+  return $_ unless /$bib::cs_escape/o;
 
   # Extension characters
   while (/${bib::cs_ext}(....)/o) {
     $repl = $1;
+    # Don't use plain 8bit mapping.
+    if (0) {
     if ($repl =~ /^00/) {   # The 8bit mapping is the same
       1 while s/${bib::cs_ext}00(..)/pack("C", hex($1))/goe;
       next;
+    }
     }
     $opt_html3 && defined $charmap_3{$repl}
                && s/$bib::cs_ext$repl/\&$charmap_3{$repl};/g
