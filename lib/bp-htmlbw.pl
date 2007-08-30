@@ -137,7 +137,7 @@ sub downloads_text ( $$% ) {
       chomp($download);  # omit trailing spaces
       my ($url, $anchor) = split(' ', $download, 2);
       if (defined($urls{$url})) {
-        print STDERR "Duplicate download link $url for $entry{'CiteKey'}";
+        print STDERR "Duplicate download link $url for $entry{'CiteKey'}\n";
       }
       $urls{$url} = 1;
       if (! defined($anchor)) {
