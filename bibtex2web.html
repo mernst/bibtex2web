@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <title>bibtex2web: create webpages from BibTeX bibliography files</title>
 </head>
-<!-- Time-stamp: "2007-08-18 15:24:35 mernst" -->
+<!-- Time-stamp: "2007-12-11 21:12:10 mernst" -->
 <body>
 
 
@@ -176,8 +176,12 @@ several additional BibTeX fields:
 </dt>
 <dd>
 		A list of other downloads, used (in addition to the
-                &ldquo;downloads&rdquo; field) only if no local files are found via the
-                &ldquo;basefilename&rdquo; mechanism.
+                &ldquo;downloads&rdquo; field) only if no local files are
+                found via the &ldquo;basefilename&rdquo; mechanism.
+		In other words, if you have a &ldquo;basefilename&rdquo;
+		attribute, and bibtex2web finds at least one of the files
+		it refers to, then bibtex2web skips processing the
+		&ldquo;downloadsnonlocal&rdquo; attribute.
 </dd>
 <dt>
   nodownloads
@@ -532,6 +536,23 @@ Don't require an extra "/dl" close tag after BODY in webpage templates.
 </p>
 
 <p>
+Change the behavior of "downloadsnonlocal" as follows:
+</p>
+<ul>
+  <li>
+    If the entry specifies "basefilename" but no local files are found,
+    emit a warning even if "downloadsnonlocal" is present.  (Probably need
+    a way to override this.)
+  </li>
+  <li>
+    If both "basefilename" and "downloadsnonlocal" are present, use both
+    in some logical way: for instance, the tool could include just those
+    nonlocal downloads whose link names are different from any of the
+    local downloads.
+  </li>
+</ul>
+
+<p>
 Permit multiple categories per entry, because some entries span categories.
 I'm not sure how to do this without overhauling bwconv.pl.
 </p>
@@ -542,6 +563,7 @@ permitting a later technical report that is linked from the page.
 Examples:  <a
 href="http://pag.csail.mit.edu/~mernst/pubs/instantiating-generics-oopsla2004-abstract.html">http://pag.csail.mit.edu/~mernst/pubs/instantiating-generics-oopsla2004-abstract.html</a>,
 <a href="http://pag.csail.mit.edu/pubs/deadlock-library-ecoop2005-abstract.html">http://pag.csail.mit.edu/pubs/deadlock-library-ecoop2005-abstract.html</a>.
+(I think this may already be supported...)
 </p>
 
 <p>
