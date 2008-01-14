@@ -347,9 +347,11 @@ sub tocanon {
   }
   $text =~ s/\\ \\ /${bib::cs_ext}2003/go;
   $text =~ s/\\ /${bib::cs_ext}2002/go;
-  # Rather than eliminating this, I suppose I could make up a charater to
+  # Rather than eliminating this, I suppose I could make up a character to
   # take its place.
   $text =~ s/\\@//g;
+
+  $text =~ s/\\smaller\b//g;
 
   # Do these really need to be here, or could I move them back up?
   $text =~ s/``/${bib::cs_ext}201C/go;
