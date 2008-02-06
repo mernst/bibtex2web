@@ -219,7 +219,7 @@ sub read {
 
       # Assumptions made about format:
       #
-      #   An entry must start on a line of it's own, so this is ok:
+      #   An entry must start on a line of its own, so this is ok:
       #       @ string { jgg1 = "journal of gnats" }
       #     But this is not:
       #       @string{j1 = "journal1"}  @proceedings{foo, author="joe"}
@@ -407,7 +407,7 @@ sub do_concat {
 
   $rest =~ s/$bib::cs_escape/$bib::cs_char_escape/go;
 
-  while ($rest =~ /#/) {
+  while ($rest =~ /[^\\]#/) {
     ($left, $right) = split(/#/, $rest, 2);
     while ($left =~ /\{/g) { $bracelev++; }
     while ($left =~ /\}/g) { $bracelev--; }
