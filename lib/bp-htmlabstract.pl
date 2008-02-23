@@ -200,6 +200,8 @@ sub fromcanon {
       while (my ($linkname, $lurl) = each %linknames) {
           # print STDERR "checking for $linkname in $text\n";
           next if $opt_linkauthors && defined $authorlinks{$linkname};
+          # Problem:  This can insert an anchor even within another anchor
+          # (and HTML forbids such nesting).
           $text =~ s/\Q$linkname\E/&make_href($lurl, $linkname)/ge;
       }
       if ($opt_linkauthors) {
