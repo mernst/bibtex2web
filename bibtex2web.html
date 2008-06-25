@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <title>bibtex2web: create webpages from BibTeX bibliography files</title>
 </head>
-<!-- Time-stamp: "2008-01-02 14:15:34 mernst" -->
+<!-- Time-stamp: "2008-06-25 04:19:54 mernst" -->
 <body>
 
 
@@ -600,6 +600,14 @@ is generated for each entry, even if it's omitted!  Is there a way to tell
 the system to stop processing entries?
 </p>
 -->
+
+<p>
+En dashes aren't always correctly encoded.  See
+<a
+href="http://groups.csail.mit.edu/pag/pubs/reproduce-failures-ecoop2008-abstract.html">http://groups.csail.mit.edu/pag/pubs/reproduce-failures-ecoop2008-abstract.html</a>
+for an example where it appears as "--" rather than as &ndash; as it
+should.
+</p>
 
 <p>
 When the <code>-q</code> flag is supplied, this warning message
