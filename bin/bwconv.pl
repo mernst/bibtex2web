@@ -173,7 +173,11 @@ if (defined($author)) {
                      || (defined($rec{'editor'})
                          && ($rec{'editor'} =~ /\Q$author/o
                              || (defined($author_re)
-                                 && $rec{'editor'} =~ /$author_re/o))));
+                                 && $rec{'editor'} =~ /$author_re/o)))
+                     || (defined($rec{'pseudoauthor'})
+                         && ($rec{'pseudoauthor'} =~ /\Q$author/o
+                             || (defined($author_re)
+                                 && $rec{'pseudoauthor'} =~ /$author_re/o))));
                   }
                   @records;
 }
@@ -531,7 +535,7 @@ sub set_supersedes ( $$$ ) {
       }
       my $newrec = $citekeys{$next_superseder};
       if (! defined($newrec)) {
-        die "Didn't find citekey $next_superseder in $superseded_key";
+        die "Didn't find citekey $next_superseder which is referenced by $superseded_key";
       }
       # print STDERR "looked up $next_superseder and got: $newrec\n";
       # Try recursive call.
