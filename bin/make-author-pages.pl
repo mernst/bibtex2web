@@ -121,8 +121,12 @@ while (<AUTHORS>) {
   # system_or_die($command);
   { my $result = system($command);
     if ($result != 0)
-      { system_or_die("cat outfile.txt");
-        die "Failed executing $command"; }
+      { # Catting the file doesn't work, even if I redirect to standar error.
+        open(FILE, "outfile.txt") or die("Unable to open outfile.txt");
+        my @command_output = <FILE>;
+        close(FILE);
+        my $command_output = join("", @command_output);
+        die "Failed executing $command\nCommand output:\n@command_output"; }
   }
   unlink "outfile.txt";
   unlink $this_headfootfile;
