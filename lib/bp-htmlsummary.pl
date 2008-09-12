@@ -65,6 +65,9 @@ sub make_aname {
   my ($name, $title) = @_;
 
   $name =~ s/ /_/g;
+  # Parens are illegal in anchor names
+  $name =~ s/\(//g;
+  $name =~ s/\)//g;
   return
     "${bib'cs_meta}2200"
     . "${bib'cs_meta}2301"
