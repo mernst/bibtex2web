@@ -164,7 +164,7 @@ sub fromcanon {
     # print STDERR "title_author = $title_author\n";
   } else {
     ## This is a problem, so leave it uncommented.
-    print STDERR "failed to split lines: $text\n";
+    print STDERR "failed to parse line: $text\n";
   }
   # print STDERR "text (2): $text\n";
 
