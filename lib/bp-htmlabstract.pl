@@ -266,6 +266,9 @@ sub fromcanon {
       $text = "";
     } else {
       # print STDERR "basefile:<<$basefile>> title:<<$title>> text:<<$text>>\n";
+      if (! (defined($basefile) && defined($title) && defined($text))) {
+        print STDERR "Undefined variable: basefile:<<$basefile>> title:<<$title>> text:<<$text>>\n";
+      }
       $text = "\n\nNEWFILE: $basefile $title\n"
 	. $text
         . "\n\nENDFILE\n\n";
