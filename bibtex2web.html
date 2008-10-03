@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <title>bibtex2web: create webpages from BibTeX bibliography files</title>
 </head>
-<!-- Time-stamp: "2008-06-25 04:19:54 mernst" -->
+<!-- Time-stamp: "2008-10-02 13:37:25 mernst" -->
 <body>
 
 
@@ -508,14 +508,17 @@ from this list.)
 <hr />
 <h2><a name="implementation-details">Implementation details</a></h2>
 
+<!-- bp is by Dana Jacobsen <dana@acm.org>, webpage http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html was dated 2 January 1997 -->
+
 <p>
 bibtex2web is built on the bp Perl library.  The bibtex2web
 distribution is simply the bp distribution, with corrections and
 enhancements.  bp-README is the original README file for the bp Perl
 library, and other files and directories have been similarly prefixed with
-&ldquo;bp-&rdquo; to avoid confusion to users of bibtex2web.  bp documentation appears
-at <a href="http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html">http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html</a> (but
-unfortunately isn't packaged with bp itself).  bp has not been supported
+<pre>bp-</pre> to avoid confusion to users of bibtex2web.  bp
+documentation appeared at at <a
+href="http://web.archive.org/web/20071113143006/www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html">http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html</a>
+(but wasn't packaged with bp itself).  bp has not been supported
 since December 1996, but it works well enough for me, particularly with my
 enhancements.  (Another library is btool, but bp is better.)  Other systems
 exist, but did not have the features I needed.
