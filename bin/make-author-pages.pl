@@ -188,9 +188,11 @@ sub read_link_names ( $ ) {
     chomp $line;
     if ($line =~ /^$/) { next; }
     if ($line =~ /^\#/) { next; }
-    $line =~ /^(.*?) +([^ ]+)$/;
+    if ($line !~ /^(.*?) +([^ ]+)$/) {
+      die "Didn't find space in link_names entry: $line";
+    }
     if (defined $linknames{$1}) {
-      warn "URL redefinition for $1:\n old: $linknames{$1}\n new: $2\n";
+      warn "Multiple link_names entries for $1:\n old: $linknames{$1}\n new: $2\n";
     }
     $linknames{$1} = $2;
   }
