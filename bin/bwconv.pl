@@ -5,6 +5,9 @@ use strict;
 use English;
 $WARNING = 1;
 
+# For debugging
+use Carp;
+
 # Should really only do this if that entry doesn't already exist at the
 # front of @INC.
 if (defined $ENV{'BPHOME'}) {
@@ -265,6 +268,7 @@ sub yearmonth {
   # print STDERR "Result = $year$year_suffix for $entry{'year'} $entry{'month'}\n";
   # print STDERR "<<$year>><<$year_suffix>><<$entry{'title'}>><<$entry{'author'}>>\n";
   # Add a further suffix because we want the sort to be predictable.
+  if (!defined($year)) { $year = ""; }
   return $year . $year_suffix . $entry{'title'} . $author;
 }
 
