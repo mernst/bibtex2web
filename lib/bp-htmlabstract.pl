@@ -153,6 +153,8 @@ sub fromcanon {
   $text =~ s/($cs_meta1100)/$1\n/;
   my $title_author;
   my $title;
+  # Note:  this requires either publication info (i.e., not @Misc), or else
+  # a month.  It will fail for @Misc items with no month, only a year.
   if ($text =~ s/(''|${bib::cs_ext}201D),? ((?:edited )?by .*?), ((:?in )?$cs_meta2101|Ph\.D\. dissertation|Masters thesis|Bachelors thesis|[^,]*(:?Technical Report|Memo|Video)|$date_range_regexp)/$1\n$2.\n\u$3/i) {
     # print STDERR "split fields = <<$1>><<$2>><<$3>>\n";
     $text =~ /(^.*\n(.*)\n((edited )?by .*)\n)/m;
