@@ -13,7 +13,7 @@ In order to make your own website from BibTeX files:
  3. Update the definition of BIBFILES in the Makefile.
     If you wish to use the html-update-toc script, which is referenced by the
     Makefile, you can obtain it at
-    http://pag.csail.mit.edu/~mernst/software/#html-update
+    http://www.cs.washington.edu/homes/mernst/software/#html-update
  4. Run make
  5. After examining the output, you may wish to customize some of the
     template files that you copied from the bibtex2web directory, which
