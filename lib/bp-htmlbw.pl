@@ -90,14 +90,17 @@ sub downloads_text ( $$% ) {
 			       "pdf" => "PDF",
 			       "pdf.gz" => "PDF (gzipped)",
 			       "ppt" => "PowerPoint",
+			       "pptx" => "PowerPoint",
 			       "ppt.gz" => "PowerPoint (gzipped)",
 			       "doc" => "MS Word",
+			       "docx" => "MS Word",
 			       "doc.gz" => "MS Word (gzipped)"
 			      );
 
 
     my @download_type_order = ("pdf", "pdf.gz", "ps", "ps.gz",
-			       "doc", "doc.gz", "ppt", "ppt.gz");
+			       "doc", "docx", "doc.gz",
+                               "ppt", "pptx", "ppt.gz");
 
     foreach my $category ("slides", "base") {
       # These get unshifted in, so reverse the order so they appear
