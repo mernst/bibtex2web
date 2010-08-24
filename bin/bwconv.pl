@@ -269,6 +269,10 @@ sub yearmonth {
   # print STDERR "<<$year>><<$year_suffix>><<$entry{'title'}>><<$entry{'author'}>>\n";
   # Add a further suffix because we want the sort to be predictable.
   if (!defined($year)) { $year = ""; }
+  if (!defined($entry{'title'})) {
+    # Could also print $record here.
+    print STDERR "No title in record $entry{'CITEKEY'}";
+  }
   return $year . $year_suffix . $entry{'title'} . $author;
 }
 
