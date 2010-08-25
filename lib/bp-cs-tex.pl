@@ -335,11 +335,8 @@ sub tocanon {
 
   if ($text =~ /-/) {
     $text =~ s/\$-\$/${bib::cs_ext}2212/go;
-    $text =~ s/\b--\b/${bib::cs_ext}2013/go;
-    $text =~ s/(\b|\})---(\b|\{)/$1${bib::cs_ext}2014$2/go;
-    $text =~ s/ --- / ${bib::cs_ext}2014 /go;
-    $text =~ s/\{?\\,---\\,\}?/ ${bib::cs_ext}2014 /go;
-    $text =~ s/ -- / ${bib::cs_ext}2014 /go;
+    $text =~ s/([^-])--([^-])/$1${bib::cs_ext}2013$2/go;
+    $text =~ s/([^-])---([^-])/$1${bib::cs_ext}2014$2/go;
     # leave -
   }
   if ($text =~ /~/) {
