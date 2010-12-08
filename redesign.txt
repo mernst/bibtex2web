@@ -1,0 +1,63 @@
+Reimplementation of the bibtex2web program
+==========================================
+
+The bibtex2web program
+(http://www.cs.washington.edu/homes/mernst/software/bibtex2web.html) is
+extremely useful, and is widely used.  However, bibtex2web is brittle and
+hard to maintain, and it lacks some features.  It seems that the best
+approach for features and long-term stability would be to rewrite.
+
+Currently bibtex2web is written in perl and uses the bp library for parsing
+BibTeX files.  The rewrite would give an opportunity to use a nicer
+programming language as well.  (Search Google for "bibtex parser" to find a
+new library to build upon.  Java seems like the best choice.)
+
+The current design (from a usage point of view) seems to work pretty well,
+and can be largely maintained but also improved.
+
+The user adds extra BibTeX fields and writes HTML template files with
+special markers.  For instance, it might look like
+  <bibtex2web project="speculation" bibfiles="/homes/gws/mernst/bib/*.bib">
+  </bibtex2web>
+The begin marker includes information about what papers to include (see
+below for info about the predicate).  A static program processes the HTML
+templates into regular static HTML pages.  It leaves the markers there, but
+replaces anything in between them; the result is that running the program
+twice in a row has no further effect, but if the BibTeX files change, then
+running the program again updates the webpage.
+
+This feels somewhat like server-side HTML commands.  However, the
+ahead-of-time processing makes it easier to notify the user when there is
+an error, rather than just producing a bad HTML page.  Also, the existence
+of static HTML makes it easier to run other tools, such as HTML validators
+and link checkers.
+
+Two desired changes to the current bibtex2web design are:
+ * User writes whole HTML page templates, not just headers and footers.
+   This means that a single webpage can easily have multiple lists of
+   papers, which is currently difficult to achieve.  This also means that
+   the user can run HTML validation on the template files.
+ * The inline markers can include a predicate (expressed as a boolean
+   formula over BibTeX fields) indicating which subset of fields to
+   include.  The exact syntax is to be determined.  One possibility is
+   plain ASCII:
+     <bibtex2web predicate="project='speculation' and author='Michael D. Ernst'">
+     </bibtex2web>
+   Another possibility is XML:
+     <bibtex2web>
+       <predicate>
+       <and>
+         <project="speculation" />
+         <author="Michael D. Ernst" />
+       </and>
+       </predicate>
+     </bibtex2web>
+
+Because the requirements are somewhat vague, the first step in this project
+would be defining the problem, and the best way to do that is by writing
+the new manual.  After that, the system can be built, tested, and deployed.
+
+
+The most important use cases are the local ones:
+  ~mernst/sync/pag-pubs-src
+  ~mernst/www/pubs-sources
