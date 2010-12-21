@@ -10,7 +10,9 @@ approach for features and long-term stability would be to rewrite.
 Currently bibtex2web is written in perl and uses the bp library for parsing
 BibTeX files.  The rewrite would give an opportunity to use a nicer
 programming language as well.  (Search Google for "bibtex parser" to find a
-new library to build upon.  Java seems like the best choice.)
+new library to build upon.  Java seems like the best choice, as of December
+2010.)  As a minor change, the generated webpages should be XHTML 1.0
+Strict rather than XHTML 1.0 Transitional.
 
 The current design (from a usage point of view) seems to work pretty well,
 and can be largely maintained but also improved.
