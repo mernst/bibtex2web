@@ -348,6 +348,8 @@ sub tocanon {
   # take its place.
   $text =~ s/\\@//g;
 
+  $text =~ s/[^\\]\\-//g;	# discretionary line break
+
   $text =~ s/\\smaller\b//g;
 
   # Do these really need to be here, or could I move them back up?
