@@ -348,7 +348,7 @@ sub tocanon {
   # take its place.
   $text =~ s/\\@//g;
 
-  $text =~ s/[^\\]\\-//g;	# discretionary line break
+  $text =~ s/([^\\])\\-/$1/g;	# discretionary line break
 
   $text =~ s/\\smaller\b//g;
 
