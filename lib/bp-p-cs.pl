@@ -112,7 +112,7 @@ sub meta_name {
 sub meta_approx {
   local($orig) = @_;
 
-  require "${glb_bpprefix}p-cstab.pl" unless defined %bib::mapprox_tab;
+  require "${glb_bpprefix}p-cstab.pl" unless (%bib::mapprox_tab);
 
   if (defined $mapprox_tab{$orig}) {
     return '' if $mapprox_tab{$orig} eq '0000';
@@ -126,7 +126,7 @@ sub unicode_approx {
 
   # XXXXX Should we warn them that they're getting an approx?
 
-  require "${glb_bpprefix}p-cstab.pl" unless defined %bib::uapprox_tab;
+  require "${glb_bpprefix}p-cstab.pl" unless (%bib::uapprox_tab);
 
   $uapprox_tab{$orig};
 }
