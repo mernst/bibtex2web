@@ -488,7 +488,8 @@ sub change_tex_fonts {
   # done with font changing
 
   $string =~ s/\{?\\,---\\,\}?/ ${bib::cs_meta}2014 /g;	# not sure why I need this
-  $string =~ s/\b--\b/${bib::cs_meta}2013/g;	# not sure why I need this
+  # Was cs_meta, apparently needs to be cs_ext
+  $string =~ s/\b--\b/${bib::cs_ext}2013/g;	# not sure why I need this
   $string =~ s/\\,/ /g; 		# not sure why I need this
   $string =~ s/\\par\b/${bib::cs_meta}1120/g;
   $string =~ s/\\cite\{([^{}]+)\}/[$1]/g;
