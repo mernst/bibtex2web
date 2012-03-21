@@ -569,6 +569,7 @@ sub fromcanon {
     $can = &bib::unicode_approx($repl);
     defined $can  &&  s/$bib::cs_ext$repl/$can/g  &&  next;
 
+    # for debugging, add: . " in " . $_
     &bib::gotwarn("Can't convert ".&bib::unicode_name($repl)." to HTML");
     # For debugging:
     # &bib::gotwarn("  in (1): $_");
@@ -599,6 +600,7 @@ sub fromcanon {
     $can = &bib::meta_approx($repl);
     defined $can  &&  s/$bib::cs_meta$repl/$can/g  &&  next;
 
+    # for debugging, add: . " in " . $_
     &bib::gotwarn("Can't convert ".&bib::meta_name($repl)." to HTML");
     # For debugging:
     # &bib::gotwarn("  in (2): $_");
