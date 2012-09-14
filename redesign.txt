@@ -2,7 +2,7 @@ Reimplementation of the bibtex2web program
 ==========================================
 
 The bibtex2web program
-(http://www.cs.washington.edu/homes/mernst/software/bibtex2web.html) is
+(http://homes.cs.washington.edu/~mernst/software/bibtex2web.html) is
 extremely useful, and is widely used.  However, bibtex2web is brittle and
 hard to maintain, and it lacks some features.  It seems that the best
 approach for features and long-term stability would be to rewrite.
