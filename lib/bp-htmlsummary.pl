@@ -170,14 +170,14 @@ sub fromcanon {
   # Add summary.
   my $summary = $entry{'Summary'};
   if (! defined($summary)) {
-    print STDERR "Warning: no summary for $entry{'CiteKey'}\n";
+    print STDERR "Warning: no \"summary\" field in BibTeX entry $entry{'CiteKey'}\n";
     $summary = "";
   }
   # print STDERR "<<${csmeta}>><<$csmeta>><<$text>><<$summary>>\n";
   $text = "\n${csmeta}2223\n$text${csmeta}2226\n${csmeta}2224\n$summary\n${csmeta}2227";
 
   my $category = $entry{'category'};
-  if (! defined($category)) { die "no category: $text"; }
+  if (! defined($category)) { die "Error: Missing \"category\" field in BibTeX entry; please edit the BibTeX file to add it.\n  The \"category\" field is missing in this publication: $text"; }
   if ((! defined($prev_category)) || ($category ne $prev_category)) {
     $text = "${csmeta}2232"
       . make_aname($category, $category)

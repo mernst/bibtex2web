@@ -166,7 +166,14 @@ sub fromcanon {
     # print STDERR "title_author = $title_author\n";
   } else {
     ## This is a problem, so leave it uncommented.
-    print STDERR "failed to parse line: $text\n";
+    print STDERR "Warning: Failed to parse internal (canonical) form of a publication.\n";
+    print STDERR "  A parse failure usually means that some information is missing from the BibTex\n";
+    print STDERR "  entry.  For example, either publication venue or month is required;\n";
+    print STDERR "  a \@Misc BibTeX entry with no month, only a year, will cause a parse failure.\n";
+    print STDERR "  Please update your BibTeX entry to include any missing information.\n";
+    print STDERR "  The parse failure was for this publication: $text\n";
+    # Let processing continue.
+    $title = "";
   }
   # print STDERR "text (2): $text\n";
 
@@ -268,9 +275,9 @@ sub fromcanon {
       $text = "";
     } else {
       # print STDERR "basefile:<<$basefile>> title:<<$title>> text:<<$text>>\n";
-      if (! (defined($basefile) && defined($title) && defined($text))) {
-        print STDERR "Undefined variable: basefile:<<$basefile>> title:<<$title>> text:<<$text>>\n";
-      }
+      # if (! (defined($basefile) && defined($title) && defined($text))) {
+      #   print STDERR "Undefined variable: basefile:<<$basefile>> title:<<$title>> text:<<$text>>\n";
+      # }
       $text = "\n\nNEWFILE: $basefile $title\n"
 	. $text
         . "\n\nENDFILE\n\n";
