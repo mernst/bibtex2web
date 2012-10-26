@@ -66,7 +66,7 @@ sub downloads_text ( $$% ) {
   #   <a href="graycodes.pdf">PDF</a>.
   my $basefilename = $entry{'basefilename'};
   if ((! defined($basefilename)) && (! defined($entry{'nobasefilename'}))) {
-    print STDERR "Warning: no basefilename for $entry{'CiteKey'}\n";
+    print STDERR "Warning: no \"basefilename\" field in BibTeX entry $entry{'CiteKey'}\n";
   }
   my @downloads = ();
   if (defined $entry{'downloads'}) {
@@ -146,7 +146,7 @@ sub downloads_text ( $$% ) {
       }
       $urls{$url} = 1;
       if (! defined($anchor)) {
-        print STDERR "Missing anchor text (e.g., \"PDF\"): $download\n";
+        print STDERR "Missing anchor text (e.g., \"PDF\") in \"download\" field: $download\n";
         $anchor = "??";
       }
       # Check non-local links for validity
@@ -157,7 +157,7 @@ sub downloads_text ( $$% ) {
     }
     $result =~ s/,\n$/.\n/m;
   } elsif (! defined $entry{'nodownloads'}) {
-    print STDERR "Warning: no downloads for $entry{'CiteKey'}\n";
+    print STDERR "Warning: no \"downloads\" field in BibTex entry $entry{'CiteKey'}\n";
   }
   return $result;
 }
