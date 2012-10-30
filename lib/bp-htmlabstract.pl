@@ -167,8 +167,8 @@ sub fromcanon {
   } else {
     ## This is a problem, so leave it uncommented.
     print STDERR "Warning: Failed to parse internal (canonical) form of a publication.\n";
-    print STDERR "  A parse failure usually means that some information is missing from the BibTex\n";
-    print STDERR "  entry.  For example, either publication venue or month is required;\n";
+    print STDERR "  A parse failure usually means that some information is missing from the\n";
+    print STDERR "  BibTeX entry.  For example, either publication venue or month is required;\n";
     print STDERR "  a \@Misc BibTeX entry with no month, only a year, will cause a parse failure.\n";
     print STDERR "  Please update your BibTeX entry to include any missing information.\n";
     print STDERR "  The parse failure was for this publication: $text\n";
