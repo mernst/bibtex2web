@@ -162,6 +162,7 @@ sub init_cs {
 '015F', '{\c{s}}',
 '0160', '{\vS}',
 '0161', '{\vs}',
+'0165', '{\vt}',
 '017A', q-{\'z}-,
 '017C', '{\.z}',
 '017E', '{\vz}',
@@ -496,6 +497,7 @@ sub change_tex_fonts {
   $string =~ s/\$\$?([^\$]+)\$\$?/${bib::cs_meta}0102$1${bib::cs_meta}0110/g;
   $string =~ s/\\(log)\b/${bib::cs_meta}0102$1${bib::cs_meta}0112/g;
   $string =~ s/\\url\{([^{}]+)\}/${bib::cs_meta}2200${bib::cs_meta}2300$1${bib::cs_meta}2310$1${bib::cs_meta}2210/g;
+  $string =~ s/\\href\{([^{}]+)\}\{([^{}]+)\}/${bib::cs_meta}2200${bib::cs_meta}2300$1${bib::cs_meta}2310$2${bib::cs_meta}2210/g;
 
   $string =~ s/\\item\b/${bib::cs_meta}1300/g;
   $string =~ s/\\begin{itemize}/${bib::cs_meta}1301/g;
@@ -519,6 +521,7 @@ sub fromcanon {
   # call to bib'font_check in the tocanon code.
 
   $text =~ s/${bib::cs_meta}2200${bib::cs_meta}2300([^{}]+)${bib::cs_meta}2310\1${bib::cs_meta}2210/\\url\{$1\}/g;
+  $text =~ s/${bib::cs_meta}2200${bib::cs_meta}2300([^{}]+)${bib::cs_meta}2310([^{}]+)${bib::cs_meta}2210/\\href\{$1\}\{$2\}/g;
 
   if ($protect) {
     $text =~ s/\\/$bib::cs_temp/go;
