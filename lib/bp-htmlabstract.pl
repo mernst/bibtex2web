@@ -202,6 +202,7 @@ sub fromcanon {
 
   if (! defined($entry{'supersededby'})) {
 
+    # When debugging the -linknames command line argument, uncomment this:
     # print STDERR "text (2.5): $text\n";
 
     # Insert HTML links.
