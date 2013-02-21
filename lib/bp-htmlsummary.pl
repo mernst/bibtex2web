@@ -116,6 +116,9 @@ sub fromcanon {
   } elsif ($type eq 'inproceedings') {
     $where = "m2101$entry{'SuperTitle'}m2111";
   } elsif ($type eq 'inbook') {
+    if (! defined $entry{'SuperTitle'}) {
+      print STDERR "No SuperTitle for $entry{'Title'}\n";
+    }
     $where ="m2101$entry{'SuperTitle'}m2111";
   } elsif ($type eq 'thesis') {
     if (defined $entry{'ReportType'} || $entry{'ReportNumber'}) {
