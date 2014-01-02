@@ -293,6 +293,7 @@ sub init_cs_fr {
   &init_cs unless $cs_init;
 
   # XXXXX We should just use unicode_approx.
+  # XXXXX That is, add to file bp-p-cstab.pl instead of here.
   # Map various unicode entities to HTML.
   %charmap_from = (
   '2002', ' ',    # These two are probably wrong.
