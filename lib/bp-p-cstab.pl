@@ -44,10 +44,10 @@
 # These should never have objectionable characters in them, such as
 # \, <, >, |, %, #, &, ...
 %uapprox_tab = (
-'0107', '&#x0107',
+'0107', '&#x0107;',
 '010D', 'c',
 '0159', 'r',
-'015F', '&#351',
+'015F', '&#351;',
 '0161', 's',
 '0165', 't',
 '017A',	'z',
