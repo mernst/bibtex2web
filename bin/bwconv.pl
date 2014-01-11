@@ -409,7 +409,7 @@ foreach my $record (@records) {
     $bp_output::headstr{'html'} = munge($header) . $notice;
   }
   if (defined($footer)) {
-    $bp_output::tailstr{'html'} = munge($footer) . $notice;
+    $bp_output::tailstr{'html'} = $notice . munge($footer);
   }
 }
 
