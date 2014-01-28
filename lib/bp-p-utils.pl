@@ -273,7 +273,9 @@ sub canon_to_name {
     $namenum++;
     ($last, $von, $first, $jr) = split(/$bib::cs_sep2/o, $name, 4);
     $last =~ s/ /\240/g;
-    $von  =~ s/ /\240/g;
+    if (defined $von) {
+      $von  =~ s/ /\240/g;
+    }
     if ($how =~ /^bibtex/) {
       # Turn ties back into spaces.
       $last =~ s/([^,])\240/$1 /g;
