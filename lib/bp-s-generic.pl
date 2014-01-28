@@ -228,6 +228,8 @@ sub format_title_authors {
   my $authors;
   if (defined $can{'Authors'}) {
     $authors = &bp_util::canon_to_name($can{'Authors'}, 'plain');
+  } elsif (defined $can{'CorpAuthor'}) {
+    $authors = &bp_util::canon_to_name($can{'CorpAuthor'}, 'plain');
   } elsif (defined $can{'Editors'}) {
     $authors = &bp_util::canon_to_name($can{'Editors'}, 'plain');
     $usingeditors = 1;
