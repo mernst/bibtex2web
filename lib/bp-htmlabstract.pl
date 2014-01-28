@@ -146,6 +146,8 @@ sub fromcanon {
 #  print STDERR "text: $text\n";
 #  print STDERR "orig fields: ", join(" ", keys %entry), "\n";
 #  print STDERR "rec fields: ", join(" ", keys %rec), "\n";
+#  use Data::Dumper;
+#  print Dumper(\%entry);
 
   # Split across lines, to be more readable in the HTML file.
   # This puts ${bib'cs_meta}1100 on line 1, title on line 2, authors on
