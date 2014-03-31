@@ -157,7 +157,7 @@ sub downloads_text ( $$% ) {
     }
     $result =~ s/,\n$/.\n/m;
   } elsif (! defined $entry{'nodownloads'}) {
-    print STDERR "Warning: no \"downloads\" field in BibTex entry $entry{'CiteKey'}\n";
+    print STDERR "Warning: no \"downloads\" field in BibTeX entry $entry{'CiteKey'}\n";
   }
   return $result;
 }
