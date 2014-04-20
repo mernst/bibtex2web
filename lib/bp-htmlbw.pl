@@ -192,7 +192,8 @@ sub previous_versions_text ( $% ) {
       $subtext =~ s/$cs_meta2150//g;
       # If title and authors are identical to final version, eliminate them.
       # (Commas in technical report institutions seem to confuse this, as
-      # they turn the period at the end of the author list into a period.)
+      # they turn the period at the end of the author list into a comma.
+      # Likewise if there is a TR with no "number" field.)
       $subtext =~ s/\Q$title_author//;
       # print STDERR "subtext = $subtext\n";
       # print STDERR "title_author = $title_author\n";
