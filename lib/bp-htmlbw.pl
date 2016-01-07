@@ -85,8 +85,6 @@ sub downloads_text ( $$% ) {
 
     my @local_downloads = ();
     my %download_type_names = (
-			       "ps" => "PostScript",
-			       "ps.gz" => "PostScript (gzipped)",
 			       "pdf" => "PDF",
 			       "pdf.gz" => "PDF (gzipped)",
 			       "ppt" => "PowerPoint",
@@ -99,7 +97,7 @@ sub downloads_text ( $$% ) {
 			      );
 
 
-    my @download_type_order = ("pdf", "pdf.gz", "ps", "ps.gz",
+    my @download_type_order = ("pdf", "pdf.gz",
 			       "doc", "docx", "doc.gz",
                                "ppt", "pptx", "ppt.gz",
                                "odp");
