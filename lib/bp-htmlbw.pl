@@ -87,13 +87,13 @@ sub downloads_text ( $$% ) {
     my %download_type_names = (
 			       "pdf" => "PDF",
 			       "pdf.gz" => "PDF (gzipped)",
+			       "doc" => "MS Word",
+			       "docx" => "MS Word",
+			       "doc.gz" => "MS Word (gzipped)",
 			       "ppt" => "PowerPoint",
 			       "pptx" => "PowerPoint",
 			       "ppt.gz" => "PowerPoint (gzipped)",
-			       "odp" => "ODP",
-			       "doc" => "MS Word",
-			       "docx" => "MS Word",
-			       "doc.gz" => "MS Word (gzipped)"
+			       "odp" => "ODP"
 			      );
 
 
