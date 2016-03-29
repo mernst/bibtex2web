@@ -103,11 +103,11 @@ sub init_cs {
                         # I hope this is only used within <i>...</i>.
 '0102', 'i',
 '0103', 'b',
-'0104', 'tt',
+'0104', 'code',
 '0111', 'i',            # end upright text.
 '0112', '/i',
 '0113', '/b',
-'0114', '/tt',
+'0114', '/code',
 '1100', 'p',	   # really ought to use 2029, Unicode paragraph separator
 '1101', 'pre',
 '1102', 'address',
