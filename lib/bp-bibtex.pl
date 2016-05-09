@@ -198,7 +198,7 @@ sub read {
       if ($type =~ /^string/i) {
         # XXXXX should handle multi-line string statements.
         my ($name, $value);
-        if ( ($name,$value) = /^\@string{(\S+)\s*=\s*\"([^\"]*)\"}$/i) {
+        if ( ($name,$value) = /^\@string\{(\S+)\s*=\s*\"([^\"]*)\"\}$/i) {
           $name =~ s/(\W)/\\$1/g;   # quote special chars
           $name =~ s/\\ / /g;
           $value =~ s/(\W)/\\$1/g;

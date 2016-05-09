@@ -435,8 +435,8 @@ sub tocanon {
   }
   eval $cmap_to_eval;
 
-  $text =~ s/\\\^{}/\^/g;
-  $text =~ s/\\~{\s?}/~/g;
+  $text =~ s/\\\^\{\}/\^/g;
+  $text =~ s/\\~\{\s?\}/~/g;
 
   # hopefully we're done by now
   return $text unless ($text =~ /\\/);
@@ -500,10 +500,10 @@ sub change_tex_fonts {
   $string =~ s/\\href\{([^{}]+)\}\{([^{}]+)\}/${bib::cs_meta}2200${bib::cs_meta}2300$1${bib::cs_meta}2310$2${bib::cs_meta}2210/g;
 
   $string =~ s/\\item\b/${bib::cs_meta}1300/g;
-  $string =~ s/\\begin{itemize}/${bib::cs_meta}1301/g;
-  $string =~ s/\\end{itemize}/${bib::cs_meta}1311/g;
-  $string =~ s/\\begin{enumerate}/${bib::cs_meta}1302/g;
-  $string =~ s/\\end{enumerate}/${bib::cs_meta}1312/g;
+  $string =~ s/\\begin\{itemize\}/${bib::cs_meta}1301/g;
+  $string =~ s/\\end\{itemize\}/${bib::cs_meta}1311/g;
+  $string =~ s/\\begin\{enumerate\}/${bib::cs_meta}1302/g;
+  $string =~ s/\\end\{enumerate\}/${bib::cs_meta}1312/g;
 
   return $string;
 }
