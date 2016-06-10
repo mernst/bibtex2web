@@ -1,0 +1,4 @@
+script: make test
+
+git:
+  depth: 3
