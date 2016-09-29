@@ -86,20 +86,20 @@ sub downloads_text ( $$% ) {
     my @local_downloads = ();
     my %download_type_names = (
 			       "pdf" => "PDF",
-			       "pdf.gz" => "PDF (gzipped)",
-			       "doc" => "MS Word",
+			       # "pdf.gz" => "PDF (gzipped)",
 			       "docx" => "MS Word",
-			       "doc.gz" => "MS Word (gzipped)",
-			       "ppt" => "PowerPoint",
+			       "doc" => "MS Word",
+			       # "doc.gz" => "MS Word (gzipped)",
 			       "pptx" => "PowerPoint",
-			       "ppt.gz" => "PowerPoint (gzipped)",
+			       "ppt" => "PowerPoint",
+			       # "ppt.gz" => "PowerPoint (gzipped)",
 			       "odp" => "ODP"
 			      );
 
 
-    my @download_type_order = ("pdf", "pdf.gz",
-			       "doc", "docx", "doc.gz",
-                               "ppt", "pptx", "ppt.gz",
+    my @download_type_order = ("pdf",
+			       "doc", "docx",
+                               "pptx", "ppt",
                                "odp");
 
     foreach my $category ("slides", "base") {
