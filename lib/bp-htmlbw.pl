@@ -90,6 +90,7 @@ sub downloads_text ( $$% ) {
 			       "docx" => "MS Word",
 			       "doc" => "MS Word",
 			       # "doc.gz" => "MS Word (gzipped)",
+			       "key" => "Keynote",
 			       "pptx" => "PowerPoint",
 			       "ppt" => "PowerPoint",
 			       # "ppt.gz" => "PowerPoint (gzipped)",
@@ -100,6 +101,7 @@ sub downloads_text ( $$% ) {
     my @download_type_order = ("pdf",
 			       "doc", "docx",
                                "pptx", "ppt",
+                               "key",
                                "odp");
 
     foreach my $category ("slides", "base") {
