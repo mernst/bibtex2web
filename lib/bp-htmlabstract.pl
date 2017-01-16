@@ -260,8 +260,11 @@ sub fromcanon {
       # print STDERR "pre-implode: @be_list\n";
       my $bibtex_entry = bp_bibtex::implode(%bibentry);
       # print STDERR "post-implode: $bibtex_entry\n";
+      # The "protect" argument to fromcanon is 0 to avoid quoting the curly
+      # braces in the BibTeX entry.
       $bibtex_entry = bp_cs_tex::fromcanon($bibtex_entry, 0);
       $bibtex_entry =~ s/(\d)----(\d)/$1--$2/g;
+      $bibtex_entry =~ s/ & / \\& /g;
       # print STDERR "post-fromcanon: $bibtex_entry\n";
       $text .= $bibtex_entry;
       $text .= $cs_meta1111 . "\n";

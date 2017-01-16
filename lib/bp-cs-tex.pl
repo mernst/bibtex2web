@@ -514,7 +514,7 @@ sub fromcanon {
   my ($text, $protect) = @_;
   my $debug_fromcanon = 0;
   # $debug_fromcanon = 1;
-  if ($debug_fromcanon) { print STDERR "bp-cs-tex::fromcanon <= $text\n"; }
+  if ($debug_fromcanon) { print STDERR "bp-cs-tex::fromcanon (protect=$protect) <= $text\n"; }
 
   my $repl;
   # We no longer check for font matching here, as that should be done by a
