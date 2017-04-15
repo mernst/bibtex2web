@@ -1079,6 +1079,11 @@ sub crossref_fill {
 
   &bib::debugs("trying to crossref $id in $bent{'CITEKEY'}", 64);
   if (!defined $glb_crossref_entries{$id}) {
+    foreach my $crossref (keys %glb_crossref_entries) {
+      if ((lc $id) eq (lc $crossref)) {
+        &bib::gotwarn("Inconsistent capitalization:  crossref = \"$id\" should use $crossref");
+      }
+    }
     if ( ! &get_record_ahead($id) ) {
       &bib::gotwarn("Could not find bibtex crossref: $id");
       return %bent;
