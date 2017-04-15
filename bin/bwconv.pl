@@ -217,6 +217,9 @@ my %month_abbrevs = ( "jan" => "01",
 
 # Also see parsedate
 
+# Returns a sort key for the record.
+# Includes additional information beyond year and month, to make sort order
+# deterministic.
 sub yearmonth {
   my ($record) = @_;
   my %entry = &bib::explode($record);
@@ -256,25 +259,21 @@ sub yearmonth {
   } else {
     # print STDERR "No month in record: $record";
   }
-  # avoid warnings about uninitialized values
-  my $author = (defined($entry{'author'}) ? $entry{'author'} : "");
 
-  # my $undefined_field = 0;
-  # if (!defined($year)) { $undefined_field = 1; print STDERR "Undefined year\n"; $year = ""; }
-  # if (!defined($entry{title})) { $undefined_field = 1; print STDERR "Undefined title\n"; $entry{title} = ""; }
-  # if (!defined($author)) { $undefined_field = 1; print STDERR "Undefined author\n"; $author = ""; }
-  # if ($undefined_field) {
-  #   print STDERR "<<$year>><<$year_suffix>><<$entry{'title'}>><<$entry{'author'}>>\n";
-  # }
-  # print STDERR "Result = $year$year_suffix for $entry{'year'} $entry{'month'}\n";
-  # print STDERR "<<$year>><<$year_suffix>><<$entry{'title'}>><<$entry{'author'}>>\n";
+  if (!defined($year)) {
+    print STDERR "No year in record $entry{'CITEKEY'}";
+    $year = "";
+  }
+
   # Add a further suffix because we want the sort to be predictable.
-  if (!defined($year)) { $year = ""; }
+  my $appearsin = (defined($entry{'booktitle'}) ? $entry{'booktitle'} :
+                   (defined($entry{'journal'}) ? $entry{'journal'} : ""));
   if (!defined($entry{'title'})) {
-    # Could also print $record here.
     print STDERR "No title in record $entry{'CITEKEY'}";
   }
-  return $year . $year_suffix . $entry{'title'} . $author;
+  my $author = (defined($entry{'author'}) ? $entry{'author'} : "");
+
+  return $year . $year_suffix . " " . $appearsin . $entry{'title'} . $author;
 }
 
 sub byyearmonth {
