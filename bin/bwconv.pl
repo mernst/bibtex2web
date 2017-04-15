@@ -149,13 +149,14 @@ foreach my $file (@files) {
 }
 
 # print STDERR "records (1): ", scalar(@records), "\n";
+# print_records();
 
 # Filter out records I don't care about.
 # Remove records that are superseded.
 if (defined($filter)) {
   @records = grep { my %rec = &bib::explode($_);
-                    # print STDERR "filtering:\n";
-                    # print STDERR %rec;
+                    # print STDERR "filtering $rec{'CITEKEY'} :\n";
+                    # foreach my $key (sort keys %rec) { print "  $key : $rec{$key}\n"; }
                     # Old filter was:
                     # ! (defined($rec{'omitfromcv'})
                     #    || (lc($rec{'TYPE'}) eq "lecture"));
