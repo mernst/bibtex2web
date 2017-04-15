@@ -210,11 +210,25 @@ sub fromcanon {
     # Insert HTML links.
     {
       while (my ($linkname, $lurl) = each %linknames) {
-          # print STDERR "checking for $linkname in $text\n";
           next if $opt_linkauthors && defined $authorlinks{$linkname};
-          # Problem:  This can insert an anchor even within another anchor
-          # (and HTML forbids such nesting).
-          $text =~ s/\Q$linkname\E/&make_href($lurl, $linkname)/ge;
+
+          # if ($text =~ /\Q$linkname\E/g) {
+          #   print STDERR "Should find $linkname in $text\n";
+          #   print STDERR "Prefix: $prefix\n";
+          # }
+
+          # Prevent inserting an anchor even within another anchor.
+          # It's undesirable, and HTML forbids such nesting.
+          # (Using possessive quantifier anywhere in the regex would prevent backtracking everwhere.)
+          $prefix = "(^|${bib'cs_meta}2210)[^${bib'cs_escape}]*(${bib'cs_escape}(?!m2200)[^${bib'cs_escape}]*)*";
+          while ($text =~ s/$prefix\K\Q$linkname\E/&make_href($lurl, $linkname)/ges) {
+            # no body
+          }
+
+          # if ($text =~ /\Q$linkname\E/g) {
+          #   print STDERR "After substitution: $text\n";
+          # }
+
       }
       if ($opt_linkauthors) {
           while (my ($author, $aurl) = each %authorlinks) {
@@ -223,6 +237,7 @@ sub fromcanon {
       }
     }
 
+    # When debugging the -linknames command line argument, uncomment this:
     # print STDERR "text (3): $text\n";
 
   }
