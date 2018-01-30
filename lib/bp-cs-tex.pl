@@ -252,7 +252,7 @@ foreach $mine (sort keys %rmap) {
     $accent{$1 . $2} = $can;
   } elsif ($mine =~ /^{\\([vc])(\w)}$/) {
     $accent{$1 . $2} = $can;
-  } elsif ($mine =~ /^{\\([vc]){(\w)}}$/) {
+  } elsif ($mine =~ /^\{\\([vc])\{(\w)}}$/) {
     $accent{$1 . $2} = $can;
   } elsif ($mine =~ /leavevmode/) {
     $cmap_to_eval_1 .= "$cmapvar s/$mineE/$can/g;\n";
@@ -383,7 +383,7 @@ sub tocanon {
       $mine =~ s/(\W)/\\$1/g;
       $text =~ s/$mine/$can/g;
     }
-    while ($text =~ /{\\([`'^"~vc]){([\w])}}/) {
+    while ($text =~ /\{\\([`'^"~vc])\{([\w])}}/) {
       $can = $accent{$1 . $2};
       $mine = "{\\$1\{$2\}}";
       if (!defined $can) {
@@ -393,7 +393,7 @@ sub tocanon {
       $mine =~ s/(\W)/\\$1/g;
       $text =~ s/$mine/$can/g;
     }
-    while ($text =~ /\\([`'^"~vc]){([\w])}/) {
+    while ($text =~ /\\([`'^"~vc])\{([\w])}/) {
       $can = $accent{$1 . $2};
       $mine = "\\$1\{$2\}";
       if (!defined $can) {
