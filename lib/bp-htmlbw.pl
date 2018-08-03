@@ -104,7 +104,7 @@ sub downloads_text ( $$% ) {
                                "key",
                                "odp");
 
-    foreach my $category ("slides", "base") {
+    foreach my $category ("slides", "poster", "base") {
       # These get unshifted in, so reverse the order so they appear
       # on the page properly.
       foreach my $dtype (reverse @download_type_order) {
@@ -115,6 +115,11 @@ sub downloads_text ( $$% ) {
 	if ($category eq "slides") {
 	  $fn_ext = "-slides";
 	  $label = "slides (${dtn})";
+	}
+
+	if ($category eq "poster") {
+	  $fn_ext = "-poster";
+	  $label = "poster (${dtn})";
 	}
 
 	my $fn = "${htmldir}/${basefilename}${fn_ext}.${dtype}";
