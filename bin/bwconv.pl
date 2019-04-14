@@ -294,6 +294,7 @@ sub catnum ( $ ) {
       return $i+100;
     }
   }
+  # This category is not in @categories.  Sort it at the end.
   return "999 $cat";
 }
 
