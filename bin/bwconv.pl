@@ -295,6 +295,33 @@ sub catnum ( $ ) {
 }
 
 
+# Makes a copy of the input array.  For each record that has multiple
+# categories, the result contains multiple copies, each of which has one
+# category.
+sub duplicate_for_categories {
+  my @recs = @_;
+  my @result = ();
+  for my $rec (@recs) {
+    my %entry = &bib::explode($rec);
+    my $rec_cat = $entry{'category'};
+    if ((!defined($rec_cat))
+	|| (index($rec_cat, ",") == -1)) {
+      push @result, $rec;
+    } else {
+      for my $this_cat (split /,/, $rec_cat) {
+	# It's gross to use direct string manipulation, but I'm having
+	# trouble using the right fromcanon and implode.
+	my $rec_with_one_category = $rec;
+	$rec_with_one_category =~ s/"\Q$rec_cat\E"/$this_cat/;
+	push @result, $rec_with_one_category;
+      }
+    }
+  }
+  return @result;
+}
+
+
+# Sorts entries by category, according to the order in @categories.
 sub bycategory {
   my %aentry = &bib::explode($a);
   my %bentry = &bib::explode($b);
@@ -316,7 +343,8 @@ if ((! defined($sortorder))
 } elsif ($sortorder eq 'chronological') {
   @records = sort byyearmonth @records;
 } elsif ($sortorder eq 'category') {
-  @records = sort bycategory @records;
+  my @single_category_records = duplicate_for_categories(@records);
+  @records = sort bycategory @single_category_records;
 } else {
   die "Unrecognized sort order $sortorder";
 }
