@@ -5,6 +5,8 @@ use strict;
 use English;
 $WARNING = 1;
 
+use List::MoreUtils qw(first_index);
+
 # For debugging
 use Carp;
 
@@ -285,17 +287,11 @@ sub byyearmonth_reversed {
 }
 
 # Find the index of a category in @categories.
-# (Isn't there a built-in operator that will do this?)
 sub catnum ( $ ) {
   my ($cat) = @_;
-  for (my $i=0; $i<scalar(@categories); $i++) {
-    if ($cat eq $categories[$i]) {
-      # Add 100 to ensure 3 digits; we are sorting via a string comparison
-      return $i+100;
-    }
-  }
-  # This category is not in @categories.  Sort it at the end.
-  return "999 $cat";
+  # Add 100 to ensure 3 digits; we are sorting via a string comparison.
+  # Categories not in @categories will sort at the end as category 99.
+  return 100 + first_index { $_ eq $cat } @categories;
 }
 
 
