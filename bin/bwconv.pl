@@ -152,6 +152,7 @@ foreach my $file (@files) {
 
 # print STDERR "records (1): ", scalar(@records), "\n";
 # print_records();
+# print STDERR "filter: $filter\n";
 
 # Filter out records I don't care about.
 # Remove records that are superseded.
