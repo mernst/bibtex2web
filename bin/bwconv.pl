@@ -573,7 +573,10 @@ sub set_supersedes ( $$$ ) {
       }
       my $newrec = $citekeys{$next_superseder};
       if (! defined($newrec)) {
-        die "Didn't find citekey $next_superseder which is referenced by $superseded_key";
+	my $msg = "Didn't find citekey $next_superseder which is referenced by $superseded_key";
+	print STDERR "$msg\n";
+	print STDERR "Known keys: \n  " . (join "\n  ", keys %citekeys) . "\n";
+        die $msg;
       }
       # print STDERR "looked up $next_superseder and got: $newrec\n";
       # Try recursive call.
