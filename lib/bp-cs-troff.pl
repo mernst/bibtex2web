@@ -13,8 +13,8 @@ package bp_cs_troff;
 
 $bib::charsets{'troff', 'i_name'} = 'troff';
 
-$bib::charsets{'troff', 'tocanon'}  = "bp_cs_troff'tocanon";
-$bib::charsets{'troff', 'fromcanon'} = "bp_cs_troff'fromcanon";
+$bib::charsets{'troff', 'tocanon'}  = "bp_cs_troff::tocanon";
+$bib::charsets{'troff', 'fromcanon'} = "bp_cs_troff::fromcanon";
 
 $bib::charsets{'troff', 'toesc'}   = '[\\\\]';
 $bib::charsets{'troff', 'fromesc'} = "[\\\\\200-\377]|${bib::cs_ext}|${bib::cs_meta}";

@@ -30,8 +30,8 @@ package bp_cs_dead;
 
 $bib::charsets{'dead', 'i_name'} = 'dead';
 
-$bib::charsets{'dead', 'tocanon'}   = "bp_cs_dead'tocanon";
-$bib::charsets{'dead', 'fromcanon'} = "bp_cs_dead'fromcanon";
+$bib::charsets{'dead', 'tocanon'}   = "bp_cs_dead::tocanon";
+$bib::charsets{'dead', 'fromcanon'} = "bp_cs_dead::fromcanon";
 
 $bib::charsets{'dead', 'toesc'}   = "[\\\\]";
 $bib::charsets{'dead', 'fromesc'} = "[\\\200-\377]|${bib::cs_ext}|${bib::cs_meta}";

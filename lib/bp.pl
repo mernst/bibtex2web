@@ -131,25 +131,25 @@ $glb_version = '0.2.97 (19 Dec 96)';
 #
 #           [ file bp-p-util ]
 #
-#    bp_util'mname_to_canon($names_string);
-#    bp_util'mname_to_canon($names_string, $flag_reverse_author);
+#    bp_util::mname_to_canon($names_string);
+#    bp_util::mname_to_canon($names_string, $flag_reverse_author);
 #
-#    bp_util'name_to_canon($name_string);
-#    bp_util'name_to_canon($name_string, $flag_reverse_author);
+#    bp_util::name_to_canon($name_string);
+#    bp_util::name_to_canon($name_string, $flag_reverse_author);
 #
-#    bp_util'canon_to_name($name_string);
-#    bp_util'canon_to_name($name_string, $how_formatted);
+#    bp_util::canon_to_name($name_string);
+#    bp_util::canon_to_name($name_string, $how_formatted);
 #
-#    bp_util'parsename($name_string);
-#    bp_util'parsename($name_string, $how_formatted);
+#    bp_util::parsename($name_string);
+#    bp_util::parsename($name_string, $how_formatted);
 #
-#    bp_util'parsedate($date_string);
+#    bp_util::parsedate($date_string);
 #
-#    bp_util'canon_month($month_string);
+#    bp_util::canon_month($month_string);
 #
-#    bp_util'genkey(%canon_record);
+#    bp_util::genkey(%canon_record);
 #
-#    bp_util'regkey($key);
+#    bp_util::regkey($key);
 #
 #
 # Internal functions:
@@ -269,7 +269,7 @@ $glb_current_fh  = undef;
 #
 # The auto package only sets these to a format approved by load_format.
 #
-# XXXXX  clear should call auto'clear which then calls real clear.
+# XXXXX  clear should call auto::clear which then calls real clear.
 #
 %glb_Irfmt =  ();
 %glb_Ircset = ();
@@ -416,18 +416,18 @@ $opt_default_debug_level = 8000;
 
 require "${glb_bpprefix}p-debug.pl";
 # loads:
-# bib'assert
-# bib'panic
-# bib'debugs
-# bib'check_consist
-# bib'debug_dump
-# bib'okprint
+# bib::assert
+# bib::panic
+# bib::debugs
+# bib::check_consist
+# bib::debug_dump
+# bib::okprint
 
 require "${glb_bpprefix}p-errors.pl";
 # loads:
-# bib'errors
-# bib'goterror
-# bib'gotwarn
+# bib::errors
+# bib::goterror
+# bib::gotwarn
 
 
 ######
@@ -522,28 +522,28 @@ sub format {
 
 require "${glb_bpprefix}p-dload.pl";
 # loads:
-# bib'load_format
-# bib'load_charset
-# bib'find_bp_files
-# bib'reg_format
+# bib::load_format
+# bib::load_charset
+# bib::find_bp_files
+# bib::reg_format
 
 ######
 
 require "${glb_bpprefix}p-cs.pl";
 # loads:
 # variables used by the cs routines
-# bib'nocharset
-# bib'unicode_to_canon
+# bib::nocharset
+# bib::unicode_to_canon
 
 ######
 
 require "${glb_bpprefix}p-option.pl";
 # loads:
-# bib'stdargs
-# bib'options
-# bib'parse_num_option
-# bib'parse_option
-# bib'doc
+# bib::stdargs
+# bib::options
+# bib::parse_num_option
+# bib::parse_option
+# bib::doc
 
 ######     open("file" [,"format"] );
 
@@ -607,12 +607,12 @@ sub open {
   if ($mode eq 'read') {
     $glb_Ifilename = $name;
     $glb_filelocmap{$name} = 0;
-    $glb_current_fh = "bib'GFMI" . $name;
+    $glb_current_fh = "bib::GFMI" . $name;
     # no strict 'subs';
     $glb_current_fh = STDIN   if $name eq '-';  # magic filehandle
   } else {
     $glb_Ofilename = $name;
-    $glb_current_fh = "bib'GFMO" . $name;
+    $glb_current_fh = "bib::GFMO" . $name;
     # no strict 'subs';
     $glb_current_fh = STDOUT  if $name eq '-';  # magic filehandle
   }
@@ -1184,15 +1184,15 @@ sub clear {
 
 require "${glb_bpprefix}p-stdbib.pl";
 # loads:
-# bib'open_stdbib
-# bib'close_stdbib
-# bib'read_stdbib
-# bib'write_stdbib
-# bib'clear_stdbib
-# bib'implode_stdbib
-# bib'explode_stdbib
-# bib'tocanon_stdbib
-# bib'fromcanon_stdbib
+# bib::open_stdbib
+# bib::close_stdbib
+# bib::read_stdbib
+# bib::write_stdbib
+# bib::clear_stdbib
+# bib::implode_stdbib
+# bib::explode_stdbib
+# bib::tocanon_stdbib
+# bib::fromcanon_stdbib
 
 ######
 #
@@ -1203,10 +1203,10 @@ require "${glb_bpprefix}p-stdbib.pl";
 
 require "${glb_bpprefix}p-utils.pl";
 # loads:
-# bp_util'mname_to_canon
-# bp_util'name_to_canon
-# bp_util'canon_to_name
-# bp_util'parsedate
+# bp_util::mname_to_canon
+# bp_util::name_to_canon
+# bp_util::canon_to_name
+# bp_util::parsedate
 
 ##################
 #
@@ -1214,9 +1214,9 @@ require "${glb_bpprefix}p-utils.pl";
 #
 
 
-if (defined $main'bibpackage_do_not_load_defaults) {
+if (defined $main::bibpackage_do_not_load_defaults) {
   # special trickery for debugging and profiling.
-  $main'bibpackage_do_not_load_defaults = 1; # stop one-use warning
+  $main::bibpackage_do_not_load_defaults = 1; # stop one-use warning
   &debugs("bp package loaded without defaults", 65536);
 } else {
   &format("auto") || die &goterror("Could not load default format.", "package");

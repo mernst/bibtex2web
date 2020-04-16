@@ -29,8 +29,8 @@ package bp_cs_tex;
 
 $bib::charsets{'tex', 'i_name'} = 'tex';
 
-$bib::charsets{'tex', 'tocanon'}   = "bp_cs_tex'tocanon";
-$bib::charsets{'tex', 'fromcanon'} = "bp_cs_tex'fromcanon";
+$bib::charsets{'tex', 'tocanon'}   = "bp_cs_tex::tocanon";
+$bib::charsets{'tex', 'fromcanon'} = "bp_cs_tex::fromcanon";
 
 # This regexp should match any (La)TeX character that needs to be escaped.
 $bib::charsets{'tex', 'toesc'}   = "([\$\\\\]|``|''|---)";
@@ -518,7 +518,7 @@ sub fromcanon {
 
   my $repl;
   # We no longer check for font matching here, as that should be done by a
-  # call to bib'font_check in the tocanon code.
+  # call to bib::font_check in the tocanon code.
 
   $text =~ s/${bib::cs_meta}2200${bib::cs_meta}2300([^{}]+)${bib::cs_meta}2310\1${bib::cs_meta}2210/\\url\{$1\}/g;
   $text =~ s/${bib::cs_meta}2200${bib::cs_meta}2300([^{}]+)${bib::cs_meta}2310([^{}]+)${bib::cs_meta}2210/\\href\{$1\}\{$2\}/g;

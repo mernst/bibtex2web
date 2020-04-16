@@ -57,8 +57,8 @@ package bp_cs_html;
 
 $bib::charsets{'html', 'i_name'} = 'html';
 
-$bib::charsets{'html', 'tocanon'}   = "bp_cs_html'tocanon";
-$bib::charsets{'html', 'fromcanon'} = "bp_cs_html'fromcanon";
+$bib::charsets{'html', 'tocanon'}   = "bp_cs_html::tocanon";
+$bib::charsets{'html', 'fromcanon'} = "bp_cs_html::fromcanon";
 
 # This is a regex to search for.  If it succeeds, then we call the routine.
 # otherwise not.  If it is set to undef, the routine is always called.

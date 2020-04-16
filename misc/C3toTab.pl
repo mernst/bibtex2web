@@ -136,7 +136,7 @@ package bp_cs_$package;
 \$bib::charsets{'$name', 'i_name'} = '$name';
 \$bib::charsets{'$name', 'i_protection'} = 0;
 
-\$bib::charsets{'$name', 'tocanon'}  = "bp_cs_${package}'tocanon";
+\$bib::charsets{'$name', 'tocanon'}  = "bp_cs_${package}::tocanon";
 \$bib::charsets{'$name', 'fromcanon'}  = "bp_cs_${package}'fromcanon";
 
 ######
