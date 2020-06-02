@@ -318,14 +318,22 @@ sub tocanon {
 
   eval $cmap_eval;
 
+  print STDERR "now (1) $_\n";
+
   return $_  unless /\\/;
+
+  print STDERR "now (2) $_\n";
 
   # OK, they've got something fairly weird.
 
   # Handle the different ways of specifying characters
   eval $cmap_to_eval;
 
+  print STDERR "now (3) $_\n";
+
   return $_  unless /\\/;
+
+  print STDERR "now (4) $_\n";
 
   if (/\\f[123RIBP]/) {
     # font changes
@@ -345,7 +353,11 @@ sub tocanon {
     s/$mine/${bib::cs_meta}$can/g;
   }
 
+  print STDERR "now (5) $_\n";
+
   return $_  unless /\\/;
+
+  print STDERR "now (6) $_\n";
 
   # Last of all, the escape character.  First we check to see if there is
   # anything else.  We can't delete it because of the way troff does it's
@@ -355,6 +367,8 @@ sub tocanon {
   }
   # Then convert the escape character
   s/\\e/\\/g;
+
+  print STDERR "now (7) $_\n";
 
   $_;
 }
