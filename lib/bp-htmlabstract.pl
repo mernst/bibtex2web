@@ -250,11 +250,12 @@ sub fromcanon {
     }
   }
 
-  if (defined $downloads) {
+  if (defined $downloads && length $downloads) {
     $text .= "${bib::cs_meta}1100\n"; # paragraph start
     $text .= "$downloads";
-    $text .= "${bib::cs_meta}1110\n\n"; # end the paragraph
+    $text .= "${bib::cs_meta}1110\n"; # end the paragraph
   }
+  $text .= "\n";
 
   if ($opt_withbibtex) {
       my %bibentry;
