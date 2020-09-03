@@ -187,12 +187,13 @@ sub fromcanon {
   }
 
   my $downloads = bp_htmlbw::downloads_text($htmldir, 'no_abstract', %entry);
-  if (defined $downloads) {
+  if (defined $downloads && length $downloads) {
     # print STDERR "downloads (1): $downloads\n";
     $downloads =~ s/(Download:)\n/$cs_meta0103$1$cs_meta0113\n/;
     # print STDERR "downloads (2): $downloads\n";
     $text = "${bib::cs_meta}1100\n$downloads${bib::cs_meta}1110\n\n$text";
   }
+
   my $prev_versions = bp_htmlbw::previous_versions_text($title_author, %entry);
   $prev_versions = bp_htmlbw::join_linebreak("", $prev_versions);
 
@@ -250,11 +251,12 @@ sub fromcanon {
     }
   }
 
-  if (defined $downloads) {
+  if (defined $downloads && length $downloads) {
     $text .= "${bib::cs_meta}1100\n"; # paragraph start
     $text .= "$downloads";
-    $text .= "${bib::cs_meta}1110\n\n"; # end the paragraph
+    $text .= "${bib::cs_meta}1110\n"; # end the paragraph
   }
+  $text .= "\n";
 
   if ($opt_withbibtex) {
       my %bibentry;
@@ -313,7 +315,9 @@ sub fromcanon {
     }
   }
   $rec{'TEXT'} = $text;
-  # print "return value: $text\n";
+  if ($debug_htmlabstract) {
+    print "return value: $text\n";
+  }
   %rec;
 }
 
