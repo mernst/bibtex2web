@@ -14,6 +14,9 @@ package bp_htmlabstract;
 
 $version = "html (dj 14 mar 96)";
 
+my $debug = 0;
+# $debug = 1;
+
 # my $htmldir = "$ENV{HOME}/www/pubs";
 my $htmldir = ".";
 
@@ -160,8 +163,10 @@ sub fromcanon {
   if ($text =~ s/(''|${bib::cs_ext}201D),? ((?:edited )?by .*?), ((:?in )?$cs_meta2101|Ph\.D\. dissertation|Masters thesis|Bachelors thesis|[^,]*(:?Technical Report|Memo|Video)|$date_range_regexp)/$1\n$2.\n\u$3/i) {
     # print STDERR "split fields = <<$1>><<$2>><<$3>>\n";
     $text =~ /(^.*\n(.*)\n((edited )?by .*)\n)/m;
-    # print STDERR "text = <<$text>>\n";
-    # print STDERR "split2 fields = <<$2>><<$3>>\n";
+    if ($debug) {
+      print STDERR "text = <<$text>>\n";
+      print STDERR "split2 fields = <<$2>><<$3>>\n";
+    }
     $title_author = $1;
     $title = $2;
     $title =~ s/(?:``|${bib::cs_ext}201C)(.*)(?:''|${bib::cs_ext}201D)/$1/;
@@ -177,7 +182,9 @@ sub fromcanon {
     # Let processing continue.
     $title = "";
   }
-  # print STDERR "text (2): $text\n";
+  if ($debug) {
+    print STDERR "text (2): $text\n";
+  }
 
   my $downloads = bp_htmlbw::downloads_text($htmldir, 'no_abstract', %entry);
   if (defined $downloads) {
@@ -204,8 +211,9 @@ sub fromcanon {
 
   if (! defined($entry{'supersededby'})) {
 
-    # When debugging the -linknames command line argument, uncomment this:
-    # print STDERR "text (2.5): $text\n";
+    if ($debug) {
+      print STDERR "text (2.5): $text\n";
+    }
 
     # Insert HTML links.
     {
@@ -237,9 +245,9 @@ sub fromcanon {
       }
     }
 
-    # When debugging the -linknames command line argument, uncomment this:
-    # print STDERR "text (3): $text\n";
-
+    if ($debug) {
+      print STDERR "text (3): $text\n";
+    }
   }
 
   if (defined $downloads) {
