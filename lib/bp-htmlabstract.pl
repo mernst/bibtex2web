@@ -187,15 +187,15 @@ sub fromcanon {
   }
 
   my $downloads = bp_htmlbw::downloads_text($htmldir, 'no_abstract', %entry);
-  if (defined $downloads) {
+  if (defined $downloads && length $downloads) {
     # print STDERR "downloads (1): $downloads\n";
     $downloads =~ s/(Download:)\n/$cs_meta0103$1$cs_meta0113\n/;
     # print STDERR "downloads (2): $downloads\n";
     $text = "${bib::cs_meta}1100\n$downloads${bib::cs_meta}1110\n\n$text";
   }
+
   my $prev_versions = bp_htmlbw::previous_versions_text($title_author, %entry);
   $prev_versions = bp_htmlbw::join_linebreak("", $prev_versions);
-
   ## Problem:  if no abstract, then $prev_versions isn't inserted?
 # Do not add paragraph end; there might be downloads and such to come.
 #  if ($text !~ /${bib::cs_meta}1103${bib::cs_meta}0103Abstract:/) {
