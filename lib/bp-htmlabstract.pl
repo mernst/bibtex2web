@@ -196,6 +196,7 @@ sub fromcanon {
 
   my $prev_versions = bp_htmlbw::previous_versions_text($title_author, %entry);
   $prev_versions = bp_htmlbw::join_linebreak("", $prev_versions);
+
   ## Problem:  if no abstract, then $prev_versions isn't inserted?
 # Do not add paragraph end; there might be downloads and such to come.
 #  if ($text !~ /${bib::cs_meta}1103${bib::cs_meta}0103Abstract:/) {
