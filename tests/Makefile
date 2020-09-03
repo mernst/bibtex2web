@@ -1,6 +1,7 @@
 
 PERL=/usr/bin/perl
 
+## FIXME: Note that these tests are not run if the Test.pl file is up to date.
 Test.pl: .test ../lib/bp.pl
 	$(PERL) Test.pl
 	$(PERL) newcset.pl
