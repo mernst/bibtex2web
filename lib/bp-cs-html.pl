@@ -533,7 +533,7 @@ sub fromcanon {
   # </ul> => </li></ul><p>
   s/(${bib::cs_meta}1311|${bib::cs_meta}1312)/${bib::cs_meta}1310\n$1\n${bib::cs_meta}1100/g;
   # </ul> might have been followed by <p> already.
-  s/${bib::cs_meta}1100 *\n${bib::cs_meta}1110\n\n${bib::cs_meta}1100/\n${bib::cs_meta}1100/g;
+  s/${bib::cs_meta}1100 *\n+${bib::cs_meta}1110\n+${bib::cs_meta}1100/\n${bib::cs_meta}1100/g;
 #  print $_;
 
   &init_cs_fr unless $cs_fr_init;

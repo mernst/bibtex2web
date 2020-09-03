@@ -315,7 +315,9 @@ sub fromcanon {
     }
   }
   $rec{'TEXT'} = $text;
-  # print "return value: $text\n";
+  if ($debug_htmlabstract) {
+    print "return value: $text\n";
+  }
   %rec;
 }
 
