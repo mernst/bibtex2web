@@ -117,7 +117,7 @@ sub parse_num_option {
 
 #
 # This routine is given an option string like "informat=refer" and does the
-# appropriate action.  It will be called by bib'options and by bib'stdargs.
+# appropriate action.  It will be called by bib::options and by bib::stdargs.
 # If it doesn't recognize the option it will return undef.
 #
 sub parse_option {

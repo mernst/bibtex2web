@@ -121,7 +121,7 @@ sub tocanon {
   local(%entry) = @_;
   local(%can);
 
-  %can = &bp_refer'tocanon(%entry);
+  %can = &bp_refer::tocanon(%entry);
 
   if (defined $can{'o'}) {
     $can{'Edition'} = $can{'o'};

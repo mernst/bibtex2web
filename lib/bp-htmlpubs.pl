@@ -66,10 +66,10 @@ sub make_href {
   my ($url, $title) = @_;
 
   return
-    "${bib'cs_meta}2200"
-    . "${bib'cs_meta}2300"
-    . $url   . "${bib'cs_meta}2310"
-    . $title . "${bib'cs_meta}2210";
+    "${bib::cs_meta}2200"
+    . "${bib::cs_meta}2300"
+    . $url   . "${bib::cs_meta}2310"
+    . $title . "${bib::cs_meta}2210";
 }
 
 my $csmeta = ${bib::cs_meta};
@@ -91,7 +91,7 @@ my $lastyear = 0;
 sub make_header {
   my ($title) = @_;
   # returns <h2> $title </h2>
-  return "${bib'cs_meta}2232" . $title . "${bib'cs_meta}2233";
+  return "${bib::cs_meta}2232" . $title . "${bib::cs_meta}2233";
 }
 
 # Like fromcanon, but suppresses year processing
@@ -118,7 +118,7 @@ sub fromcanon {
 
   # Split across lines, to be more readable in the HTML source;
   # also add line breaks, for readability in a browser.
-  # This puts ${bib'cs_meta}1100 on line 1, title on line 2, authors on
+  # This puts ${bib::cs_meta}1100 on line 1, title on line 2, authors on
   # line 3, and all other info on line 4.
   $text =~ s/($cs_meta1100)/$1\n$cs_meta0103/;
   my $title_author;

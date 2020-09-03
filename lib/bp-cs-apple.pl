@@ -14,8 +14,8 @@ package bp_cs_apple;
 
 $bib::charsets{'apple', 'i_name'} = 'apple';
 
-$bib::charsets{'apple', 'tocanon'}  = "bp_cs_apple'tocanon";
-$bib::charsets{'apple', 'fromcanon'} = "bp_cs_apple'fromcanon";
+$bib::charsets{'apple', 'tocanon'}  = "bp_cs_apple::tocanon";
+$bib::charsets{'apple', 'fromcanon'} = "bp_cs_apple::fromcanon";
 
 $bib::charsets{'apple', 'toesc'}   = "[\200-\377]";
 $bib::charsets{'apple', 'fromesc'} = "[\200-\377]|${bib::cs_ext}|${bib::cs_meta}";

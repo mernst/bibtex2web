@@ -12,8 +12,8 @@ package bp_cs_none;
 
 $bib::charsets{'none', 'i_name'} = 'none';
 
-$bib::charsets{'none', 'tocanon'}  = "bp_cs_none'tocanon";
-$bib::charsets{'none', 'fromcanon'} = "bp_cs_none'fromcanon";
+$bib::charsets{'none', 'tocanon'}  = "bp_cs_none::tocanon";
+$bib::charsets{'none', 'fromcanon'} = "bp_cs_none::fromcanon";
 
 $bib::charsets{'none', 'toesc'}   = "[\000]";
 $bib::charsets{'none', 'fromesc'} = "[\x00-\x1F\200-\377]|${bib::cs_ext}|${bib::cs_meta}";

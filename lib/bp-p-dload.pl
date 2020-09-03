@@ -272,7 +272,7 @@ sub reg_format {
   # Go through all of our functions, and assign to stdbib.
 
   foreach $f ( @glb_expfuncs ) {
-    $formats{$lname, $f} = "bib'${f}_stdbib";
+    $formats{$lname, $f} = "bib::${f}_stdbib";
   }
 
   # next, walk through all the arguments they gave us
@@ -286,16 +286,16 @@ sub reg_format {
       $formats{$lname, 'i_suffix'} = $f;
       next;
     } elsif ( ($f) = /^(\w+) is standard$/) {
-      $inst = "bib'${f}_stdbib";
+      $inst = "bib::${f}_stdbib";
     } elsif ( ($f, $p) = /^(\w+) is unimplemented$/) {
-      $inst = "bib'${f}_unimpl_stdbib";
+      $inst = "bib::${f}_unimpl_stdbib";
       if (!defined &$inst) {
-        $inst = "bib'generic_unimpl_stdbib";
+        $inst = "bib::generic_unimpl_stdbib";
       }
     } elsif ( ($f, $p) = /^(\w+) is unsupported$/) {
-      $inst = "bib'${f}_unsup_stdbib";
+      $inst = "bib::${f}_unsup_stdbib";
       if (!defined &$inst) {
-        $inst = "bib'generic_unsup_stdbib";
+        $inst = "bib::generic_unsup_stdbib";
       }
     } elsif ( ($f) = /^(\w+)$/) {
       $inst = $pname . "'" . $f;

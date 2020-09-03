@@ -16,7 +16,7 @@ sub failp {
 }
 
 $failed = 0;
-print "testing bp_util'mname_to_canon.....................";
+print "testing bp_util::mname_to_canon.....................";
 
 open(NAMEFILE, "data/namesm.dat") || die "nametest: can't open data file.\n";
 
@@ -38,7 +38,7 @@ close(NAMEFILE);
 print (($failed) ? "$failed errors\n" : "ok\n");
 
 $failed = 0;
-print "testing bp_util'name_to_canon......................";
+print "testing bp_util::name_to_canon......................";
 
 open(NAMEFILE, "data/names.dat") || die "nametest: can't open data file.\n";
 
@@ -60,7 +60,7 @@ close(NAMEFILE);
 print (($failed) ? "$failed errors\n" : "ok\n");
 
 $failed = 0;
-print "testing bp_util'name_to_canon..............(long)..";
+print "testing bp_util::name_to_canon..............(long)..";
 
 $bp_util::opt_complex = 10;
 

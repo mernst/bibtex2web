@@ -6,7 +6,7 @@
 # Dana Jacobsen (dana@acm.org)
 # 18 November 1995 (last modified 17 March 1996)
 
-# for bib'nocharset which calls fromcanon:
+# for bib::nocharset which calls fromcanon:
 require "bp-cs-none.pl";
 
 ######
@@ -215,9 +215,9 @@ sub font_check {
             &bib::gotwarn("Nesting problem.  Ended $font after $pfont");
             # just make it end the previous one.
             if ($] >= 5.000) {
-              s/(${bib::cs_meta}010$pfont)(.*?)${bib::cs_meta}011$font/$1$2{bib'cs_meta}011$pfont/;
+              s/(${bib::cs_meta}010$pfont)(.*?)${bib::cs_meta}011$font/$1$2{bib::cs_meta}011$pfont/;
             } else {
-              s/(${bib::cs_meta}010$pfont)(.*)${bib::cs_meta}011$font/$1$2{bib'cs_meta}011$pfont/;
+              s/(${bib::cs_meta}010$pfont)(.*)${bib::cs_meta}011$font/$1$2{bib::cs_meta}011$pfont/;
             }
             $fontsmatch = 0;
             last;
@@ -249,9 +249,9 @@ sub font_check {
         $pfont = pop(@fontstack);
 #print STDERR "F: Too many begins found roman & replacing with $pfont\n";
         if ($] >= 5.000) {
-          s/(${bib::cs_meta}010$pfont)(.*?)${bib::cs_meta}0111/$1$2{bib'cs_meta}011$pfont/;
+          s/(${bib::cs_meta}010$pfont)(.*?)${bib::cs_meta}0111/$1$2{bib::cs_meta}011$pfont/;
         } else {
-          s/(${bib::cs_meta}010$pfont)(.*)${bib::cs_meta}0111/$1$2{bib'cs_meta}011$pfont/;
+          s/(${bib::cs_meta}010$pfont)(.*)${bib::cs_meta}0111/$1$2{bib::cs_meta}011$pfont/;
         }
       }
       while (@fontstack != 0) {
@@ -329,7 +329,7 @@ sub font_noprev {
 #       It should be required at the top of this file, so it's always loaded.
 #
 sub nocharset {
-  &bp_cs_none'fromcanon(@_);
+  &bp_cs_none::fromcanon(@_);
 }
 
 1;

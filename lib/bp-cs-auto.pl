@@ -16,8 +16,8 @@ package bp_cs_auto;
 
 $bib::charsets{'auto', 'i_name'} = 'auto';
 
-$bib::charsets{'auto', 'tocanon'}  = "bp_cs_auto'tocanon";
-$bib::charsets{'auto', 'fromcanon'} = "bp_cs_auto'fromcanon";
+$bib::charsets{'auto', 'tocanon'}  = "bp_cs_auto::tocanon";
+$bib::charsets{'auto', 'fromcanon'} = "bp_cs_auto::fromcanon";
 
 ######
 

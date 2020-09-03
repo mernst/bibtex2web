@@ -47,7 +47,7 @@ $bp_s_generic::smartquotes = 1;
 
 ######
 
-my $csmeta = ${bib'cs_meta};
+my $csmeta = ${bib::cs_meta};
 
 my $prev_category = undef;
 
@@ -55,10 +55,10 @@ sub make_href {
   my ($url, $title) = @_;
 
   return
-    "${bib'cs_meta}2200"
-    . "${bib'cs_meta}2300"
-    . $url   . "${bib'cs_meta}2310"
-    . $title . "${bib'cs_meta}2210";
+    "${bib::cs_meta}2200"
+    . "${bib::cs_meta}2300"
+    . $url   . "${bib::cs_meta}2310"
+    . $title . "${bib::cs_meta}2210";
 }
 
 sub make_aname {
@@ -69,10 +69,10 @@ sub make_aname {
   $name =~ s/\(//g;
   $name =~ s/\)//g;
   return
-    "${bib'cs_meta}2200"
-    . "${bib'cs_meta}2301"
-    . $name  . "${bib'cs_meta}2310"
-    . $title . "${bib'cs_meta}2210";
+    "${bib::cs_meta}2200"
+    . "${bib::cs_meta}2301"
+    . $name  . "${bib::cs_meta}2310"
+    . $title . "${bib::cs_meta}2210";
 }
 
 
@@ -212,8 +212,8 @@ sub fromcanon {
 #   # Well, almost.  We do care if we're using HTML, because we want a number
 #   # of special things done for it.  As of 0.2.2, we have glb_current_cset
 #   # set for us for fromcanon.
-#   if ($bib'glb_current_cset eq 'html') {
-#     #$ent = "${bib'cs_meta}1100\n";
+#   if ($bib::glb_current_cset eq 'html') {
+#     #$ent = "${bib::cs_meta}1100\n";
 #     if (defined $entry{'Source'}) {
 #       my ($url, $title);
 #       $url = $entry{'Source'};
@@ -221,9 +221,9 @@ sub fromcanon {
 #       $url =~ s/^url:\s*(.*)/$1/i;
 #       if ($url =~ /^\w+:\/\//) {
 #         $title = $entry{'Title'};
-#         $entry{'Title'} = "${bib'cs_meta}2200" . "${bib'cs_meta}2300"
-#                         . $url   . "${bib'cs_meta}2310"
-#                         . $title . "${bib'cs_meta}2210";
+#         $entry{'Title'} = "${bib::cs_meta}2200" . "${bib::cs_meta}2300"
+#                         . $url   . "${bib::cs_meta}2310"
+#                         . $title . "${bib::cs_meta}2210";
 #       }
 #     }
 #   }
@@ -238,7 +238,7 @@ sub fromcanon {
 #   $ent .= &$conv_func(%entry);
 #
 #   #$ent =~ s/\s\s+/ /g;
-#   $ent =~ s/$bib'cs_sep/ ; /go;
+#   $ent =~ s/$bib::cs_sep/ ; /go;
 #
 #   $rec{'TEXT'} = $ent;
 #

@@ -31,7 +31,7 @@
 # one record.
 #
 # The values returned are the values previous to the effect of this command.
-# In other words, although a call to bib'errors('clear') will clear out all
+# In other words, although a call to bib::errors('clear') will clear out all
 # our totals and strings, it will return to you the old totals and strings.
 # So you could call clear, but check the return values for any special
 # situations.  Note that the strings are cleared upon clear, report, or
