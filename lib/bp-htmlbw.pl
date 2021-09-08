@@ -84,6 +84,7 @@ sub downloads_text ( $$% ) {
     }
 
     my @local_downloads = ();
+    # These do not include text like "slides" or "talk video".
     my %download_type_names = (
 			       "pdf" => "PDF",
 			       # "pdf.gz" => "PDF (gzipped)",
@@ -94,7 +95,8 @@ sub downloads_text ( $$% ) {
 			       "pptx" => "PowerPoint",
 			       "ppt" => "PowerPoint",
 			       # "ppt.gz" => "PowerPoint (gzipped)",
-			       "odp" => "ODP"
+			       "odp" => "ODP",
+			       "mp4" => "MP4"
 			      );
 
 
@@ -102,9 +104,11 @@ sub downloads_text ( $$% ) {
 			       "doc", "docx",
                                "pptx", "ppt",
                                "key",
-                               "odp");
+                               "odp",
+                               "mp4"
+                              );
 
-    foreach my $doctype ("slides", "poster", "base") {
+    foreach my $doctype ("slides", "talk", "poster", "base") {
       # These get unshifted in, so reverse the order so they appear
       # on the page properly.
       foreach my $dtype (reverse @download_type_order) {
@@ -115,6 +119,11 @@ sub downloads_text ( $$% ) {
 	if ($doctype eq "slides") {
 	  $fn_ext = "-slides";
 	  $label = "slides (${dtn})";
+	}
+
+	if ($doctype eq "talk") {
+	  $fn_ext = "-talk";
+	  $label = "talk video (${dtn})";
 	}
 
 	if ($doctype eq "poster") {
