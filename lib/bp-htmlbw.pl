@@ -94,7 +94,8 @@ sub downloads_text ( $$% ) {
 			       "pptx" => "PowerPoint",
 			       "ppt" => "PowerPoint",
 			       # "ppt.gz" => "PowerPoint (gzipped)",
-			       "odp" => "ODP"
+			       "odp" => "ODP",
+			       "mp4" => "talk video (MP4)"
 			      );
 
 
@@ -102,9 +103,11 @@ sub downloads_text ( $$% ) {
 			       "doc", "docx",
                                "pptx", "ppt",
                                "key",
-                               "odp");
+                               "odp",
+                               "mp4"
+                              );
 
-    foreach my $doctype ("slides", "poster", "base") {
+    foreach my $doctype ("slides", "talk", "poster", "base") {
       # These get unshifted in, so reverse the order so they appear
       # on the page properly.
       foreach my $dtype (reverse @download_type_order) {
