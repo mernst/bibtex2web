@@ -544,7 +544,7 @@ sub fromcanon {
   while ($text =~ /([\200-\237])/) {
     $repl = $1;
     $unicode = &bib::canon_to_unicode($repl);
-    &bib::gotwarn("Can't convert ".&bib::unicode_name($unicode)." to TeX");
+    &bib::gotwarn("Can't convert ".&bib::unicode_name($unicode)." to TeX in $text");
     $text =~ s/$repl//g;
   }
 
@@ -584,7 +584,7 @@ sub fromcanon {
     $can = &bib::unicode_approx($unicode);
     defined $can  &&  $text =~ s/$bib::cs_ext$unicode/$can/g  &&  next;
 
-    &bib::gotwarn("Can't convert ".&bib::unicode_name($unicode)." to TeX");
+    &bib::gotwarn("Can't convert ".&bib::unicode_name($unicode)." to TeX; text = $text; can = $can");
     $text =~ s/${bib::cs_ext}$unicode//g;
   }
 
@@ -596,7 +596,7 @@ sub fromcanon {
     $can = &bib::meta_approx($repl);
     defined $can  &&  $text =~ s/$bib::cs_meta$repl/$can/g  &&  next;
 
-    &bib::gotwarn("Can't convert ".&bib::meta_name($repl)." to TeX");
+    &bib::gotwarn("Can't convert ".&bib::meta_name($repl)." to TeX; text = $text; can = $can");
     $text =~ s/${bib::cs_meta}$repl//g;
   }
 
