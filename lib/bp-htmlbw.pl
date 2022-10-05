@@ -96,8 +96,8 @@ sub downloads_text ( $$% ) {
 			       "ppt" => "PowerPoint",
 			       # "ppt.gz" => "PowerPoint (gzipped)",
 			       "odp" => "ODP",
+			       "mov" => ".mov",
 			       "mp4" => "MP4"
-			       "mov" => ".mov"
 			      );
 
 
@@ -106,7 +106,7 @@ sub downloads_text ( $$% ) {
                                "pptx", "ppt",
                                "key",
                                "odp",
-                               "mov"
+                               "mov",
                                "mp4"
                               );
 
