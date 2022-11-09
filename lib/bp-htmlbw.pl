@@ -84,6 +84,7 @@ sub downloads_text ( $$% ) {
     }
 
     my @local_downloads = ();
+    # These do not include text like "slides" or "talk video".
     my %download_type_names = (
 			       "pdf" => "PDF",
 			       # "pdf.gz" => "PDF (gzipped)",
@@ -95,7 +96,8 @@ sub downloads_text ( $$% ) {
 			       "ppt" => "PowerPoint",
 			       # "ppt.gz" => "PowerPoint (gzipped)",
 			       "odp" => "ODP",
-			       "mp4" => "talk video (MP4)"
+			       "mov" => ".mov",
+			       "mp4" => "MP4"
 			      );
 
 
@@ -104,6 +106,7 @@ sub downloads_text ( $$% ) {
                                "pptx", "ppt",
                                "key",
                                "odp",
+                               "mov",
                                "mp4"
                               );
 
@@ -118,6 +121,11 @@ sub downloads_text ( $$% ) {
 	if ($doctype eq "slides") {
 	  $fn_ext = "-slides";
 	  $label = "slides (${dtn})";
+	}
+
+	if ($doctype eq "talk") {
+	  $fn_ext = "-talk";
+	  $label = "talk video (${dtn})";
 	}
 
 	if ($doctype eq "poster") {
