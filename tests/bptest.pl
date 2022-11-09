@@ -105,7 +105,9 @@ sub check {
     if (length($outstr) > (20 * $screenlength) ) {
       print "\n$routine failed.  Output is too long to print (", length($outstr), " chars).\n";
     } elsif (length($outstr) > 120) {
-      print "\n$routine failed.  Output comparison:\n";
+      print "\n$routine failed.\n";
+      print "Input: "; print @input; print "\n";
+      print "Output comparison:\n";
       &longcomp($output, $res);
     } else {
       print $outstr;

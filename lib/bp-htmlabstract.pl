@@ -114,10 +114,10 @@ sub make_href {
   my ($url, $title) = @_;
 
   return
-    "${bib'cs_meta}2200"
-    . "${bib'cs_meta}2300"
-    . $url   . "${bib'cs_meta}2310"
-    . $title . "${bib'cs_meta}2210";
+    "${bib::cs_meta}2200"
+    . "${bib::cs_meta}2300"
+    . $url   . "${bib::cs_meta}2310"
+    . $title . "${bib::cs_meta}2210";
 }
 
 my $csmeta = "${bib::cs_meta}";
@@ -153,7 +153,7 @@ sub fromcanon {
 #  print Dumper(\%entry);
 
   # Split across lines, to be more readable in the HTML file.
-  # This puts ${bib'cs_meta}1100 on line 1, title on line 2, authors on
+  # This puts ${bib::cs_meta}1100 on line 1, title on line 2, authors on
   # line 3, and all other info on line 4.
   $text =~ s/($cs_meta1100)/$1\n/;
   my $title_author;
@@ -229,7 +229,7 @@ sub fromcanon {
           # Prevent inserting an anchor even within another anchor.
           # It's undesirable, and HTML forbids such nesting.
           # (Using possessive quantifier anywhere in the regex would prevent backtracking everwhere.)
-          $prefix = "(^|${bib'cs_meta}2210)[^${bib'cs_escape}]*(${bib'cs_escape}(?!m2200)[^${bib'cs_escape}]*)*";
+          $prefix = "(^|${bib::cs_meta}2210)[^${bib::cs_escape}]*(${bib::cs_escape}(?!m2200)[^${bib::cs_escape}]*)*";
           while ($text =~ s/$prefix\K\Q$linkname\E/&make_href($lurl, $linkname)/ges) {
             # no body
           }

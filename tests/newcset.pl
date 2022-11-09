@@ -141,19 +141,19 @@ $canran = $randstring;
 # get rid of characters we don't handle.
 $c = $caniso;
 $c =~ s/[\200-\237\246\255\262\263\271\274\275\276\320\327\335\336\360\375\376]//g;
-$appiso = &bp_cs_apple'fromcanon($c);
-&check('partial', "apple'fromcanon", 1, 1);
-&check('', "bp_cs_apple'tocanon", $c, $appiso);
+$appiso = &bp_cs_apple::fromcanon($c);
+&check('partial', "apple::fromcanon", 1, 1);
+&check('', "bp_cs_apple::tocanon", $c, $appiso);
 $c = $appiso = undef;
 
 $c = $canran;
 $c =~ s/[\200-\237\246\255\262\263\271\274\275\276\320\327\335\336\360\375\376]//g;
-$appran = &bp_cs_apple'fromcanon($c);
-&check('partial', "apple'fromcanon", 1, 1);
-&check('', "bp_cs_apple'tocanon", $c, $appran);
+$appran = &bp_cs_apple::fromcanon($c);
+&check('partial', "apple::fromcanon", 1, 1);
+&check('', "bp_cs_apple::tocanon", $c, $appran);
 $c = $appran = undef;
 
-&check('', "bp_cs_apple'fromcanon", '&', $cantest);
+&check('', "bp_cs_apple::fromcanon", '&', $cantest);
 
 &endtest;
 
@@ -162,18 +162,18 @@ $c = $appran = undef;
 &testcharset("troff", 5);
 
 ($c = $caniso) =~ s/[\200-\237]//g;  # troff can't handle these
-$troiso = &bp_cs_troff'fromcanon($c);
-&check('partial', "troff'fromcanon", 1, 1);
-&check('', "bp_cs_troff'tocanon", $c, $troiso);
+$troiso = &bp_cs_troff::fromcanon($c);
+&check('partial', "troff::fromcanon", 1, 1);
+&check('', "bp_cs_troff::tocanon", $c, $troiso);
 $c = $troiso = undef;
 
 ($c = $canran) =~ s/[\200-\237]//g;  # troff can't handle these
-$troran = &bp_cs_troff'fromcanon($c);
-&check('partial', "troff'fromcanon", 1, 1);
-&check('', "bp_cs_troff'tocanon", $c, $troran);
+$troran = &bp_cs_troff::fromcanon($c);
+&check('partial', "troff::fromcanon", 1, 1);
+&check('', "bp_cs_troff::tocanon", $c, $troran);
 $c = $troran = undef;
 
-&check('', "bp_cs_troff'fromcanon", '&', $cantest);
+&check('', "bp_cs_troff::fromcanon", '&', $cantest);
 
 &endtest;
 
@@ -181,20 +181,20 @@ $c = $troran = undef;
 
 &testcharset("tex", 3);
 ($c = $caniso) =~ s/[\200-\337]//g;  # TeX can't handle these
-$texiso = &bp_cs_tex'fromcanon($c, 1);
-&check('partial', "tex'fromcanon", 1, 1);
-&check('', "bp_cs_tex'tocanon", $c, $texiso, 1);
+$texiso = &bp_cs_tex::fromcanon($c, 1);
+&check('partial', "tex::fromcanon", 1, 1);
+&check('', "bp_cs_tex::tocanon", $c, $texiso, 1);
 $c = $texiso = undef;
 
 # XXXXX Fix me!  Something in here is broken.
 
 #($c = $canran) =~ s/[\200-\237]//g;
-#$texran = &bp_cs_tex'fromcanon($c, 1);
-#&check('partial', "tex'fromcanon", 1, 1);
-#&check('', "bp_cs_tex'tocanon", $c, $texran, 1);
+#$texran = &bp_cs_tex::fromcanon($c, 1);
+#&check('partial', "tex::fromcanon", 1, 1);
+#&check('', "bp_cs_tex::tocanon", $c, $texran, 1);
 #$c = $texran = undef;
 
-&check('', "bp_cs_tex'fromcanon", '&', $cantest);
+&check('', "bp_cs_tex::fromcanon", '&', $cantest);
 
 &endtest;
 
@@ -202,28 +202,28 @@ $c = $texiso = undef;
 
 &testcharset("html", 7);
 
-&check('', "bp_cs_html'fromcanon", '&amp;', $cantest);
-&check('', "bp_cs_html'tocanon", pack("C", 199), '&Ccedil;' );
+&check('', "bp_cs_html::fromcanon", '&amp;', $cantest);
+&check('', "bp_cs_html::tocanon", pack("C", 199), '&Ccedil;' );
 # This should generate a warning
 $oldwlev = $bib::glb_warn_level;
 $bib::glb_warn_level = 0;
-&check('', "bp_cs_html'tocanon", '', '&fo??o*+?/g;' );
+&check('', "bp_cs_html::tocanon", '', '&fo??o*+?/g;' );
 $bib::glb_warn_level = $oldwlev;
 
 $c = $caniso;
-$htmiso = &bp_cs_html'fromcanon($c);
-&check('partial', "html'fromcanon", 1, 1);
-$t = &bp_cs_html'tocanon($htmiso);
+$htmiso = &bp_cs_html::fromcanon($c);
+&check('partial', "html::fromcanon", 1, 1);
+$t = &bp_cs_html::tocanon($htmiso);
 $t =~ s/${bib::cs_ext}0026/&/g;  # html leaves & characters in extended form.
-&check('norun', "bp_cs_html'tocanon", $c, $t);
+&check('norun', "bp_cs_html::tocanon", $c, $t);
 $c = $htmiso = $t = undef;
 
 $c = $canran;
-$htmran = &bp_cs_html'fromcanon($c);
-&check('partial', "html'fromcanon", 1, 1);
-$t = &bp_cs_html'tocanon($htmran);
+$htmran = &bp_cs_html::fromcanon($c);
+&check('partial', "html::fromcanon", 1, 1);
+$t = &bp_cs_html::tocanon($htmran);
 $t =~ s/${bib::cs_ext}0026/&/g;  # html leaves & characters in extended form.
-&check('norun', "bp_cs_html'tocanon", $c, $t);
+&check('norun', "bp_cs_html::tocanon", $c, $t);
 $c = $htmran = $t = undef;
 
 &endtest;
@@ -243,10 +243,10 @@ $f = $failed;
 for $iso ( "\000" .. "\377" ) {
   next if $iso =~ /[\200-\237]/;
   $can = &bp_cs_88591'tocanon($iso);
-  $imd = &bp_cs_troff'fromcanon($can);
-  $can = &bp_cs_troff'tocanon($imd);
-  $imd = &bp_cs_html'fromcanon($can);
-  $can = &bp_cs_html'tocanon($imd);
+  $imd = &bp_cs_troff::fromcanon($can);
+  $can = &bp_cs_troff::tocanon($imd);
+  $imd = &bp_cs_html::fromcanon($can);
+  $can = &bp_cs_html::tocanon($imd);
   $isr = &bp_cs_88591'fromcanon($can);
   &check('nostatus,norun', "cs conversion loop ".ord($iso), $iso, $isr);
 }
@@ -254,37 +254,37 @@ $can = $imd = $isr = undef;
 &check('partial', "cs conversion loop", $f, $failed);
 
 $can = &bp_cs_88591'tocanon($isostring);
-$imd = &bp_cs_html'fromcanon($can);
-$can = &bp_cs_html'tocanon($imd);
+$imd = &bp_cs_html::fromcanon($can);
+$can = &bp_cs_html::tocanon($imd);
 $isr = &bp_cs_88591'fromcanon($can);
 &check('norun', "iso conversion loop 1", $isostring, $isr);
 $can = $imd = $isr = undef;
 
 ($iso = $isostring) =~ s/[\200-\237]//g;
 $can = &bp_cs_88591'tocanon($iso);
-$imd = &bp_cs_troff'fromcanon($can);
-$can = &bp_cs_troff'tocanon($imd);
-$imd = &bp_cs_html'fromcanon($can);
-$can = &bp_cs_html'tocanon($imd);
+$imd = &bp_cs_troff::fromcanon($can);
+$can = &bp_cs_troff::tocanon($imd);
+$imd = &bp_cs_html::fromcanon($can);
+$can = &bp_cs_html::tocanon($imd);
 $isr = &bp_cs_88591'fromcanon($can);
 &check('norun', "iso conversion loop 2", $iso, $isr);
 $can = $imd = $isr = undef;  # leave $iso
 
 $iso =~ s/[\200-\237\246\255\262\263\271\274\275\276\320\327\335\336\360\375\376]//g;
 $can = &bp_cs_88591'tocanon($iso);
-$imd = &bp_cs_troff'fromcanon($can);
-$can = &bp_cs_troff'tocanon($imd);
-$imd = &bp_cs_apple'fromcanon($can);
-$can = &bp_cs_apple'tocanon($imd);
-$imd = &bp_cs_html'fromcanon($can);
-$can = &bp_cs_html'tocanon($imd);
+$imd = &bp_cs_troff::fromcanon($can);
+$can = &bp_cs_troff::tocanon($imd);
+$imd = &bp_cs_apple::fromcanon($can);
+$can = &bp_cs_apple::tocanon($imd);
+$imd = &bp_cs_html::fromcanon($can);
+$can = &bp_cs_html::tocanon($imd);
 $isr = &bp_cs_88591'fromcanon($can);
 &check('norun', "iso conversion loop 3", $iso, $isr);
 $can = $imd = $isr = $iso = undef;
 
 $can = &bp_cs_88591'tocanon($randstring);
-$imd = &bp_cs_html'fromcanon($can);
-$can = &bp_cs_html'tocanon($imd);
+$imd = &bp_cs_html::fromcanon($can);
+$can = &bp_cs_html::tocanon($imd);
 $rnr = &bp_cs_88591'fromcanon($can);
 &check('norun', "random conversion loop 1", $randstring, $rnr);
 $can = $imd = $rnr = undef;
@@ -296,9 +296,9 @@ $can = $imd = $rnr = undef;
 $bp_cs_html'opt_html3 = 1;
 &begintest("HTML 3", 4);
 
-&check('', "bp_cs_html'tocanon", pack("C", 222), '&THORN;' );
-&check('', "bp_cs_html'tocanon", pack("C", 165), '&#165;' );
-&check('', "bp_cs_html'tocanon", "${bib::cs_ext}AB7F", '&U+AB7F;' );
-&check('', "bp_cs_html'fromcanon", '&U+AB7F;', "${bib::cs_ext}AB7F" );
+&check('', "bp_cs_html::tocanon", pack("C", 222), '&THORN;' );
+&check('', "bp_cs_html::tocanon", pack("C", 165), '&#165;' );
+&check('', "bp_cs_html::tocanon", "${bib::cs_ext}AB7F", '&U+AB7F;' );
+&check('', "bp_cs_html::fromcanon", '&U+AB7F;', "${bib::cs_ext}AB7F" );
 
 &endtest;
