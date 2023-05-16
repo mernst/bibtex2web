@@ -496,6 +496,7 @@ sub change_tex_fonts {
   $string =~ s/\\cite\{([^{}]+)\}/[$1]/g;
   $string =~ s/\$\$?([^\$]+)\$\$?/${bib::cs_meta}0102$1${bib::cs_meta}0110/g;
   $string =~ s/\\(log)\b/${bib::cs_meta}0102$1${bib::cs_meta}0112/g;
+  $string =~ s/(\\url\{[^{}]+)\240([^{}]+\})/$1~$2/g;
   $string =~ s/\\url\{([^{}]+)\}/${bib::cs_meta}2200${bib::cs_meta}2300$1${bib::cs_meta}2310$1${bib::cs_meta}2210/g;
   $string =~ s/\\href\{([^{}]+)\}\{([^{}]+)\}/${bib::cs_meta}2200${bib::cs_meta}2300$1${bib::cs_meta}2310$2${bib::cs_meta}2210/g;
 

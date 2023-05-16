@@ -122,7 +122,18 @@ sub fromcanon {
   # line 3, and all other info on line 4.
   $text =~ s/($cs_meta1100)/$1\n$cs_meta0103/;
   my $title_author;
+  # Note: There is a similar regex in bp-htmlabstract.pl.
   if ($text =~ s/(''|${bib::cs_ext}201D),? ((?:edited )?by .*?), ((:?in )?$cs_meta2101|Ph\.D\. dissertation|Masters thesis|Bachelors thesis|[^,]*(:?Technical Report|Memo|Video)|$date_range_regexp)/$1$cs_meta0113$cs_meta2150\n$2.$cs_meta2150\n\u$3/i) {
+    # print STDERR "split fields = <<$1>><<$2>><<$3>>\n";
+    $text =~ /(^.*\n(.*)\n((edited )?by .*)\n)/m;
+    # print STDERR "text = <<$text>>\n";
+    # print STDERR "split2 fields = <<$2>><<$3>>\n";
+    $title_author = $1;
+    # Don't boldface title, don't break across any lines.
+    $title_author =~ s/$cs_meta0103(.*)$cs_meta0113/$1/;
+    $title_author =~ s/$cs_meta2150//g;
+    # print STDERR "title_author = $title_author\n";
+  } elsif ($text =~ s/(${bib::cs_meta}2111),? ((?:edited )?by .*?), (.)/$1$cs_meta0113$cs_meta2150\n$2.$cs_meta2150\n\u$3/i) {
     # print STDERR "split fields = <<$1>><<$2>><<$3>>\n";
     $text =~ /(^.*\n(.*)\n((edited )?by .*)\n)/m;
     # print STDERR "text = <<$text>>\n";

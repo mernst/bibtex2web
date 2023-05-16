@@ -158,9 +158,23 @@ sub fromcanon {
   $text =~ s/($cs_meta1100)/$1\n/;
   my $title_author;
   my $title;
-  # Note:  this requires either publication info (i.e., not @Misc), or else
-  # a month.  It will fail for @Misc items with no month, only a year.
+  # Note:  this non-book case requires either publication info (i.e., not @Misc),
+  # or else a month.  It will fail for @Misc items with no month, only a year.
+  # 201D is "right double quotation mark", 2111 is end of italics.
   if ($text =~ s/(''|${bib::cs_ext}201D),? ((?:edited )?by .*?), ((:?in )?$cs_meta2101|Ph\.D\. dissertation|Masters thesis|Bachelors thesis|[^,]*(:?Technical Report|Memo|Video)|$date_range_regexp)/$1\n$2.\n\u$3/i) {
+    # print STDERR "split fields = <<$1>><<$2>><<$3>>\n";
+    $text =~ /(^.*\n(.*)\n((edited )?by .*)\n)/m;
+    if ($debug_htmlabstract) {
+      print STDERR "text = <<$text>>\n";
+      print STDERR "split2 fields = <<$2>><<$3>>\n";
+    }
+    $title_author = $1;
+    $title = $2;
+    $title =~ s/(?:``|${bib::cs_ext}201C)(.*)(?:''|${bib::cs_ext}201D)/$1/;
+    # print STDERR "title_author = $title_author\n";
+  } elsif ($text =~ s/(${bib::cs_meta}2111),? ((?:edited )?by .*?), (.)/$1\n$2.\n\u$3/i) {
+    # A book.
+    ## TODO: combine logic with the above case.
     # print STDERR "split fields = <<$1>><<$2>><<$3>>\n";
     $text =~ /(^.*\n(.*)\n((edited )?by .*)\n)/m;
     if ($debug_htmlabstract) {
@@ -173,7 +187,7 @@ sub fromcanon {
     # print STDERR "title_author = $title_author\n";
   } else {
     ## This is a problem, so leave it uncommented.
-    print STDERR "Warning: Failed to parse internal (canonical) form of a publication.\n";
+    print STDERR "Warning: bp-htmlabstract.pl failed to parse internal (canonical) form of a publication.\n";
     print STDERR "  A parse failure usually means that some information is missing from the\n";
     print STDERR "  BibTeX entry.  For example, either publication venue or month is required;\n";
     print STDERR "  a \@Misc BibTeX entry with no month, only a year, will cause a parse failure.\n";
