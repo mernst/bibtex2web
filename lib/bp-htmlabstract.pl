@@ -310,7 +310,7 @@ sub fromcanon {
   }
 
   # Done with edits.  Now introduce scaffolding.  This will get converted
-  # into <HTML> etc. when the file is converted into multiple files.
+  # into "<HTML>", etc., when the file is converted into multiple files.
   {
     # Remove leading paragraph break.
     # $text =~ s/^\n\n($cs_meta1100)/\n/;
