@@ -83,7 +83,7 @@ while (<AUTHORS>) {
   }
   if (defined($author_pubs_url)) {
     $author_pubs_url =
-      "<br /><b>For a full list</b>, see <a href=\"$author_pubs_url\">$author_pubs_url</a>.";
+      "<br><b>For a full list</b>, see <a href=\"$author_pubs_url\">$author_pubs_url</a>.";
   } else {
     $author_pubs_url = "";
   }
@@ -143,7 +143,7 @@ close(AUTHORS);
 
 print $byauthor_header;
 for my $author (@authors) {
-  print "<a href=\"" . author_as_filename($author) . ".html\">$author</a><br />\n";
+  print "<a href=\"" . author_as_filename($author) . ".html\">$author</a><br>\n";
 }
 print $byauthor_footer;
 
