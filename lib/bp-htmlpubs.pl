@@ -66,10 +66,10 @@ sub make_href {
   my ($url, $title) = @_;
 
   return
-    "${bib'cs_meta}2200"
-    . "${bib'cs_meta}2300"
-    . $url   . "${bib'cs_meta}2310"
-    . $title . "${bib'cs_meta}2210";
+    "${bib::cs_meta}2200"
+    . "${bib::cs_meta}2300"
+    . $url   . "${bib::cs_meta}2310"
+    . $title . "${bib::cs_meta}2210";
 }
 
 my $csmeta = ${bib::cs_meta};
@@ -80,7 +80,7 @@ my $cs_meta1100 = $csmeta . "1100"; # <p>
 my $cs_meta1110 = $csmeta . "1110"; # </p>
 my $cs_ext2013  = $csext . "2013"; # en dash "--"
 my $cs_meta2101 = $csmeta . "2101";
-my $cs_meta2150 = $csmeta . "2150"; # line break "<br />"
+my $cs_meta2150 = $csmeta . "2150"; # line break "<br>"
 
 
 my $month_regexp = '(:?Jan(uary|\.)|Feb(ruary|\.)|Mar(ch|\.)|Apr(il|\.)|May|June|July|Aug(ust|\.)|Sep(tember|\.)|Oct(ober|\.)|Nov(ember|\.)|Dec(ember|\.))';
@@ -91,7 +91,7 @@ my $lastyear = 0;
 sub make_header {
   my ($title) = @_;
   # returns <h2> $title </h2>
-  return "${bib'cs_meta}2232" . $title . "${bib'cs_meta}2233";
+  return "${bib::cs_meta}2232" . $title . "${bib::cs_meta}2233";
 }
 
 # Like fromcanon, but suppresses year processing
@@ -118,11 +118,22 @@ sub fromcanon {
 
   # Split across lines, to be more readable in the HTML source;
   # also add line breaks, for readability in a browser.
-  # This puts ${bib'cs_meta}1100 on line 1, title on line 2, authors on
+  # This puts ${bib::cs_meta}1100 on line 1, title on line 2, authors on
   # line 3, and all other info on line 4.
   $text =~ s/($cs_meta1100)/$1\n$cs_meta0103/;
   my $title_author;
+  # Note: There is a similar regex in bp-htmlabstract.pl.
   if ($text =~ s/(''|${bib::cs_ext}201D),? ((?:edited )?by .*?), ((:?in )?$cs_meta2101|Ph\.D\. dissertation|Masters thesis|Bachelors thesis|[^,]*(:?Technical Report|Memo|Video)|$date_range_regexp)/$1$cs_meta0113$cs_meta2150\n$2.$cs_meta2150\n\u$3/i) {
+    # print STDERR "split fields = <<$1>><<$2>><<$3>>\n";
+    $text =~ /(^.*\n(.*)\n((edited )?by .*)\n)/m;
+    # print STDERR "text = <<$text>>\n";
+    # print STDERR "split2 fields = <<$2>><<$3>>\n";
+    $title_author = $1;
+    # Don't boldface title, don't break across any lines.
+    $title_author =~ s/$cs_meta0103(.*)$cs_meta0113/$1/;
+    $title_author =~ s/$cs_meta2150//g;
+    # print STDERR "title_author = $title_author\n";
+  } elsif ($text =~ s/(${bib::cs_meta}2111),? ((?:edited )?by .*?), (.)/$1$cs_meta0113$cs_meta2150\n$2.$cs_meta2150\n\u$3/i) {
     # print STDERR "split fields = <<$1>><<$2>><<$3>>\n";
     $text =~ /(^.*\n(.*)\n((edited )?by .*)\n)/m;
     # print STDERR "text = <<$text>>\n";

@@ -6,7 +6,7 @@ if ( (!defined $intest) || ($intest != 1) ) {
 }
 
 $failed = 0;
-print "testing bp_util'parsedate..........................";
+print "testing bp_util::parsedate..........................";
 
 open(DFILE, "data/dates.dat") || die "datetest: can't open data file.\n";
 

@@ -18,16 +18,16 @@ my $cs_meta0113 = $csmeta . "0113"; # end bold "</b>"
 my $cs_meta1100 = $csmeta . "1100";
 my $cs_meta1110 = $csmeta . "1110";
 # my $cs_meta2101 = $csmeta . "2101";
-my $cs_meta2150 = $csmeta . "2150"; # line break "<br />"
+my $cs_meta2150 = $csmeta . "2150"; # line break "<br>"
 
 sub make_href {
   my ($url, $title) = @_;
 
   return
-    "${bib'cs_meta}2200"
-    . "${bib'cs_meta}2300"
-    . $url   . "${bib'cs_meta}2310"
-    . $title . "${bib'cs_meta}2210";
+    "${bib::cs_meta}2200"
+    . "${bib::cs_meta}2300"
+    . $url   . "${bib::cs_meta}2310"
+    . $title . "${bib::cs_meta}2210";
 }
 
 # Either return the first argument (if second is missing), or
@@ -38,9 +38,9 @@ sub join_linebreak ( $;$ ) {
   if ((defined $text2) && ($text2 ne "")) {
     # remove newlines before line break.  As of 10/5/2002, both Netscape
     # and Internet Explorer can insert two line breaks (ie, a blank line)
-    # if <br /> is at the beginning of a line.
+    # if <br> is at the beginning of a line.
     $text1 =~ s/\n*$//;
-    $text1 .= "$cs_meta2150\n"; # line break (<br /> tag)
+    $text1 .= "$cs_meta2150\n"; # line break (<br> tag)
     $text1 .= $text2;
   }
   return $text1;
@@ -227,7 +227,7 @@ sub previous_versions_text ( $% ) {
       # Convert some periods to commas, perhaps.
       # $subtext =~ s/\. *Revised/, revised/g;
       # $subtext =~ s/\. /, /g;
-      # <br /> needs to be at end of previous line, not start of new line.
+      # <br> needs to be at end of previous line, not start of new line.
       if (defined $result) {
 	$result = join_linebreak($result,
 				 "$how appeared $subtext");

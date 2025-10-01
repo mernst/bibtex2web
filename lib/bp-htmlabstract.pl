@@ -114,10 +114,10 @@ sub make_href {
   my ($url, $title) = @_;
 
   return
-    "${bib'cs_meta}2200"
-    . "${bib'cs_meta}2300"
-    . $url   . "${bib'cs_meta}2310"
-    . $title . "${bib'cs_meta}2210";
+    "${bib::cs_meta}2200"
+    . "${bib::cs_meta}2300"
+    . $url   . "${bib::cs_meta}2310"
+    . $title . "${bib::cs_meta}2210";
 }
 
 my $csmeta = "${bib::cs_meta}";
@@ -153,14 +153,28 @@ sub fromcanon {
 #  print Dumper(\%entry);
 
   # Split across lines, to be more readable in the HTML file.
-  # This puts ${bib'cs_meta}1100 on line 1, title on line 2, authors on
+  # This puts ${bib::cs_meta}1100 on line 1, title on line 2, authors on
   # line 3, and all other info on line 4.
   $text =~ s/($cs_meta1100)/$1\n/;
   my $title_author;
   my $title;
-  # Note:  this requires either publication info (i.e., not @Misc), or else
-  # a month.  It will fail for @Misc items with no month, only a year.
+  # Note:  this non-book case requires either publication info (i.e., not @Misc),
+  # or else a month.  It will fail for @Misc items with no month, only a year.
+  # 201D is "right double quotation mark", 2111 is end of italics.
   if ($text =~ s/(''|${bib::cs_ext}201D),? ((?:edited )?by .*?), ((:?in )?$cs_meta2101|Ph\.D\. dissertation|Masters thesis|Bachelors thesis|[^,]*(:?Technical Report|Memo|Video)|$date_range_regexp)/$1\n$2.\n\u$3/i) {
+    # print STDERR "split fields = <<$1>><<$2>><<$3>>\n";
+    $text =~ /(^.*\n(.*)\n((edited )?by .*)\n)/m;
+    if ($debug_htmlabstract) {
+      print STDERR "text = <<$text>>\n";
+      print STDERR "split2 fields = <<$2>><<$3>>\n";
+    }
+    $title_author = $1;
+    $title = $2;
+    $title =~ s/(?:``|${bib::cs_ext}201C)(.*)(?:''|${bib::cs_ext}201D)/$1/;
+    # print STDERR "title_author = $title_author\n";
+  } elsif ($text =~ s/(${bib::cs_meta}2111),? ((?:edited )?by .*?), (.)/$1\n$2.\n\u$3/i) {
+    # A book.
+    ## TODO: combine logic with the above case.
     # print STDERR "split fields = <<$1>><<$2>><<$3>>\n";
     $text =~ /(^.*\n(.*)\n((edited )?by .*)\n)/m;
     if ($debug_htmlabstract) {
@@ -173,7 +187,7 @@ sub fromcanon {
     # print STDERR "title_author = $title_author\n";
   } else {
     ## This is a problem, so leave it uncommented.
-    print STDERR "Warning: Failed to parse internal (canonical) form of a publication.\n";
+    print STDERR "Warning: bp-htmlabstract.pl failed to parse internal (canonical) form of a publication.\n";
     print STDERR "  A parse failure usually means that some information is missing from the\n";
     print STDERR "  BibTeX entry.  For example, either publication venue or month is required;\n";
     print STDERR "  a \@Misc BibTeX entry with no month, only a year, will cause a parse failure.\n";
@@ -229,7 +243,7 @@ sub fromcanon {
           # Prevent inserting an anchor even within another anchor.
           # It's undesirable, and HTML forbids such nesting.
           # (Using possessive quantifier anywhere in the regex would prevent backtracking everwhere.)
-          $prefix = "(^|${bib'cs_meta}2210)[^${bib'cs_escape}]*(${bib'cs_escape}(?!m2200)[^${bib'cs_escape}]*)*";
+          $prefix = "(^|${bib::cs_meta}2210)[^${bib::cs_escape}]*(${bib::cs_escape}(?!m2200)[^${bib::cs_escape}]*)*";
           while ($text =~ s/$prefix\K\Q$linkname\E/&make_href($lurl, $linkname)/ges) {
             # no body
           }
@@ -296,7 +310,7 @@ sub fromcanon {
   }
 
   # Done with edits.  Now introduce scaffolding.  This will get converted
-  # into <HTML> etc. when the file is converted into multiple files.
+  # into "<HTML>", etc., when the file is converted into multiple files.
   {
     # Remove leading paragraph break.
     # $text =~ s/^\n\n($cs_meta1100)/\n/;

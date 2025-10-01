@@ -68,7 +68,7 @@ sub options {
     return undef;
 }
 
-my $csmeta = ${bib'cs_meta};
+my $csmeta = ${bib::cs_meta};
 
 my $prev_category = undef;
 
@@ -76,10 +76,10 @@ sub make_href {
   my ($url, $title) = @_;
 
   return
-    "${bib'cs_meta}2200"
-    . "${bib'cs_meta}2300"
-    . $url   . "${bib'cs_meta}2310"
-    . $title . "${bib'cs_meta}2210";
+    "${bib::cs_meta}2200"
+    . "${bib::cs_meta}2300"
+    . $url   . "${bib::cs_meta}2310"
+    . $title . "${bib::cs_meta}2210";
 }
 
 sub fromcanon {
@@ -109,7 +109,7 @@ sub fromcanon {
                        $title);
   }
 
-  my $text = "$title${bib'cs_meta}2150\n";
+  my $text = "$title${bib::cs_meta}2150\n";
 
   $numrecs++;
   my %rec = ();

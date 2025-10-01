@@ -57,8 +57,8 @@ package bp_cs_html;
 
 $bib::charsets{'html', 'i_name'} = 'html';
 
-$bib::charsets{'html', 'tocanon'}   = "bp_cs_html'tocanon";
-$bib::charsets{'html', 'fromcanon'} = "bp_cs_html'fromcanon";
+$bib::charsets{'html', 'tocanon'}   = "bp_cs_html::tocanon";
+$bib::charsets{'html', 'fromcanon'} = "bp_cs_html::fromcanon";
 
 # This is a regex to search for.  If it succeeds, then we call the routine.
 # otherwise not.  If it is set to undef, the routine is always called.
@@ -137,8 +137,8 @@ sub init_cs {
 '2114', '/code',
 '2115', '/kbd',
 '2116', '/samp',
-'2150', 'br /',
-'2151', 'hr /',
+'2150', 'br',
+'2151', 'hr',
 # Arbitrarily chosen numbers
 '2222', 'dl',
 '2223', 'dt',
@@ -322,7 +322,8 @@ sub init_cs_fr {
   '2200',	'<a ',
   '2210',	'</a>',
   '2300',	'href="',
-  '2301',	'name="',
+  # Previously: '2301',	'name="',
+  '2301',	'id="',
   '2310',	'">',
   );
 

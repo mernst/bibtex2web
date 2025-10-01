@@ -15,7 +15,7 @@ my $htmldir = ".";
 # Default header and footer.
 my $header = "<html>
 <head>
-<title>PUB_TITLE</title>
+<title>PUB_TITLE_TEXT</title>
 </head>
 <body>
 
@@ -48,7 +48,11 @@ while (<>) {
     my $absfile = "$htmldir/$basefile-abstract.html";
     # print STDERR "basefile $basefile title $title\nabsfile $absfile\n";
     open(ABSFILE, ">$absfile") or die "Can't write $absfile";
+    # The <TITLE> HTML tag's content must be plaintext.
+    my $title_text = $title;
+    $title_text =~ s:^<em>(.*)</em>$:$1:;
     my $this_header = $header;
+    $this_header =~ s/PUB_TITLE_TEXT/$title_text/g;
     $this_header =~ s/PUB_TITLE/$title/g;
     print ABSFILE $this_header;
     my $line;
@@ -77,6 +81,7 @@ while (<>) {
       print ABSFILE $line;
     }
     my $this_footer = $footer;
+    $this_footer =~ s/PUB_TITLE_TEXT/$title_text/g;
     $this_footer =~ s/PUB_TITLE/$title/g;
     print ABSFILE $this_footer;
     close(ABSFILE);

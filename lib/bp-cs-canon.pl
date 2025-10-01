@@ -12,8 +12,8 @@ package bp_cs_canon;
 
 $bib::charsets{'canon', 'i_name'} = 'canon';
 
-$bib::charsets{'canon', 'tocanon'}  = "bp_cs_canon'tocanon";
-$bib::charsets{'canon', 'fromcanon'} = "bp_cs_canon'fromcanon";
+$bib::charsets{'canon', 'tocanon'}  = "bp_cs_canon::tocanon";
+$bib::charsets{'canon', 'fromcanon'} = "bp_cs_canon::fromcanon";
 
 $bib::charsets{'canon', 'toesc'}   = "[\000]";  # we'd prefer to never call it
 $bib::charsets{'canon', 'fromesc'} = "[\000]";

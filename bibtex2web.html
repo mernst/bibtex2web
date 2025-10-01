@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>bibtex2web: create webpages from BibTeX bibliography files</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
 </head>
 <body>
 
@@ -10,9 +11,8 @@
 <h1>bibtex2web: create webpages from BibTeX bibliography files</h1> <!-- omit from toc -->
 
 <p>
-The bibtex2web package creates
-webpages from BibTeX bibliography files.  It can be downloaded from
-<a href="http://homes.cs.washington.edu/~mernst/software/#bibtex2web">http://homes.cs.washington.edu/~mernst/software/#bibtex2web</a>.
+The <a href="https://github.com/mernst/bibtex2web">bibtex2web</a> package creates
+webpages from BibTeX bibliography files.
 </p>
 
 <p>Contents:</p>
@@ -45,7 +45,7 @@ webpages from BibTeX bibliography files.  It can be downloaded from
 
 
 <hr />
-<h2><a name="overview">Overview</a></h2>
+<h2><a id="overview">Overview</a></h2>
 
 <p>
 It is convenient to produce webpages from BibTeX files, because you only
@@ -73,8 +73,8 @@ your liking; see below.
 Here are two examples of sets of webpages that were created by bibtex2web:
 </p>
 <ul>
-  <li><a href="http://pag.csail.mit.edu/pubs/">http://pag.csail.mit.edu/pubs/</a></li>
-  <li><a href="http://homes.cs.washington.edu/~mernst/pubs/">http://homes.cs.washington.edu/~mernst/pubs/</a>
+  <li><a href="https://groups.csail.mit.edu/pag/pubs/">https://groups.csail.mit.edu/pag/pubs/</a></li>
+  <li><a href="https://pmg.csail.mit.edu/pubs/">https://pmg.csail.mit.edu/pubs/</a></li>
 </ul>
 
 
@@ -94,7 +94,7 @@ this distribution.
 <p>
 Many
 <a
-href="http://www-sop.inria.fr/members/Gregoire.Malandain/codes/bibtex2html.html#htoc57">other
+href="https://www-sop.inria.fr/members/Gregoire.Malandain/codes/bibtex2html.html#htoc57">other
 BibTeX to HTML translators</a> exist.
 <!-- That list is out of date.  For example, it does not contain
    http://www.authopilot.com/xml/home.htm
@@ -103,10 +103,10 @@ BibTeX to HTML translators</a> exist.
 
 
 <hr />
-<h2><a name="installation-and-use">Installation and use</a></h2>
+<h2><a id="installation-and-use">Installation and use</a></h2>
 
 <p>
-To install bibtex2web, obtain the distribution (linked from <a href="http://homes.cs.washington.edu/~mernst/software/#bibtex2web">http://homes.cs.washington.edu/~mernst/software/#bibtex2web</a>),
+To install bibtex2web, obtain the distribution (linked from <a href="https://homes.cs.washington.edu/~mernst/software/#bibtex2web">https://homes.cs.washington.edu/~mernst/software/#bibtex2web</a>),
 unpack it, and then set your BPHOME
 environment variable to point to its lib/ directory.  For example, in csh,
 add something like
@@ -115,7 +115,7 @@ add something like
   setenv BPHOME ${HOME}/bibtex2web/lib
 </pre>
 <p>
-to your <tt>.cshrc</tt> file.  You may need to log out and log back in for
+to your <code>.cshrc</code> file.  You may need to log out and log back in for
 this to take effect.
 </p>
 
@@ -135,7 +135,7 @@ manual later.
 
 
 <hr />
-<h2><a name="fields">BibTeX fields</a></h2>
+<h2><a id="fields">BibTeX fields</a></h2>
 
 <p>
 bibtex2web works with ordinary BibTeX files, but it can take advantage of
@@ -210,7 +210,7 @@ several additional BibTeX fields:
                 this one.  A superseded article does not get its own
                 per-article webpage, but is briefly noted on the webpage of
                 each article that supersedes it.
-		<br /><br />
+		<br><br>
                 Optionally, in the
                 comma-separated list, the key may be followed by whitespace
                 and (comma-free) text; when bibtex2web generates webpages,
@@ -230,7 +230,7 @@ several additional BibTeX fields:
                 The name of the topic under which this article should be
                 listed in the by-topic webpage.
 		May contain multiple categories separated by commas.
-		<br /><br />
+		<br><br>
 		In general, when adding a
                 new entry, one should choose an existing category rather
                 than making up a new one (lest you end up with few papers
@@ -245,7 +245,7 @@ several additional BibTeX fields:
                 papers would make that webpage too long.
 		For example, see
 		<a
-		href="http://pag.csail.mit.edu/pubs/bytopic.html">http://pag.csail.mit.edu/pubs/bytopic.html</a>
+		href="https://groups.csail.mit.edu/pag/pubs/bytopic.html">https://groups.csail.mit.edu/pag/pubs/bytopic.html</a>
 		(where the standard is a 3-line description in the BibTeX file).
 		
 </dd>
@@ -271,7 +271,7 @@ argument is to create a separate webpage for any article containing an
 
 
 <hr />
-<h2><a name="arguments">Command-line arguments</a></h2>
+<h2><a id="arguments">Command-line arguments</a></h2>
 
 <p>
 The main program of the bibtex2web package is bwconv.pl.  You can supply it
@@ -280,7 +280,7 @@ a variety of command-line arguments.
 
 <dl>
 <dt>
-  -format=<em>informat</em>[,<em>outformat</em>]<br />
+  -format=<em>informat</em>[,<em>outformat</em>]<br>
   -outformat=<em>outformat</em>
 </dt>
 <dd>
@@ -308,14 +308,14 @@ a variety of command-line arguments.
 </dl>
 
 
-<h3><a name="output-formats">Output formats</a></h3>
+<h3><a id="output-formats">Output formats</a></h3>
 
 <p>
 The output formats supported by bibtex2web are as follows.
 </p>
 
 
-<h4><a name="htmlabstract">htmlabstract</a></h4>
+<h4><a id="htmlabstract">htmlabstract</a></h4>
 
 <p>
 Creates one page per publication, giving the abstract and other details and
@@ -327,7 +327,7 @@ If the &ldquo;-linknames <em>link-names-file</em>&rdquo; command-line option is 
 given, then each author name (or conference name, etc.) becomes the anchor
 text for a link to that author's homepage.  It is recommended that you use,
 as the argument to -linknames, the file
-<a href="https://raw.githubusercontent.com/plume-lib/html-tools/master/html-canonical-urls"><code>plume-lib/bin/html-canonical-urls</code></a>,
+<a href="https://raw.githubusercontent.com/plume-lib/html-tools/html-canonical-urls"><code>html-tools/html-canonical-urls</code></a>,
 from the <a href="https://github.com/plume-lib/html-tools">html-tools</a> project.
 You can supply the -linknames option multiple times, so you can use the
 html-canonical-urls file and then also your own augmentations.  Feel free
@@ -375,21 +375,21 @@ and is not checked for validity.
 
 
 
-<h4><a name="htmlsummary">htmlsummary</a></h4>
+<h4><a id="htmlsummary">htmlsummary</a></h4>
 
 <p>
 (The htmlsummary format needs to be documented here.)
 </p>
 
 
-<h4><a name="htmllist">htmllist</a></h4>
+<h4><a id="htmllist">htmllist</a></h4>
 
 <p>
 The htmllist output format generates a list of entry titles, each of which
-links to the abstract page for that entry, separated by <code>&lt;br /&gt;</code> line
+links to the abstract page for that entry, separated by <code>&lt;br&gt;</code> line
 breaks.  This is useful to generate a list of &ldquo;recent publications&rdquo; on a
 home page.  For example, see &ldquo;Selected Publications&rdquo; list on
-<a href="http://pmg.csail.mit.edu/">http://pmg.csail.mit.edu/</a>.
+<a href="https://pmg.csail.mit.edu/">https://pmg.csail.mit.edu/</a>.
 </p>
 
 <p>
@@ -409,7 +409,7 @@ abstract files (default &ldquo;../pubs&rdquo;).
 
 
 
-<h3><a name="templates">Webpage templates</a></h3>
+<h3><a id="templates">Webpage templates</a></h3>
 
 <p>
 You can specify how the generated webpages look by supplying templates.
@@ -434,7 +434,7 @@ BIBTEX2WEB_NOTICE
 <dd>
 	is replaced by
 <blockquote><p>This page was generated $timestamp by <a
-	href="http://homes.cs.washington.edu/~mernst/software/#bibtex2web">bibtex2web</a>
+	href="https://homes.cs.washington.edu/~mernst/software/#bibtex2web">bibtex2web</a>
 </p></blockquote>
 	where $timestamp is the local time in ctime(3) format.
 </dd>
@@ -453,7 +453,7 @@ COPYRIGHT_NOTICE
 
 
 
-<h2><a name="new-chars">Supporting new LaTeX commands</a></h2>
+<h2><a id="new-chars">Supporting new LaTeX commands</a></h2>
 
 <p>
 bibtex2web has built-in support for many LaTeX commands, but you may find
@@ -476,18 +476,18 @@ arrow (&rArr;), and then mimic one or the other of them.
 <p>
 You can find Unicode character codes (and HTML equivalents) at one of these URLs:
 <a
-href="http://www.w3.org/TR/REC-html40/sgml/entities.html">http://www.w3.org/TR/REC-html40/sgml/entities.html</a>,
+href="https://www.w3.org/TR/REC-html40/sgml/entities.html">https://www.w3.org/TR/REC-html40/sgml/entities.html</a>,
 <a href="http://www.alanwood.net/unicode/arrows.html">http://www.alanwood.net/unicode/arrows.html</a>,
 <a href="http://www.alanwood.net/demos/ansi.html">http://www.alanwood.net/demos/ansi.html</a>.
 <!-- broken as of 2/5/2014:
 <a
-href="http://www.fileformat.info/info/unicode/char/search.htm">http://www.fileformat.info/info/unicode/char/search.htm</a>
+href="https://www.fileformat.info/info/unicode/char/search.htm">https://www.fileformat.info/info/unicode/char/search.htm</a>
 -->
 </p>
 
 
 <hr />
-<h2><a name="problems">Reporting problems</a></h2>
+<h2><a id="problems">Reporting problems</a></h2>
 
 <p>
 If you have any problems or questions, please contact Michael Ernst (<a
@@ -495,13 +495,13 @@ href="mailto:mernst@cs.washington.edu">mernst@cs.washington.edu</a>).  I will do
 best to help, though I cannot make any guarantee.
 </p>
 
-<h3><a name="credits">Credits</a></h3>
+<h3><a id="credits">Credits</a></h3>
 
 <p>
 bibtex2web was written by <a
-href="http://homes.cs.washington.edu/~mernst/">Michael Ernst</a>, with
+href="https://homes.cs.washington.edu/~mernst/">Michael Ernst</a>, with
 contributions by
-<a href="http://www.pmg.csail.mit.edu/~ajmani/">Sameer Ajmani</a>.
+<a href="https://www.pmg.csail.mit.edu/~ajmani/">Sameer Ajmani</a>.
 </p>
 
 <p>
@@ -509,7 +509,7 @@ bibtex2web builds on the bp library by Dana Jacobsen.
 </p>
 
 <p>
-<a href="http://www.cs.cmu.edu/~dga/">David Andersen</a> contributed
+<a href="https://www.cs.cmu.edu/~dga/">David Andersen</a> contributed
 patches and suggestions.
 </p>
 
@@ -520,13 +520,13 @@ the following.  (Please let us know if your name was inadvertently omitted
 from this list.)
 </p>
 <ul>
-  <li><a href="http://www-2.cs.cmu.edu/~dga/">David Andersen</a></li>
+  <li><a href="https://www-2.cs.cmu.edu/~dga/">David Andersen</a></li>
 </ul>
 
 -->
 
 <hr />
-<h2><a name="implementation-details">Implementation details</a></h2>
+<h2><a id="implementation-details">Implementation details</a></h2>
 
 <!-- bp is by Dana Jacobsen <dana@acm.org>, webpage http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html was dated 2 January 1997 -->
 
@@ -537,7 +537,7 @@ enhancements.  bp-README is the original README file for the bp Perl
 library, and other files and directories have been similarly prefixed with
 <code>bp-</code> to avoid confusion to users of bibtex2web.  bp
 documentation appeared at <a
-href="http://web.archive.org/web/20071113143006/www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html">http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html</a>
+href="https://web.archive.org/web/20071113143006/www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html">http://www.ecst.csuchico.edu/~jacobsd/bib/bp/index.html</a>
 (but wasn't packaged with bp itself).  bp has not been supported
 since December 1996, but it works well enough for me, particularly with my
 enhancements.  (Another library is btool, but bp is better.)  Other systems
@@ -545,14 +545,14 @@ exist, but did not have the features I needed.
 </p>
 
 <p>
-Under both Netscape and Internet Explorer, &lt;br /&gt; needs to be at the end of a
+Under both Netscape and Internet Explorer, &lt;br&gt; needs to be at the end of a
 line rather than at the beginning of the next line, because otherwise there
 can be two line breaks (i.e., a blank line) rather than just a single line
 break.
 </p>
 
 
-<h3><a name="to-do">To do</a></h3>
+<h3><a id="to-do">To do</a></h3>
 
 <p>
 Don't require an extra "/dl" close tag after BODY in webpage templates.
@@ -584,8 +584,8 @@ I'm not sure how to do this without overhauling bwconv.pl.
 Add additional cross-reference types (beyond supersededby), such as
 permitting a later technical report that is linked from the page.
 Examples:  <a
-href="http://homes.cs.washington.edu/~mernst/pubs/instantiating-generics-oopsla2004-abstract.html">http://homes.cs.washington.edu/~mernst/pubs/instantiating-generics-oopsla2004-abstract.html</a>,
-<a href="http://pag.csail.mit.edu/pubs/deadlock-library-ecoop2005-abstract.html">http://pag.csail.mit.edu/pubs/deadlock-library-ecoop2005-abstract.html</a>.
+href="https://homes.cs.washington.edu/~mernst/pubs/instantiating-generics-oopsla2004-abstract.html">https://homes.cs.washington.edu/~mernst/pubs/instantiating-generics-oopsla2004-abstract.html</a>,
+<a href="https://groups.csail.mit.edu/pag/pubs/deadlock-library-ecoop2005-abstract.html">https://groups.csail.mit.edu/pag/pubs/deadlock-library-ecoop2005-abstract.html</a>.
 (I think this may already be supported...)
 </p>
 

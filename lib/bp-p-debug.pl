@@ -35,7 +35,7 @@ sub panic {
     local($i,$_);
     local($p,$f,$l,$s,$h,$w,$a,@a,@sub);
     for ($i = 1; ($p,$f,$l,$s,$h,$w) = caller($i); $i++) {
-      @a = @DB'args;
+      @a = @DB::args;
       for (@a) {
             if (/^StB\000/ && length($_) == length($_main{'_main'})) {
                 $_ = sprintf("%s",$_);
