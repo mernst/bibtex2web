@@ -145,7 +145,7 @@ sub downloads_text ( $$% ) {
       unshift @downloads, @local_downloads;
     } else {
       if (defined $entry{'downloadsnonlocal'}) {
-        @nonlocal_downloads = split(';\s*', $entry{'downloadsnonlocal'});
+        my @nonlocal_downloads = split(';\s*', $entry{'downloadsnonlocal'});
         unshift @downloads, @nonlocal_downloads;
       }
     }

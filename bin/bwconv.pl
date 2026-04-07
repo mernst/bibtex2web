@@ -253,7 +253,7 @@ sub yearmonth {
         # Look for days.  This assumes the days come after the month
         my $days = $1;
         if ($days =~ /\b([0123]?[0-9])\b/) {
-          my $days = $1;
+          $days = $1;
           $days =~ s/^([0-9])$/0$1/;
           $year_suffix .= $days;
         }
@@ -281,10 +281,6 @@ sub yearmonth {
 
 sub byyearmonth {
   yearmonth($a) cmp yearmonth($b);
-}
-
-sub byyearmonth_reversed {
-  yearmonth($b) cmp yearmonth($a);
 }
 
 # Find the index of a category in @categories.
@@ -340,9 +336,15 @@ sub bycategory {
 # Sort the records.
 if ((! defined($sortorder))
     || $sortorder eq 'reverse_chronological') {
-  @records = sort byyearmonth_reversed @records;
+  @records = map { $_->[0] }
+             sort { $b->[1] cmp $a->[1] }
+             map { [$_, yearmonth($_)] }
+             @records;
 } elsif ($sortorder eq 'chronological') {
-  @records = sort byyearmonth @records;
+  @records = map { $_->[0] }
+             sort { $a->[1] cmp $b->[1] }
+             map { [$_, yearmonth($_)] }
+             @records;
 } elsif ($sortorder eq 'category') {
   my @single_category_records = duplicate_for_categories(@records);
   @records = sort bycategory @single_category_records;

@@ -62,16 +62,6 @@ sub options {
     return undef;
 }
 
-sub make_href {
-  my ($url, $title) = @_;
-
-  return
-    "${bib::cs_meta}2200"
-    . "${bib::cs_meta}2300"
-    . $url   . "${bib::cs_meta}2310"
-    . $title . "${bib::cs_meta}2210";
-}
-
 my $csmeta = ${bib::cs_meta};
 my $csext = ${bib::cs_ext};
 my $cs_meta0103 = $csmeta . "0103"; # begin bold "<B>"

@@ -238,6 +238,6 @@ sub file_contents {
 # single-quotes, though.
 sub shell_quote {
   my ($string) = @_;
-  $string =~ s/\'/\'\"\'\"\'/;
+  $string =~ s/\'/\'\"\'\"\'/g;
   return $string;
 }
