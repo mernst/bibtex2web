@@ -19,9 +19,12 @@ BINDEST = /usr/local/bin
 # This is the prefix that will be used for the perl scripts.
 BINPREF = bib
 
-test:
-	(cd tests; make)
+.PHONY: all test clean
 
+test:
+	${MAKE} -C tests
+
+.PHONY: install
 install: install.lib install.bin
 
 install.lib:
@@ -35,11 +38,12 @@ install.bin:
 	install -m 755 bin/rdup.pl  $(BINDEST)/$(BINPREF)rdup
 	install -m 755 bin/sort.pl  $(BINDEST)/$(BINPREF)sort
 
+.PHONY: TAGS tags
 TAGS: tags
-
 tags:
 	etags `find . -name '*.pl' | grep -v old`
 
+.PHONY: tar
 tar: ../bibtex2web.tar.gz
 
 ../bibtex2web.tar.gz: . lib
