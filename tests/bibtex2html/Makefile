@@ -4,6 +4,7 @@ BPHOME ?= ${HOME}/bin/src/perl/bibtex2web/lib
 BWBIN = ${BPHOME}/../bin
 # MDEWWW = ${HOME}/www
 
+.PHONY: all test clean
 all: curly-braces.html
 
 # The curly braces in the

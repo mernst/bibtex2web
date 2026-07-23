@@ -142,4 +142,3 @@ foreach $f (keys %field) { $totf += $field{$f}; }
 $end = (times)[0];
 printf " bp: count $totf fields:  %.2f seconds\n", $end - $start;
 $start = $end;
-

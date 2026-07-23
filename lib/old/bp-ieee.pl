@@ -46,7 +46,7 @@ sub read {
   }
   $ent;
 }
-   
+
 ######
 
 sub explode {

@@ -99,4 +99,3 @@ sub file_contents {
     return $result;
   }
 }
-

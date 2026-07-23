@@ -10,8 +10,13 @@ BIBFILES = /home/jruser/bib1.bib /home/jruser/bib2.bib
 
 BWBIN = ${BPHOME}/../bin
 
+.PHONY: all test clean
+all: html
+
+.PHONY: html
 html: HTML
 
+.PHONY: HTML
 HTML: abstracts index.html bytopic.html byauthor.html
 
 index.html:
@@ -24,6 +29,7 @@ bytopic.html:
 # Creates *-abstract.html files.  (A better name would be *-details.html
 # files, since they contain more than just the abstract and are created
 # even if a given BibTeX entry doesn't contain an abstract.)
+.PHONY: abstracts
 abstracts:
 	${BWBIN}/bwconv.pl -format=bibtex -outformat=htmlabstract -outopts=withbibtex -to abstracts-unsplit.html -linknames link-names -filter '! (defined($$rec{"omitfromcv"}) || (lc($$rec{"TYPE"}) eq "lecture") || (defined($$rec{"crossrefonly"}) && ! defined($$rec{"inlined-crossref"})))' ${BIBFILES}
 	${BWBIN}/htmlabstract-split.pl -headfoot abstract-headfoot.html abstracts-unsplit.html
