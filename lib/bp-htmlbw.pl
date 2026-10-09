@@ -224,6 +224,8 @@ sub previous_versions_text ( $% ) {
       } else {
 	$subtext = "as $subtext";
       }
+      # Avoid trailing whitespace when $subtext started with a newline.
+      $subtext =~ s/^(as) \n/$1\n/;
       # Convert some periods to commas, perhaps.
       # $subtext =~ s/\. *Revised/, revised/g;
       # $subtext =~ s/\. /, /g;

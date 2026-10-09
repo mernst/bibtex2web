@@ -78,6 +78,7 @@ while (<>) {
           }
 	}
       }
+      $line =~ s/[ \t]+$//mg;
       print ABSFILE $line;
     }
     my $this_footer = $footer;
